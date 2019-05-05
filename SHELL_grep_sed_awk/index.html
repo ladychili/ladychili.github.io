@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html class="has-navbar-fixed-top">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+<title>正则表达式与grep, sed, awk的基本用法 - Lady Chili&#39;s Garden</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
+
+
+<link href="/zh-cn/SHELL_grep_sed_awk/" rel="alternate" hreflang="zh-CN">
+    
+
+
+<meta name="description" content="It is better to burn out than to fade away.">
+
+
+
+
+
+    <meta name="description" content="1. Regular Expression 正则表达式正则表达式常简称为regex。一个regular expression常被成为一种pattern（模式、模板？），用来描述和匹配一系列符合某种规则的字符串。以下是一些基本用法。">
+<meta name="keywords" content="shell,linux,awk,regex,tutorial">
+<meta property="og:type" content="article">
+<meta property="og:title" content="正则表达式与grep, sed, awk的基本用法">
+<meta property="og:url" content="http://ladychili.top/SHELL_grep_sed_awk/index.html">
+<meta property="og:site_name" content="Lady Chili&#39;s Garden">
+<meta property="og:description" content="1. Regular Expression 正则表达式正则表达式常简称为regex。一个regular expression常被成为一种pattern（模式、模板？），用来描述和匹配一系列符合某种规则的字符串。以下是一些基本用法。">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://ladychili.top/hexo-blog/images/regular-expression-problems.png">
+<meta property="og:updated_time" content="2019-04-29T15:44:11.587Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="正则表达式与grep, sed, awk的基本用法">
+<meta name="twitter:description" content="1. Regular Expression 正则表达式正则表达式常简称为regex。一个regular expression常被成为一种pattern（模式、模板？），用来描述和匹配一系列符合某种规则的字符串。以下是一些基本用法。">
+<meta name="twitter:image" content="http://ladychili.top/hexo-blog/images/regular-expression-problems.png">
+
+
+
+
+
+<link rel="icon" href="/hexo-blog/images/favicon.ico">
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ovo|Source+Code+Pro">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/css/justifiedGallery.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+
+<link rel="stylesheet" href="/css/style.css">
+
+<script defer src="//use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-108742328-2"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-108742328-2');
+</script>
+
+
+    
+
+
+</head>
+<body>
+    
+<nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item navbar-logo" href="/">
+                
+                    
+                    <img src="/images/ladychili_logo.png" alt height="28">
+                    
+                
+            </a>
+            <div class="navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="navbar-menu navbar-start">
+            
+            <a class="navbar-item " href="/archives">Archives</a>
+            
+            <a class="navbar-item " href="/categories">Category</a>
+            
+            <a class="navbar-item " href="/tags">Tag</a>
+            
+            <a class="navbar-item " href="/about">About</a>
+            
+        </div>
+        
+        <div class="navbar-menu navbar-end">
+            
+            <a class="navbar-item search" title="Search" href="javascript:;">
+                <i class="fas fa-search"></i>
+            </a>
+            
+            
+            <div class="navbar-item is-hoverable has-dropdown is-hidden-mobile is-hidden-tablet-only toc">
+                <a class="navbar-item" title="Table of Contents">
+                    <i class="fa fa-list"></i>
+                </a>
+                <div class="navbar-dropdown is-right">
+                    
+                    
+                    
+                    
+                    <a class="navbar-item" href="#1-Regular-Expression-正则表达式">1&nbsp;&nbsp;<b>1. Regular Expression 正则表达式</b></a>
+                    
+                    
+                    
+                    <a class="navbar-item" href="#1-1-Quantifier-数量限定符">1.1&nbsp;&nbsp;1.1 Quantifier 数量限定符</a>
+                    
+                    
+                    
+                    <a class="navbar-item" href="#1-2-其他常用符号">1.2&nbsp;&nbsp;1.2 其他常用符号</a>
+                    
+                    
+                    <hr class="navbar-divider">
+                    
+                    
+                    <a class="navbar-item" href="#2-grep-Globally-search-a-Regular-Expression-and-Print">2&nbsp;&nbsp;<b>2. grep(Globally search a Regular Expression and Print)</b></a>
+                    
+                    
+                    
+                    <a class="navbar-item" href="#2-1-Syntax">2.1&nbsp;&nbsp;2.1 Syntax</a>
+                    
+                    
+                    
+                    <a class="navbar-item" href="#2-2-Options-amp-Arguments">2.2&nbsp;&nbsp;2.2 Options &amp;amp;amp; Arguments</a>
+                    
+                    
+                    
+                    <a class="navbar-item" href="#2-3-Example">2.3&nbsp;&nbsp;2.3 Example</a>
+                    
+                    
+                    <hr class="navbar-divider">
+                    
+                    
+                    <a class="navbar-item" href="#3-sed-Stream-editor">3&nbsp;&nbsp;<b>3. sed(Stream editor)</b></a>
+                    
+                    
+                    
+                    <a class="navbar-item" href="#3-1-Syntax">3.1&nbsp;&nbsp;3.1 Syntax</a>
+                    
+                    
+                    
+                    <a class="navbar-item" href="#3-2-Options">3.2&nbsp;&nbsp;3.2 Options</a>
+                    
+                    
+                    
+                    <a class="navbar-item" href="#3-3-Script">3.3&nbsp;&nbsp;3.3 Script</a>
+                    
+                    
+                    
+                    <a class="navbar-item" href="#3-4-Example">3.4&nbsp;&nbsp;3.4 Example</a>
+                    
+                    
+                    <hr class="navbar-divider">
+                    
+                    
+                    <a class="navbar-item" href="#4-awk文本处理语言">4&nbsp;&nbsp;<b>4. awk文本处理语言</b></a>
+                    
+                    
+                    
+                    <a class="navbar-item" href="#4-1-工作原理">4.1&nbsp;&nbsp;4.1 工作原理</a>
+                    
+                    
+                    
+                    <a class="navbar-item" href="#4-2-Syntax">4.2&nbsp;&nbsp;4.2 Syntax</a>
+                    
+                    
+                    
+                    <a class="navbar-item" href="#4-3-Builtin-Var">4.3&nbsp;&nbsp;4.3 Builtin Var</a>
+                    
+                    
+                    
+                    <a class="navbar-item" href="#4-4-常用">4.4&nbsp;&nbsp;4.4 常用</a>
+                    
+                    
+                    <hr class="navbar-divider">
+                    
+                    
+                    <a class="navbar-item" href="#5-Reference">5&nbsp;&nbsp;<b>5. Reference</b></a>
+                    
+                </div>
+            </div>
+            
+            
+            <a class="navbar-item" title="GitHub" href="https://github.com/ladychili">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+               
+            
+        </div>
+    </div>
+</nav>
+
+    <section class="section">
+    <div class="container">
+    <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            正则表达式与grep, sed, awk的基本用法
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2018-01-10T00:00:00.000Z" itemprop="datePublished">Jan 10 2018</time>
+        </span>
+        
+        <span class="column is-narrow article-category">
+            <i class="far fa-folder"></i>
+            <a class="article-category-link" href="/categories/Note/">Note</a>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            11 minutes read (About 1632 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <p><img src="/hexo-blog/images/regular-expression-problems.png" alt="regex-comic"></p>
+<h2 id="1-Regular-Expression-正则表达式"><a href="#1-Regular-Expression-正则表达式" class="headerlink" title="1. Regular Expression 正则表达式"></a>1. Regular Expression 正则表达式</h2><p>正则表达式常简称为regex。一个regular expression常被成为一种pattern（模式、模板？），用来描述和匹配一系列符合某种规则的字符串。<br>以下是一些基本用法。</p>
+<a id="more"></a>
+<h3 id="1-1-Quantifier-数量限定符"><a href="#1-1-Quantifier-数量限定符" class="headerlink" title="1.1 Quantifier 数量限定符"></a>1.1 Quantifier 数量限定符</h3><p>注意区别通配符‘*’</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Char</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><code>?</code></td>
+<td>表示前面的token出现<strong>0</strong>或<strong>1</strong>次</td>
+<td><code>app?le</code> 可匹配 aple(0次)、apple（1次）</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>+</code></td>
+<td>表示前面的token出现<strong>1</strong>或<strong>n</strong>次</td>
+<td><code>go+gle</code> 可匹配 gogle（1次）、google、gooogle……（n次)</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>*</code></td>
+<td>表示前面的token出现<strong>0</strong>或<strong>n</strong>次</td>
+<td><code>ali(ba)*</code> 可匹配 ali（0次）、aliba（1次）、alibaba……（n次）</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>{n}</code></td>
+<td>表示前面的token<strong>固定</strong>出现<strong>n</strong>次</td>
+<td><code>o{2}</code> 可匹配zoo、moon、book……但是Bob不行</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>{n,}</code></td>
+<td>表示前面的token<strong>至少</strong>出现<strong>n</strong>次</td>
+<td><code>{1,}</code>相当于<code>+</code>；<code>{0,}</code>相当于<code>*</code></td>
+</tr>
+<tr>
+<td style="text-align:center"><code>{m,n}</code></td>
+<td>表示前面的token出现<strong>m～n</strong>次</td>
+<td>As above.</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><em>Note:</em> 默认为greedy matching，匹配最长的字符串；当<code>?</code>添加在其他任意quantifier后面时，表示lazy matching，匹配最短的字符串。<br>e.g.<br><code>h.+l</code> matches <code>&#39;hell&#39;</code> in <code>&#39;hello&#39;</code>, greedy.<br><code>h.+?l</code> matches <code>&#39;hel&#39;</code> in <code>&#39;hello&#39;</code>, lazy.</p>
+</blockquote>
+<h3 id="1-2-其他常用符号"><a href="#1-2-其他常用符号" class="headerlink" title="1.2 其他常用符号"></a>1.2 其他常用符号</h3><table>
+<thead>
+<tr>
+<th style="text-align:center">Char</th>
+<th>Description</th>
+<th>Comments</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">^</td>
+<td>字符串starting position</td>
+<td><code>^a</code> 可匹配’alias’，line-based tools中表示每一行的开头</td>
+</tr>
+<tr>
+<td style="text-align:center">$</td>
+<td>字符串的ending position</td>
+<td><code>n$</code> 可匹配’qq.cn’，line-based tools中表示每一行的结尾</td>
+</tr>
+<tr>
+<td style="text-align:center">()</td>
+<td>grouping</td>
+<td><code>ali(ba)*</code>中‘ba’是一个tokon</td>
+</tr>
+<tr>
+<td style="text-align:center">.</td>
+<td>除了\n(new-line)之外的任意单个字符</td>
+<td>常配合quantifier<code>.+</code>表示1-n个任意字符</td>
+</tr>
+<tr>
+<td style="text-align:center">\</td>
+<td>转义符</td>
+<td>转右边特殊字符为它本身<code>\^</code>=^；转右边普通字符为特殊意义<code>\n</code>=newline；<strong>Highest priority</strong></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><code>|</code>     Boolean OR          <code>gr(e|a)y</code> 匹配 ‘grey’和’gray’<br>注：由于hexo对markdown的解析还不够完善，此处vertical bar无法成功转义，总是打乱表格，故补充在引用里。</p>
+</blockquote>
+<hr>
+<h2 id="2-grep-Globally-search-a-Regular-Expression-and-Print"><a href="#2-grep-Globally-search-a-Regular-Expression-and-Print" class="headerlink" title="2. grep(Globally search a Regular Expression and Print)"></a>2. grep(Globally search a Regular Expression and Print)</h2><h3 id="2-1-Syntax"><a href="#2-1-Syntax" class="headerlink" title="2.1 Syntax"></a>2.1 Syntax</h3><p><code>grep [ opt ]... pattern [ file/dir/stdin ]...</code><br>支持以下三种RegEx引擎<br><code>-E</code>    POSIX扩展正则表达式，ERE (使用除了<code>*</code>之外quantifier时，<code>|</code>时)<br><code>-G</code>    POSIX基本正则表达式，BRE（默认）<br><code>-P</code>    Perl正则表达式，PCRE</p>
+<h3 id="2-2-Options-amp-Arguments"><a href="#2-2-Options-amp-Arguments" class="headerlink" title="2.2 Options &amp; Arguments"></a>2.2 Options &amp; Arguments</h3><table>
+<thead>
+<tr>
+<th style="text-align:center">Options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">-a</td>
+<td>–text 将binary-file作为文本来进行匹配</td>
+</tr>
+<tr>
+<td style="text-align:center">-b</td>
+<td>–byte-offset 在输出行的行首显示offset</td>
+</tr>
+<tr>
+<td style="text-align:center">-c</td>
+<td>–count 打印每个文件匹配到的行数</td>
+</tr>
+<tr>
+<td style="text-align:center">-i</td>
+<td>–ignore-case 忽略大小写</td>
+</tr>
+<tr>
+<td style="text-align:center">-n</td>
+<td>–line-number 显示匹配文本所在行的行号</td>
+</tr>
+<tr>
+<td style="text-align:center">-v</td>
+<td>–invert-match, 反向匹配，输出不匹配行的内容</td>
+</tr>
+<tr>
+<td style="text-align:center">-r</td>
+<td>–recursive 递归匹配</td>
+</tr>
+<tr>
+<td style="text-align:center">-A n</td>
+<td>after，除了列出匹配行之外，还列出后面的n行</td>
+</tr>
+<tr>
+<td style="text-align:center">-B n</td>
+<td>before，除了列出匹配行之外，还列出前面的n行</td>
+</tr>
+<tr>
+<td style="text-align:center">–color=auto</td>
+<td>将输出中的匹配项设置为自动颜色显示</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">特殊pattern</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">[:digit:]</td>
+<td>0-9</td>
+</tr>
+<tr>
+<td style="text-align:center">[:upper:]</td>
+<td>A-Z</td>
+</tr>
+<tr>
+<td style="text-align:center">[:lower:]</td>
+<td>a-z</td>
+</tr>
+<tr>
+<td style="text-align:center">[:alpha:]</td>
+<td>A-Z, a-z</td>
+</tr>
+<tr>
+<td style="text-align:center">[:alnum:]</td>
+<td>0-9, A-Z, a-z</td>
+</tr>
+<tr>
+<td style="text-align:center">[:punct:]</td>
+<td>punctuation symbol</td>
+</tr>
+<tr>
+<td style="text-align:center">[:graph:]</td>
+<td>[:alnum:]+[:punct:]</td>
+</tr>
+<tr>
+<td style="text-align:center">[:blank:]</td>
+<td>[space] and [Tab]</td>
+</tr>
+<tr>
+<td style="text-align:center">[:space:]</td>
+<td>whitespace: tab, newline, vertical tab, form feed, carriage return, and space.</td>
+</tr>
+<tr>
+<td style="text-align:center">[:cntrl:]</td>
+<td>控制按键，包括 CR, LF, Tab, Del..等</td>
+</tr>
+<tr>
+<td style="text-align:center">[:print:]</td>
+<td>[:alnum:]+[:punct:]+space</td>
+</tr>
+<tr>
+<td style="text-align:center">[:xdigit:]</td>
+<td>Hexadecimal：0-9, A-F, a-f</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><em>Note</em>: </p>
+<ol>
+<li>使用这些special pattern时要额外加一对中括号“[]”。</li>
+<li><code>[^]</code>当^在中括号里时，表示排除</li>
+</ol>
+</blockquote>
+<h3 id="2-3-Example"><a href="#2-3-Example" class="headerlink" title="2.3 Example"></a>2.3 Example</h3><figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">$</span> grep '[[:lower:]]' file1			#匹配含有'a-z'的行。  双重中括号。</span><br><span class="line"><span class="hljs-meta">$</span> grep '[^sci]' file2				#排除s、c、i三个字符，而非‘sci’字符串。</span><br><span class="line"><span class="hljs-meta">$</span> grep -E '^(w|h)' file3			#匹配以'w'或'h'开头的行。使用'|'需加上'-E'选项。</span><br><span class="line"><span class="hljs-meta">$</span> grep -E 'w&#123;3&#125;' file3				#匹配含有'www'的行。  使用quantifier需加上'-E'选项。</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="3-sed-Stream-editor"><a href="#3-sed-Stream-editor" class="headerlink" title="3. sed(Stream editor)"></a>3. sed(Stream editor)</h2><p>sed是一个非交互式（non-interactive）命令行文本编辑器，用于过滤、转换文本，配合script和正则表达式来同时处理一个或多个文本文件。</p>
+<h3 id="3-1-Syntax"><a href="#3-1-Syntax" class="headerlink" title="3.1 Syntax"></a>3.1 Syntax</h3><p><code>sed [ opt ]... {script} [ file/stdin ]...</code></p>
+<h3 id="3-2-Options"><a href="#3-2-Options" class="headerlink" title="3.2 Options"></a>3.2 Options</h3><table>
+<thead>
+<tr>
+<th style="text-align:center">opt</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">-n</td>
+<td>–silent    安静模式，只打印受影响的行。默认打印stdin的全部行。</td>
+</tr>
+<tr>
+<td style="text-align:center">-e</td>
+<td>–expression     添加script</td>
+</tr>
+<tr>
+<td style="text-align:center">-f</td>
+<td>–file     文件中的命令</td>
+</tr>
+<tr>
+<td style="text-align:center">-r</td>
+<td>使用ERE，默认为标准正则表达式</td>
+</tr>
+<tr>
+<td style="text-align:center">-i</td>
+<td>直接修改输入文件内容，而不是打印到stdout</td>
+</tr>
+<tr>
+<td style="text-align:center">-s</td>
+<td>–separate        以files为分割，而不是file的每一行。此时stdin为多个文件。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="3-3-Script"><a href="#3-3-Script" class="headerlink" title="3.3 Script"></a>3.3 Script</h3><ul>
+<li>syntax<code>[addr]X[opts]</code> </li>
+<li>需用<code>-e</code>选项引导，或作为第一个non-option argument；也可写在file里用<code>-f</code>选项引导。</li>
+<li>script内多条命令可用semicolon“;”分隔。</li>
+<li>命令<em>a, c, i,</em>后不可跟“;”，故muti-cmd时需放在最后一个。</li>
+</ul>
+<ol>
+<li><p><strong>[addr]</strong></p>
+<ul>
+<li>单行　　  ：<code>n</code></li>
+<li>连续多行  ：<code>n1,n2</code> 从n1至n2。</li>
+<li>跳跃多行  ：<code>n~s</code> 从n开始，以s为基数跳跃。如<code>1~2</code>奇数行，<code>2~2</code>偶数行。</li>
+<li>Regex  　：用正则表达式取址。如<code>/^foo/</code>以“foo”开头的行。</li>
+<li>后面加上“!”表示排除</li>
+</ul>
+</li>
+<li><p><strong>X[opts]</strong><br> <code>p</code> print 打印 通常配合<code>-n</code>开启安静模式<br> <code>d</code> delete 删除<br> <code>s</code> substitute 代替（pattern字符串）<br> <code>a</code> append 向后添加<br> <code>i</code> insert 向前插入<br> <code>c</code> change 更换（整行）<br> 其中<code>s/regex/text/[flag]</code>，[flag]可以是g（替换行内全部匹配），数字n（替换行内第n个匹配），p替换成功后打印。<br> 其中<em>a, i, c</em>命令可加backslash“\”换行后再写text。</p>
+</li>
+</ol>
+<h3 id="3-4-Example"><a href="#3-4-Example" class="headerlink" title="3.4 Example"></a>3.4 Example</h3><figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">#</span>delete以“foo”开头的行，替换所有行的第3个“hello”为“world”</span><br><span class="line"><span class="hljs-meta">$</span> sed ’/^foo/d ; s/hello/world/3’ input.txt &gt; output.txt </span><br><span class="line"></span><br><span class="line"><span class="hljs-meta">#</span>替换所有不含“apple”的行为“hello there”</span><br><span class="line"><span class="hljs-meta">$</span> sed ’/apple/!c\</span><br><span class="line">hello there’ input.txt &gt; output.txt</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="4-awk文本处理语言"><a href="#4-awk文本处理语言" class="headerlink" title="4. awk文本处理语言"></a>4. awk文本处理语言</h2><h3 id="4-1-工作原理"><a href="#4-1-工作原理" class="headerlink" title="4.1 工作原理"></a>4.1 工作原理</h3><p>按行(record)读取，按空格（FS）进行切片(field)，将每片保存在内建变量中，$1,$2,$3….。$0表示全部。<br>可以对单个片断进行判断，也可以对所有断进行循环判断。</p>
+<h3 id="4-2-Syntax"><a href="#4-2-Syntax" class="headerlink" title="4.2 Syntax"></a>4.2 Syntax</h3><p><code>awk [ -F fs ] [ -v var=value ] [ &#39;script&#39; | -f scriptfile ] [ file ...  ]</code></p>
+<h3 id="4-3-Builtin-Var"><a href="#4-3-Builtin-Var" class="headerlink" title="4.3 Builtin Var"></a>4.3 Builtin Var</h3><table>
+<thead>
+<tr>
+<th style="text-align:center">var</th>
+<th>content</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">FS</td>
+<td>field separator 默认为一个空格</td>
+</tr>
+<tr>
+<td style="text-align:center">RS</td>
+<td>record separator 默认为一个\n</td>
+</tr>
+<tr>
+<td style="text-align:center">NF</td>
+<td>number of field  默认为片段个数</td>
+</tr>
+<tr>
+<td style="text-align:center">NR</td>
+<td>number of record 默认为文件行数</td>
+</tr>
+<tr>
+<td style="text-align:center">FNR</td>
+<td>number of    record in each file</td>
+</tr>
+<tr>
+<td style="text-align:center">OFS</td>
+<td>输出  field separator</td>
+</tr>
+<tr>
+<td style="text-align:center">ORS</td>
+<td>输出 record separator</td>
+</tr>
+<tr>
+<td style="text-align:center">ARGC</td>
+<td>命令行arguments个数</td>
+</tr>
+<tr>
+<td style="text-align:center">ARGV</td>
+<td>命令行arguments数组</td>
+</tr>
+<tr>
+<td style="text-align:center">FILENAME</td>
+<td>当前输入文件名</td>
+</tr>
+</tbody>
+</table>
+<h3 id="4-4-常用"><a href="#4-4-常用" class="headerlink" title="4.4 常用"></a>4.4 常用</h3><p><code>awk &#39;{print $2}&#39;</code> 打印第二field。 和 <code>cut -d‘ ’ -f2</code>掐头去尾的用法异曲同工</p>
+<h2 id="5-Reference"><a href="#5-Reference" class="headerlink" title="5. Reference"></a>5. Reference</h2><p>[1]魏镇坪：<a href="https://www.jianshu.com/p/ea22c809ae9f" target="_blank" rel="noopener">Linux之awk详解</a><br>[2]EmanLee: <a href="https://www.cnblogs.com/emanlee/p/3327576.html" target="_blank" rel="noopener">awk 用法（使用入门）</a> </p>
+
+    
+    </div>
+    
+    <div class="columns is-variable is-1 is-multiline is-mobile">
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/shell/">#shell</a></span>
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/linux/">#linux</a></span>
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/awk/">#awk</a></span>
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/regex/">#regex</a></span>
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/tutorial/">#tutorial</a></span>
+    
+    </div>
+    
+    
+    <div class="columns is-mobile is-multiline article-nav">
+        <span class="column is-12-mobile is-half-desktop  article-nav-prev">
+            
+            <a href="/MT4113-revision/">MT4113 Statistic Computing - Revision Syllabus</a>
+            
+        </span>
+        <span class="column is-12-mobile is-half-desktop is-hidden-mobile article-nav-next">
+            
+        </span>
+    </div>
+    
+</article>
+
+
+<div class="sharebox">
+    
+<div class="addthis_inline_share_toolbox"></div>
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5cc5e6d6ca470529"></script>
+
+</div>
+
+
+
+<div class="comments">
+    <h3 class="title is-4">Comments</h3>
+    
+<div id="valine-thread"></div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+    new Valine({
+        el: '#valine-thread',
+        appId: 'Vs0W821bSiwvbyA5IgDc9nLB-gzGzoHsz',
+        appKey: 'lJA0l7GehLkXXO6MDlGSBmEi',
+        notify: false,
+        verify: false,
+        avatar: 'retro',
+        placeholder: 'Say something~!  ^3^',
+        meta: ['nick', 'mail'],
+        visitor: true,
+        lang: 'en'
+    })
+</script>
+
+
+</div>
+
+    </div>
+</section>
+    <footer class="footer">
+    <div class="container">
+        <div class="columns content">
+            <div class="column is-narrow has-text-centered">
+                &copy; 2019 ladychili&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+            </div>
+            <div class="column is-hidden-mobile"></div>
+
+            
+            <div class="column is-narrow">
+                <div class="columns is-mobile is-multiline is-centered">
+                
+                    
+                <a class="column is-narrow has-text-black" title="GitHub" href="https://github.com/ladychili">
+                    
+                    <i class="fab fa-github"></i>
+                    
+                </a>
+                
+                    
+                <a class="column is-narrow has-text-black" title="instagram" href="https://www.instagram.com/qt.zheng">
+                    
+                    <i class="fab fa-instagram"></i>
+                    
+                </a>
+                
+                    
+                <a class="column is-narrow has-text-black" title="Telegram" href="http://telegram.me/q2014">
+                    
+                    <i class="fab fa-telegram"></i>
+                    
+                </a>
+                
+                    
+                <a class="column is-narrow has-text-black" title="email" href="mailto:zqt0@outlook.com">
+                    
+                    <i class="fas fa-envelope"></i>
+                    
+                </a>
+                
+                </div>
+            </div>
+            
+            
+<div class="column is-narrow has-text-centered">
+    <div class="dropdown is-up is-right is-hoverable" style="margin-top: -0.2em;">
+        <div class="dropdown-trigger">
+            <button class="button is-small" aria-haspopup="true" aria-controls="dropdown-menu7">
+                <span class="icon">
+                    <i class="fas fa-globe"></i>
+                </span>
+                <span>English</span>
+                <span class="icon is-small">
+            <i class="fas fa-angle-down" aria-hidden="true"></i>
+          </span>
+            </button>
+        </div>
+        <div class="dropdown-menu has-text-left" role="menu">
+            <div class="dropdown-content">
+            
+                <a href="/SHELL_grep_sed_awk/" class="dropdown-item">
+                    English
+                </a>
+            
+                <a href="/zh-cn/SHELL_grep_sed_awk/" class="dropdown-item">
+                    简体中文
+                </a>
+            
+            </div>
+        </div>
+    </div>
+</div>
+
+        </div>
+    </div>
+</footer>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script>
+
+<!-- test if the browser is outdated -->
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // plugin function, place inside DOM ready function
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
+    });
+</script>
+
+<script>
+    window.FontAwesomeConfig = {
+        searchPseudoElements: true
+    }
+    moment.locale("en-AU");
+</script>
+
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script>
+    MathJax.Hub.Config({
+        "HTML-CSS": {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+</script>
+
+    
+    
+    
+    
+<script src="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/js/lightgallery-all.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/js/jquery.justifiedGallery.min.js"></script>
+<script>
+    (function ($) {
+        $(document).ready(function () {
+            if (typeof($.fn.lightGallery) === 'function') {
+                $('.article.gallery').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof($.fn.justifiedGallery) === 'function') {
+                $('.justified-gallery').justifiedGallery();
+            }
+        });
+    })(jQuery);
+</script>
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+    <style>
+        .hljs {
+            position: relative;
+        }
+
+        .hljs .clipboard-btn {
+            float: right;
+            color: #9a9a9a;
+            background: none;
+            border: none;
+        }
+
+        .hljs > .clipboard-btn {
+            display: none;
+            position: absolute;
+            right: 4px;
+            top: 4px;
+        }
+
+        .hljs:hover > .clipboard-btn {
+            display: inline;
+        }
+
+        .hljs > figcaption > .clipboard-btn {
+            margin-right: 4px;
+        }
+    </style>
+    <script>
+      $(document).ready(function () {
+        $('figure.hljs').each(function(i, figure) {
+          var codeId = 'code-' + i;
+          var code = figure.querySelector('.code');
+          var copyButton = $('<button>Copy <i class="far fa-clipboard"></i></button>');
+          code.id = codeId;
+          copyButton.addClass('clipboard-btn');
+          copyButton.attr('data-clipboard-target-id', codeId);
+
+          var figcaption = figure.querySelector('figcaption');
+
+          if (figcaption) {
+            figcaption.append(copyButton[0]);
+          } else {
+            figure.prepend(copyButton[0]);
+          }
+        })
+
+        var clipboard = new ClipboardJS('.clipboard-btn', {
+          target: function(trigger) {
+            return document.getElementById(trigger.getAttribute('data-clipboard-target-id'));
+          }
+        });
+      })
+    </script>
+
+    
+    
+
+    
+
+
+<script src="/js/script.js"></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-mask"></div>
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js"></script>
+    
+</body>
+</html>

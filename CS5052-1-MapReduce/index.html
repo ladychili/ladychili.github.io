@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html class="has-navbar-fixed-top">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+<title>Paper Review - MapReduce (2004) - Lady Chili&#39;s Garden</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
+
+
+<link href="/zh-cn/CS5052-1-MapReduce/" rel="alternate" hreflang="zh-CN">
+    
+
+
+<meta name="description" content="It is better to burn out than to fade away.">
+
+
+
+
+
+    <meta name="description" content="Review note for MapReduce: simplified data processing on large clusters  1 - SummaryA programming framework, MapReduce, is introduced to easily process large-scale computations on large clusters of co">
+<meta name="keywords" content="MapReduce,paper,university,exam,Google,BigData,Hadoop,cluster">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Paper Review - MapReduce (2004)">
+<meta property="og:url" content="http://ladychili.top/CS5052-1-MapReduce/index.html">
+<meta property="og:site_name" content="Lady Chili&#39;s Garden">
+<meta property="og:description" content="Review note for MapReduce: simplified data processing on large clusters  1 - SummaryA programming framework, MapReduce, is introduced to easily process large-scale computations on large clusters of co">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://ladychili.top/hexo-blog/images/CS5052-1-MapReduce.png">
+<meta property="og:image" content="http://ladychili.top/CS5052-1-MapReduce/overview.png">
+<meta property="og:updated_time" content="2019-05-04T22:43:23.595Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Paper Review - MapReduce (2004)">
+<meta name="twitter:description" content="Review note for MapReduce: simplified data processing on large clusters  1 - SummaryA programming framework, MapReduce, is introduced to easily process large-scale computations on large clusters of co">
+<meta name="twitter:image" content="http://ladychili.top/hexo-blog/images/CS5052-1-MapReduce.png">
+
+
+
+
+
+<link rel="icon" href="/hexo-blog/images/favicon.ico">
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ovo|Source+Code+Pro">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/css/justifiedGallery.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+
+<link rel="stylesheet" href="/css/style.css">
+
+<script defer src="//use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-108742328-2"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-108742328-2');
+</script>
+
+
+    
+
+
+</head>
+<body>
+    
+<nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item navbar-logo" href="/">
+                
+                    
+                    <img src="/images/ladychili_logo.png" alt height="28">
+                    
+                
+            </a>
+            <div class="navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="navbar-menu navbar-start">
+            
+            <a class="navbar-item " href="/archives">Archives</a>
+            
+            <a class="navbar-item " href="/categories">Category</a>
+            
+            <a class="navbar-item " href="/tags">Tag</a>
+            
+            <a class="navbar-item " href="/about">About</a>
+            
+        </div>
+        
+        <div class="navbar-menu navbar-end">
+            
+            <a class="navbar-item search" title="Search" href="javascript:;">
+                <i class="fas fa-search"></i>
+            </a>
+            
+            
+            <div class="navbar-item is-hoverable has-dropdown is-hidden-mobile is-hidden-tablet-only toc">
+                <a class="navbar-item" title="Table of Contents">
+                    <i class="fa fa-list"></i>
+                </a>
+                <div class="navbar-dropdown is-right">
+                    
+                    
+                </div>
+            </div>
+            
+            
+            <a class="navbar-item" title="GitHub" href="https://github.com/ladychili">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+               
+            
+        </div>
+    </div>
+</nav>
+
+    <section class="section">
+    <div class="container">
+    <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            Paper Review - MapReduce (2004)
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-05-03T19:00:11.000Z" itemprop="datePublished">May 3 2019</time>
+        </span>
+        
+        <span class="column is-narrow article-category">
+            <i class="far fa-folder"></i>
+            <a class="article-category-link" href="/categories/Note/">Note</a>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            6 minutes read (About 863 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <p>Review note for <a href="https://www.researchgate.net/publication/220851866_MapReduce_Simplified_Data_Processing_on_Large_Clusters" target="_blank" rel="noopener">MapReduce: simplified data processing on large clusters</a></p>
+<p><img src="/hexo-blog/images/CS5052-1-MapReduce.png" alt="MapReduce Paper"></p>
+<p>1 - Summary<br>A programming framework, MapReduce, is introduced to easily process large-scale computations on large clusters of commodity PCs. In a MapReduce model, users utilize a self-defined map function on mapping workers to process splits of input data, generating set of intermediate key/value pairs and use a reduce function on reducing workers to sort and merge the intermediate values with the same key. The paper also provides some programming model examples and typical implementations of MapReduce that process terabytes of data on thousands of machines. Some refinements of the model, the performance evaluation of the implementation, the use of MapReduce on indexing system within Google, and related and future work are also discussed in the paper.</p>
+<a id="more"></a>
+<p>2 - Problem<br>There are large amounts of data to be processed and generated in many real-world tasks. Although most computations are straightforward, in order to improve efficiency, they need to be distributed across thousands of machines due to the enormous amounts of data. The methods that distribute the data, parallelize computations, and handle failures involve large amounts of complicated code. The problem is how to implement those work in a simple and powerful way and make it fault-tolerant even across numerous machines.</p>
+<p>3 - Solution<br>Authors designed a framework that dividing the parallelization and distribution tasks into Mapping and Reducing phases in general. Mapping tasks and reducing tasks are assigned to idle workers by the master. In the Mapping phase, input data are partitioned into several splits, and those splits can be processed by different machines (mappers) in parallel, generating intermediate key/value pairs that buffered to local disk. In the Reducing phase, reduce workers remotely read intermediate pairs and sort them by the keys so that those with the same key are aggregated together, and then pass the key and the corresponding list of values to the user-defined Reduce function, which return an output appended to an output file for that reduce partition. All the messy details of partitioning, execution scheduling, inter-machine communications, fault-tolerance, and load balancing are hidden in a library and accommodated by the run-time system. This makes the MapReduce interface simple, manageable, and powerful even for programmers without experience about parallel and distributed system.</p>
+<p><img alt="Execution Overview" src="overview.png"></p>
+<p>4 - Novelty<br>MapReduce is a brand-new solution of distributed computations framework. It is inspired by primitive functions map and reduce in many programming languages. MapReduce is simple and more fault-tolerant, in comparison to many other contemporary parallel processing systems those are also restricted programming models but have only been implemented on smaller scales and leave machine failures to the programmers to handle. The locality optimization, backup task mechanism, and sorting facility of MapReduce have similarities in spirit to other techniques but are extended from different approaches.</p>
+<p>5 - Evaluation<br>Authors evaluated the performance of MapReduce with two example computations running on a large cluster of PCs. One searches for a specific pattern through about one terabyte of data, the other sorts approximately one terabyte of data. The former shows the progress of the grep program in the aspect of data transfer rate. The latter shows how disabling backup tasks can slow down the execution comparing to the normal execution and demonstrated the strengths of machine failures handling. The differences between MapReduce and other existing methods are mostly discussed in terms of principles. In general, MapReduce is simpler (programmer-friendly), more fault-tolerant, extendable than other parallel processing systems. </p>
+<p>6 - Opinion<br>In the Performance section, the measurements of two implementations (search and sort) only focus on the strengths of MapReduce model and weaknesses are barely discussed. Also, it would be better if there were some comparisons with similar parallelization methods towards the same tasks. One of the most convictive parts to me is the Experience section, stating the progresses and enhancements of MapReduce and its wide-ranging applications within Google, especially the large-scale indexing system.</p>
+<p>Source:<br>[1] Dean, J. and Ghemawat, S., 2008. MapReduce: simplified data processing on large clusters. Communications of the ACM, 51(1), pp.107-113.</p>
+<hr>
+<p>Key Points:</p>
+<ol>
+<li>MapReduce is a programming model for processing and generating large datasets.</li>
+<li>Input -&gt; splitting - -(k/v pairs)- -&gt; <strong>Mapping</strong>  - -(k/v pairs)- -&gt; shuffling -&gt; <strong>Reducing</strong> -&gt; Output</li>
+<li>Three states for tasks: idle, in-progress, complete; kept by master along with identity of workers.</li>
+<li>Everything <em>in-progress</em> on failed workers and <em>completed mapping tasks</em>  are reset and will be rescheduled; while completed <em>reducing tasks</em> do <em>not</em> need to, since of output is already stored in a global file system. </li>
+<li>Pros: <ul>
+<li>simple and powerful interface, hide details of parallelisation and distribution</li>
+<li>high fault tolerance, the master handles worker failures by re-assigning jobs</li>
+<li>highly scalable, can be implemented on large cluster</li>
+</ul>
+</li>
+<li>Cons: <ul>
+<li>limited for <em>iterative</em> algorithms and <em>interactive</em> data queries due to high disk I/O and replication</li>
+<li>can be low-efficient, due to stragglers (slow machines)</li>
+<li>doesn’t support high level lang i.e. SQL</li>
+</ul>
+</li>
+<li>Hadoop: MapReduce is a submodule of Hadoop eco-system, a programming model allows to processing large dataset in HDFS; can also run on GFS and other distributed file systems though.</li>
+</ol>
+
+    
+    </div>
+    
+    <div class="columns is-variable is-1 is-multiline is-mobile">
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/MapReduce/">#MapReduce</a></span>
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/paper/">#paper</a></span>
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/university/">#university</a></span>
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/exam/">#exam</a></span>
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/Google/">#Google</a></span>
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/BigData/">#BigData</a></span>
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/Hadoop/">#Hadoop</a></span>
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/cluster/">#cluster</a></span>
+    
+    </div>
+    
+    
+    <div class="columns is-mobile is-multiline article-nav">
+        <span class="column is-12-mobile is-half-desktop  article-nav-prev">
+            
+            <a href="/CS5052-2-RDD/">Paper Review - Resilient Distributed Datasets (2012)</a>
+            
+        </span>
+        <span class="column is-12-mobile is-half-desktop  article-nav-next">
+            
+            <a href="/CS5052-revision/">CS5052 Data-Intensive Systems - Revision Note</a>
+            
+        </span>
+    </div>
+    
+</article>
+
+
+<div class="sharebox">
+    
+<div class="addthis_inline_share_toolbox"></div>
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5cc5e6d6ca470529"></script>
+
+</div>
+
+
+
+<div class="comments">
+    <h3 class="title is-4">Comments</h3>
+    
+<div id="valine-thread"></div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+    new Valine({
+        el: '#valine-thread',
+        appId: 'Vs0W821bSiwvbyA5IgDc9nLB-gzGzoHsz',
+        appKey: 'lJA0l7GehLkXXO6MDlGSBmEi',
+        notify: false,
+        verify: false,
+        avatar: 'retro',
+        placeholder: 'Say something~!  ^3^',
+        meta: ['nick', 'mail'],
+        visitor: true,
+        lang: 'en'
+    })
+</script>
+
+
+</div>
+
+    </div>
+</section>
+    <footer class="footer">
+    <div class="container">
+        <div class="columns content">
+            <div class="column is-narrow has-text-centered">
+                &copy; 2019 Lady Chili&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+            </div>
+            <div class="column is-hidden-mobile"></div>
+
+            
+            <div class="column is-narrow">
+                <div class="columns is-mobile is-multiline is-centered">
+                
+                    
+                <a class="column is-narrow has-text-black" title="GitHub" href="https://github.com/ladychili">
+                    
+                    <i class="fab fa-github"></i>
+                    
+                </a>
+                
+                    
+                <a class="column is-narrow has-text-black" title="instagram" href="https://www.instagram.com/qt.zheng">
+                    
+                    <i class="fab fa-instagram"></i>
+                    
+                </a>
+                
+                    
+                <a class="column is-narrow has-text-black" title="Telegram" href="http://telegram.me/q2014">
+                    
+                    <i class="fab fa-telegram"></i>
+                    
+                </a>
+                
+                    
+                <a class="column is-narrow has-text-black" title="email" href="mailto:zqt0@outlook.com">
+                    
+                    <i class="fas fa-envelope"></i>
+                    
+                </a>
+                
+                </div>
+            </div>
+            
+            
+<div class="column is-narrow has-text-centered">
+    <div class="dropdown is-up is-right is-hoverable" style="margin-top: -0.2em;">
+        <div class="dropdown-trigger">
+            <button class="button is-small" aria-haspopup="true" aria-controls="dropdown-menu7">
+                <span class="icon">
+                    <i class="fas fa-globe"></i>
+                </span>
+                <span>English</span>
+                <span class="icon is-small">
+            <i class="fas fa-angle-down" aria-hidden="true"></i>
+          </span>
+            </button>
+        </div>
+        <div class="dropdown-menu has-text-left" role="menu">
+            <div class="dropdown-content">
+            
+                <a href="/CS5052-1-MapReduce/" class="dropdown-item">
+                    English
+                </a>
+            
+                <a href="/zh-cn/CS5052-1-MapReduce/" class="dropdown-item">
+                    简体中文
+                </a>
+            
+            </div>
+        </div>
+    </div>
+</div>
+
+        </div>
+    </div>
+</footer>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script>
+
+<!-- test if the browser is outdated -->
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // plugin function, place inside DOM ready function
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
+    });
+</script>
+
+<script>
+    window.FontAwesomeConfig = {
+        searchPseudoElements: true
+    }
+    moment.locale("en-AU");
+</script>
+
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script>
+    MathJax.Hub.Config({
+        "HTML-CSS": {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+</script>
+
+    
+    
+    
+    
+<script src="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/js/lightgallery-all.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/js/jquery.justifiedGallery.min.js"></script>
+<script>
+    (function ($) {
+        $(document).ready(function () {
+            if (typeof($.fn.lightGallery) === 'function') {
+                $('.article.gallery').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof($.fn.justifiedGallery) === 'function') {
+                $('.justified-gallery').justifiedGallery();
+            }
+        });
+    })(jQuery);
+</script>
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+    <style>
+        .hljs {
+            position: relative;
+        }
+
+        .hljs .clipboard-btn {
+            float: right;
+            color: #9a9a9a;
+            background: none;
+            border: none;
+        }
+
+        .hljs > .clipboard-btn {
+            display: none;
+            position: absolute;
+            right: 4px;
+            top: 4px;
+        }
+
+        .hljs:hover > .clipboard-btn {
+            display: inline;
+        }
+
+        .hljs > figcaption > .clipboard-btn {
+            margin-right: 4px;
+        }
+    </style>
+    <script>
+      $(document).ready(function () {
+        $('figure.hljs').each(function(i, figure) {
+          var codeId = 'code-' + i;
+          var code = figure.querySelector('.code');
+          var copyButton = $('<button>Copy <i class="far fa-clipboard"></i></button>');
+          code.id = codeId;
+          copyButton.addClass('clipboard-btn');
+          copyButton.attr('data-clipboard-target-id', codeId);
+
+          var figcaption = figure.querySelector('figcaption');
+
+          if (figcaption) {
+            figcaption.append(copyButton[0]);
+          } else {
+            figure.prepend(copyButton[0]);
+          }
+        })
+
+        var clipboard = new ClipboardJS('.clipboard-btn', {
+          target: function(trigger) {
+            return document.getElementById(trigger.getAttribute('data-clipboard-target-id'));
+          }
+        });
+      })
+    </script>
+
+    
+    
+
+    
+
+
+<script src="/js/script.js"></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-mask"></div>
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js"></script>
+    
+</body>
+</html>
