@@ -26,13 +26,13 @@
 <meta property="og:site_name" content="Lady Chili&#39;s Garden">
 <meta property="og:description" content="Review note for MapReduce: simplified data processing on large clusters  1 - SummaryA programming framework, MapReduce, is introduced to easily process large-scale computations on large clusters of co">
 <meta property="og:locale" content="zh-cn">
-<meta property="og:image" content="http://ladychili.top/hexo-blog/images/CS5052-1-MapReduce.png">
+<meta property="og:image" content="http://ladychili.top/images/CS5052-1-MapReduce.png">
 <meta property="og:image" content="http://ladychili.top/zh-cn/CS5052-1-MapReduce/overview.png">
-<meta property="og:updated_time" content="2019-05-04T20:38:16.046Z">
+<meta property="og:updated_time" content="2019-05-05T16:06:56.168Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Paper Review - MapReduce (2004)">
 <meta name="twitter:description" content="Review note for MapReduce: simplified data processing on large clusters  1 - SummaryA programming framework, MapReduce, is introduced to easily process large-scale computations on large clusters of co">
-<meta name="twitter:image" content="http://ladychili.top/hexo-blog/images/CS5052-1-MapReduce.png">
+<meta name="twitter:image" content="http://ladychili.top/images/CS5052-1-MapReduce.png">
 
 
 
@@ -162,14 +162,14 @@
         <span class="column is-narrow">
             
             
-            5 分钟 读完 (约 691 字)
+            5 分钟 读完 (约 689 字)
         </span>
         
     </div>
     <div class="article-entry is-size-6-mobile" itemprop="articleBody">
     
         <p>Review note for <a href="https://www.researchgate.net/publication/220851866_MapReduce_Simplified_Data_Processing_on_Large_Clusters" target="_blank" rel="noopener">MapReduce: simplified data processing on large clusters</a></p>
-<p><img src="/hexo-blog/images/CS5052-1-MapReduce.png" alt="MapReduce Paper"></p>
+<p><img src="/images/CS5052-1-MapReduce.png" alt="MapReduce Paper"></p>
 <p>1 - Summary<br>A programming framework, MapReduce, is introduced to easily process large-scale computations on large clusters of commodity PCs. In a MapReduce model, users utilize a self-defined map function on mapping workers to process splits of input data, generating set of intermediate key/value pairs and use a reduce function on reducing workers to sort and merge the intermediate values with the same key. The paper also provides some programming model examples and typical implementations of MapReduce that process terabytes of data on thousands of machines. Some refinements of the model, the performance evaluation of the implementation, the use of MapReduce on indexing system within Google, and related and future work are also discussed in the paper.</p>
 <a id="more"></a>
 <p>2 - Problem<br>There are large amounts of data to be processed and generated in many real-world tasks. Although most computations are straightforward, in order to improve efficiency, they need to be distributed across thousands of machines due to the enormous amounts of data. The methods that distribute the data, parallelize computations, and handle failures involve large amounts of complicated code. The problem is how to implement those work in a simple and powerful way and make it fault-tolerant even across numerous machines.</p>

@@ -26,12 +26,12 @@
 <meta property="og:site_name" content="Lady Chili&#39;s Garden">
 <meta property="og:description" content="Review note for Resilient Distributed Datasets: A Fault-Tolerant Abstraction for In-Memory Cluster Computing  1 - SummaryThe paper proposed an abstraction for sharing data in cluster application, call">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="http://ladychili.top/hexo-blog/images/CS5052-2-RDD.png">
-<meta property="og:updated_time" content="2019-05-04T21:26:34.739Z">
+<meta property="og:image" content="http://ladychili.top/images/CS5052-2-RDD.png">
+<meta property="og:updated_time" content="2019-05-05T16:07:10.169Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Paper Review - Resilient Distributed Datasets (2012)">
 <meta name="twitter:description" content="Review note for Resilient Distributed Datasets: A Fault-Tolerant Abstraction for In-Memory Cluster Computing  1 - SummaryThe paper proposed an abstraction for sharing data in cluster application, call">
-<meta name="twitter:image" content="http://ladychili.top/hexo-blog/images/CS5052-2-RDD.png">
+<meta name="twitter:image" content="http://ladychili.top/images/CS5052-2-RDD.png">
 
 
 
@@ -161,14 +161,14 @@
         <span class="column is-narrow">
             
             
-            5 minutes read (About 765 words)
+            5 minutes read (About 763 words)
         </span>
         
     </div>
     <div class="article-entry is-size-6-mobile" itemprop="articleBody">
     
         <p>Review note for <a href="https://www.researchgate.net/publication/303198479_Resilient_distributed_datasets_A_fault-tolerant_abstraction_for_in-memory_cluster_computing" target="_blank" rel="noopener">Resilient Distributed Datasets: A Fault-Tolerant Abstraction for In-Memory Cluster Computing</a></p>
-<p><img src="/hexo-blog/images/CS5052-2-RDD.png" alt="RDD paper"></p>
+<p><img src="/images/CS5052-2-RDD.png" alt="RDD paper"></p>
 <p>1 - Summary<br>The paper proposed an abstraction for sharing data in cluster application, called Resilient Distributed Dataset (RDD), that is more efficient, general-purpose and fault-tolerant in comparison to existing data storage abstractions for clusters, allowing programmers to process in-memory computations. RDDs are implemented in a big data processing engine, called Spark, and evaluated by a range of user applications and benchmarks in the paper. </p>
 <a id="more"></a>
 <p>2 - Problem<br>Many emerging applications (e.g. PageRank, K-means clustering, machine learning) and the iterative algorithms behind them, as well as interactive data mining, rely on the reuse of intermediate results across multiple computations. However, most existing cluster computing frameworks adopted for data-intensive analytics are inefficient on this. Their way to reuse data depending on writing results to external stable storage system, can consists of large amount of computing execution time due to data replication, disk I/O, network bandwidth, etc. Some specialized programming models developed for this concern (e.g. Pregel, HaLoop) are not general-purpose. Therefore, RDDs are designed to address computing needs that were met previously by introducing new specialized models.</p>
