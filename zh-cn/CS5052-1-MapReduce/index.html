@@ -19,7 +19,7 @@
 
 
     <meta name="description" content="Review note for MapReduce: simplified data processing on large clusters  1 - SummaryA programming framework, MapReduce, is introduced to easily process large-scale computations on large clusters of co">
-<meta name="keywords" content="MapReduce,paper,university,exam,Google,BigData,cluster">
+<meta name="keywords" content="MapReduce,paper,university,exam,Google,BigData,Hadoop,cluster">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Paper Review - MapReduce (2004)">
 <meta property="og:url" content="https://ladychili.top/zh-cn/CS5052-1-MapReduce/index.html">
@@ -28,7 +28,7 @@
 <meta property="og:locale" content="zh-cn">
 <meta property="og:image" content="https://ladychili.top/images/CS5052-1-MapReduce.png">
 <meta property="og:image" content="https://ladychili.top/zh-cn/CS5052-1-MapReduce/overview.png">
-<meta property="og:updated_time" content="2019-05-05T16:06:56.168Z">
+<meta property="og:updated_time" content="2019-05-05T16:07:11.438Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Paper Review - MapReduce (2004)">
 <meta name="twitter:description" content="Review note for MapReduce: simplified data processing on large clusters  1 - SummaryA programming framework, MapReduce, is introduced to easily process large-scale computations on large clusters of co">
@@ -162,7 +162,7 @@
         <span class="column is-narrow">
             
             
-            5 分钟 读完 (约 689 字)
+            6 分钟 读完 (约 861 字)
         </span>
         
     </div>
@@ -179,6 +179,27 @@
 <p>5 - Evaluation<br>Authors evaluated the performance of MapReduce with two example computations running on a large cluster of PCs. One searches for a specific pattern through about one terabyte of data, the other sorts approximately one terabyte of data. The former shows the progress of the grep program in the aspect of data transfer rate. The latter shows how disabling backup tasks can slow down the execution comparing to the normal execution and demonstrated the strengths of machine failures handling. The differences between MapReduce and other existing methods are mostly discussed in terms of principles. In general, MapReduce is simpler (programmer-friendly), more fault-tolerant, extendable than other parallel processing systems. </p>
 <p>6 - Opinion<br>In the Performance section, the measurements of two implementations (search and sort) only focus on the strengths of MapReduce model and weaknesses are barely discussed. Also, it would be better if there were some comparisons with similar parallelization methods towards the same tasks. One of the most convictive parts to me is the Experience section, stating the progresses and enhancements of MapReduce and its wide-ranging applications within Google, especially the large-scale indexing system.</p>
 <p>Source:<br>[1] Dean, J. and Ghemawat, S., 2008. MapReduce: simplified data processing on large clusters. Communications of the ACM, 51(1), pp.107-113.</p>
+<hr>
+<p>Key Points:</p>
+<ol>
+<li>MapReduce is a programming model for processing and generating large datasets.</li>
+<li>Input -&gt; splitting - -(k/v pairs)- -&gt; <strong>Mapping</strong>  - -(k/v pairs)- -&gt; shuffling -&gt; <strong>Reducing</strong> -&gt; Output</li>
+<li>Three states for tasks: idle, in-progress, complete; kept by master along with identity of workers.</li>
+<li>Everything <em>in-progress</em> on failed workers and <em>completed mapping tasks</em>  are reset and will be rescheduled; while completed <em>reducing tasks</em> do <em>not</em> need to, since of output is already stored in a global file system. </li>
+<li>Pros: <ul>
+<li>simple and powerful interface, hide details of parallelisation and distribution</li>
+<li>high fault tolerance, the master handles worker failures by re-assigning jobs</li>
+<li>highly scalable, can be implemented on large cluster</li>
+</ul>
+</li>
+<li>Cons: <ul>
+<li>limited for <em>iterative</em> algorithms and <em>interactive</em> data queries due to high disk I/O and replication</li>
+<li>can be low-efficient, due to stragglers (slow machines)</li>
+<li>doesn’t support high level lang i.e. SQL</li>
+</ul>
+</li>
+<li>Hadoop: MapReduce is a submodule of Hadoop eco-system, a programming model allows to processing large dataset in HDFS; can also run on GFS and other distributed file systems though.</li>
+</ol>
 
     
     </div>
@@ -197,13 +218,17 @@
     
         <span class="column is-narrow"><a class="tag is-light article-tag" href="/zh-cn/tags/BigData/">#BigData</a></span>
     
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/zh-cn/tags/Hadoop/">#Hadoop</a></span>
+    
         <span class="column is-narrow"><a class="tag is-light article-tag" href="/zh-cn/tags/cluster/">#cluster</a></span>
     
     </div>
     
     
     <div class="columns is-mobile is-multiline article-nav">
-        <span class="column is-12-mobile is-half-desktop is-hidden-mobile article-nav-prev">
+        <span class="column is-12-mobile is-half-desktop  article-nav-prev">
+            
+            <a href="/zh-cn/CS5052-2-RDD/">Paper Review - Resilient Distributed Datasets (2012)</a>
             
         </span>
         <span class="column is-12-mobile is-half-desktop  article-nav-next">

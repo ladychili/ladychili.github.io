@@ -11,4 +11,3 @@ Disallow: /fonts/
 Disallow: /vendors/
 Disallow: /fancybox/
 Sitemap: https://ladychili.top/sitemap.xml
-Sitemap: https://ladychili.top/baidusitemap.xml
