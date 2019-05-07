@@ -18,19 +18,19 @@
 
 
 
-    <meta name="description" content="Review note for Mesos: A Platform for Fine-Grained Resource Sharing in the Data Center  1 - SummaryThis paper introduces Mesos, a platform for sharing commodity clusters across multiple different dist">
-<meta name="keywords" content="exam,paper,university,distributed,Mesos">
+    <meta name="description" content="Review note for Mesos: A Platform for Fine-Grained Resource Sharing in the Data Center 1 - SummaryThis paper introduces Mesos, a platform for sharing commodity clusters across multiple different distr">
+<meta name="keywords" content="paper,university,exam,distributed,Mesos">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Paper Review - Mesos (2013)">
 <meta property="og:url" content="https://ladychili.top/CS5052-8-Mesos/index.html">
 <meta property="og:site_name" content="Lady Chili&#39;s Garden">
-<meta property="og:description" content="Review note for Mesos: A Platform for Fine-Grained Resource Sharing in the Data Center  1 - SummaryThis paper introduces Mesos, a platform for sharing commodity clusters across multiple different dist">
+<meta property="og:description" content="Review note for Mesos: A Platform for Fine-Grained Resource Sharing in the Data Center 1 - SummaryThis paper introduces Mesos, a platform for sharing commodity clusters across multiple different distr">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://ladychili.top/images/CS5052-8-Mesos.png">
-<meta property="og:updated_time" content="2019-05-07T16:28:43.727Z">
+<meta property="og:updated_time" content="2019-05-07T16:52:07.680Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Paper Review - Mesos (2013)">
-<meta name="twitter:description" content="Review note for Mesos: A Platform for Fine-Grained Resource Sharing in the Data Center  1 - SummaryThis paper introduces Mesos, a platform for sharing commodity clusters across multiple different dist">
+<meta name="twitter:description" content="Review note for Mesos: A Platform for Fine-Grained Resource Sharing in the Data Center 1 - SummaryThis paper introduces Mesos, a platform for sharing commodity clusters across multiple different distr">
 <meta name="twitter:image" content="https://ladychili.top/images/CS5052-8-Mesos.png">
 
 
@@ -161,32 +161,36 @@
         <span class="column is-narrow">
             
             
-            3 minutes read (About 459 words)
+            3 minutes read (About 492 words)
         </span>
         
     </div>
     <div class="article-entry is-size-6-mobile" itemprop="articleBody">
     
         <p>Review note for <a href="https://www.researchgate.net/publication/49940470_Mesos_A_Platform_for_Fine-Grained_Resource_Sharing_in_the_Data_Center" target="_blank" rel="noopener">Mesos: A Platform for Fine-Grained Resource Sharing in the Data Center</a></p>
-<p><img src="/images/CS5052-8-Mesos.png" alt="Mesos architecture"></p>
-<p>1 - Summary<br>This paper introduces Mesos, a platform for sharing commodity clusters across multiple different distributed computing framework. Mesos can be regarded as the kernel of a distributed operating system, it provides fine-grained resource management and runs on every machine of the cluster.</p>
+<p></p><p align="center"><br><img alt="Mesos architecture" src="/images/CS5052-8-Mesos.png" width="600"><br></p><br>1 - Summary<br>This paper introduces Mesos, a platform for sharing commodity clusters across multiple different distributed computing framework. Mesos can be regarded as the kernel of a distributed operating system, it provides fine-grained resource management and runs on every machine of the cluster.<p></p>
 <a id="more"></a>
 <p>2 - Problem<br>Distributed systems have been widely implemented as a major computing platform. No perfect computing frameworks will be qualified for all applications, and organisations need to run multiple frameworks for different computing requirements in the same cluster. Because it can improve cluster utilization and allow frameworks to share access to large datasets that is too costly to replicate across clusters. The existing solutions for sharing a cluster are not efficient at data sharing and not highly utilizing the cluster, because of the mismatch of the allocation granularities between the solutions and computing frameworks.<br>For example, frameworks have different scheduling needs, and the scheduling system have to scale to clusters of enormous nodes. And very importantly, the system must be fault-tolerant and highly available.</p>
 <p>3 - Solution<br>Mesos is designed to sort out the problems above. Mesos introduces a decentralised scheduling model abstraction called resource offer, delegating the control over scheduling to the frameworks by push resources that frameworks can allocate on a cluster node to run tasks. Namely, Mesos decides how many cluster resources to offer based on a particular policy, while frameworks decide which resources to accept and run tasks on them. Mesos allow fine-grained sharing across diverse computing frameworks by providing a common interface for accessing cluster resources.</p>
 <p>4 - Novelty<br>Mesos is a new solution to share a cluster across multiple computing framework. Mesos is fine-grained at the level of tasks and introduces a brand-new distributed scheduling mechanism, resource offer, delegating the control over scheduling to the frameworks by push resources that frameworks can allocate on a cluster node to run tasks.</p>
 <p>5 - Evaluation<br>Mesos is evaluated through a series of experiments on Amazon EC2. The evaluation starts with a microbenchmark between four workloads. Mesos shows better performance on Facebook Hadoop Mix, Large Hadoop Mix and Spark than statically partitioned cluster, in terms of share of cluster and execution time. However, Torque and MPI performed worse on Mesos. The overhead, decentralized scheduling, scalability and failure recovery are also evaluated.</p>
 <p>6 - Opinion<br>Mesos is a reliable platform for sharing commodity clusters across multiple different distributed computing framework. It achieves high utilization, respond quickly to workload changes, and cater to diverse frameworks while remaining scalable and robust. But it seems that Mesos have a high barrier to entry.</p>
+<p>Key Points:</p>
+<ol>
+<li>Build multiple frameworks in the same cluster, pick the best one for each application (i.g. Pregel for graph processing, Spark for Machine Learning).</li>
+<li>Share access to large datasets among different frameworks, hence improving the cluster ultilization. </li>
+</ol>
 
     
     </div>
     
     <div class="columns is-variable is-1 is-multiline is-mobile">
     
-        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/exam/">#exam</a></span>
-    
         <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/paper/">#paper</a></span>
     
         <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/university/">#university</a></span>
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/exam/">#exam</a></span>
     
         <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/distributed/">#distributed</a></span>
     
