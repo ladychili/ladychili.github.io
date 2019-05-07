@@ -86,13 +86,6 @@
   </url>
   
   <url>
-    <loc>https://ladychili.top/zh-cn/SHELL_grep_sed_awk/</loc>
-    
-    <lastmod>2019-05-05T16:07:08.043Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://ladychili.top/SHELL_grep_sed_awk/</loc>
     
     <lastmod>2019-05-05T16:07:08.043Z</lastmod>
@@ -100,9 +93,9 @@
   </url>
   
   <url>
-    <loc>https://ladychili.top/test-music/</loc>
+    <loc>https://ladychili.top/zh-cn/SHELL_grep_sed_awk/</loc>
     
-    <lastmod>2019-05-05T16:07:07.106Z</lastmod>
+    <lastmod>2019-05-05T16:07:08.043Z</lastmod>
     
   </url>
   
@@ -114,14 +107,21 @@
   </url>
   
   <url>
-    <loc>https://ladychili.top/test-video/</loc>
+    <loc>https://ladychili.top/test-music/</loc>
+    
+    <lastmod>2019-05-05T16:07:07.106Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://ladychili.top/zh-cn/test-video/</loc>
     
     <lastmod>2019-05-01T18:35:56.957Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://ladychili.top/zh-cn/test-video/</loc>
+    <loc>https://ladychili.top/test-video/</loc>
     
     <lastmod>2019-05-01T18:35:56.957Z</lastmod>
     
