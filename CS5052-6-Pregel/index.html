@@ -2,13 +2,13 @@
 <html class="has-navbar-fixed-top">
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-<title>Paper Review - MapReduce (2004) - Lady Chili&#39;s Garden</title>
+<title>Paper Review - Pregel (2009) - Lady Chili&#39;s Garden</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
 
 
-<link href="/CS5052-1-MapReduce/" rel="alternate" hreflang="en">
+<link href="/zh-cn/CS5052-6-Pregel/" rel="alternate" hreflang="zh-CN">
     
 
 
@@ -18,21 +18,20 @@
 
 
 
-    <meta name="description" content="Review note for MapReduce: simplified data processing on large clusters  1 - SummaryA programming framework, MapReduce, is introduced to easily process large-scale computations on large clusters of co">
-<meta name="keywords" content="paper,university,exam,MapReduce,Google,Hadoop,cluster,Big Data">
+    <meta name="description" content="Review note for Pregel: A System for Large-Scale Graph Processing   1 - SummaryLarge graphs have been under analysing for years due to their ubiquity and commercial values, while the existing approach">
+<meta name="keywords" content="Pregel,distributed,paper,university,exam">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Paper Review - MapReduce (2004)">
-<meta property="og:url" content="https://ladychili.top/zh-cn/CS5052-1-MapReduce/index.html">
+<meta property="og:title" content="Paper Review - Pregel (2009)">
+<meta property="og:url" content="https://ladychili.top/CS5052-6-Pregel/index.html">
 <meta property="og:site_name" content="Lady Chili&#39;s Garden">
-<meta property="og:description" content="Review note for MapReduce: simplified data processing on large clusters  1 - SummaryA programming framework, MapReduce, is introduced to easily process large-scale computations on large clusters of co">
-<meta property="og:locale" content="zh-cn">
-<meta property="og:image" content="https://ladychili.top/images/CS5052-1-MapReduce.png">
-<meta property="og:image" content="https://ladychili.top/zh-cn/CS5052-1-MapReduce/overview.png">
-<meta property="og:updated_time" content="2019-05-07T15:13:22.708Z">
+<meta property="og:description" content="Review note for Pregel: A System for Large-Scale Graph Processing   1 - SummaryLarge graphs have been under analysing for years due to their ubiquity and commercial values, while the existing approach">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://ladychili.top/images/CS5052-6-Pregel.png">
+<meta property="og:updated_time" content="2019-05-09T15:53:28.076Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Paper Review - MapReduce (2004)">
-<meta name="twitter:description" content="Review note for MapReduce: simplified data processing on large clusters  1 - SummaryA programming framework, MapReduce, is introduced to easily process large-scale computations on large clusters of co">
-<meta name="twitter:image" content="https://ladychili.top/images/CS5052-1-MapReduce.png">
+<meta name="twitter:title" content="Paper Review - Pregel (2009)">
+<meta name="twitter:description" content="Review note for Pregel: A System for Large-Scale Graph Processing   1 - SummaryLarge graphs have been under analysing for years due to their ubiquity and commercial values, while the existing approach">
+<meta name="twitter:image" content="https://ladychili.top/images/CS5052-6-Pregel.png">
 
 
 
@@ -85,7 +84,7 @@
 <nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
     <div class="container">
         <div class="navbar-brand">
-            <a class="navbar-item navbar-logo" href="/zh-cn">
+            <a class="navbar-item navbar-logo" href="/">
                 
                     
                     <img src="/images/ladychili_logo.png" alt height="28">
@@ -101,29 +100,33 @@
         
         <div class="navbar-menu navbar-start">
             
-            <a class="navbar-item " href="/zh-cn/archives">归档</a>
+            <a class="navbar-item " href="/archives">Archives</a>
             
-            <a class="navbar-item " href="/zh-cn/categories">分类</a>
+            <a class="navbar-item " href="/categories">Category</a>
             
-            <a class="navbar-item " href="/zh-cn/tags">标签</a>
+            <a class="navbar-item " href="/tags">Tag</a>
             
-            <a class="navbar-item " href="/zh-cn/about">关于</a>
+            <a class="navbar-item " href="/about">About</a>
             
         </div>
         
         <div class="navbar-menu navbar-end">
             
-            <a class="navbar-item search" title="搜索" href="javascript:;">
+            <a class="navbar-item search" title="Search" href="javascript:;">
                 <i class="fas fa-search"></i>
             </a>
             
             
             <div class="navbar-item is-hoverable has-dropdown is-hidden-mobile is-hidden-tablet-only toc">
-                <a class="navbar-item" title="目录">
+                <a class="navbar-item" title="Table of Contents">
                     <i class="fa fa-list"></i>
                 </a>
                 <div class="navbar-dropdown is-right">
                     
+                    
+                    
+                    
+                    <a class="navbar-item" href="#Key-Points">1&nbsp;&nbsp;<b>Key Points:</b></a>
                     
                 </div>
             </div>
@@ -145,95 +148,71 @@
     <article class="article content gallery" itemscope itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
-            Paper Review - MapReduce (2004)
+            Paper Review - Pregel (2009)
         
     </h1>
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
-            <time datetime="2019-05-03T19:00:11.000Z" itemprop="datePublished">5月 3 2019</time>
+            <time datetime="2019-05-09T15:47:08.000Z" itemprop="datePublished">May 9 2019</time>
         </span>
         
         <span class="column is-narrow article-category">
             <i class="far fa-folder"></i>
-            <a class="article-category-link" href="/zh-cn/categories/Note/">Note</a>
+            <a class="article-category-link" href="/categories/Note/">Note</a>
         </span>
         
         
         <span class="column is-narrow">
             
             
-            6 分钟 读完 (约 861 字)
+            5 minutes read (About 733 words)
         </span>
         
     </div>
     <div class="article-entry is-size-6-mobile" itemprop="articleBody">
     
-        <p>Review note for <a href="https://www.researchgate.net/publication/220851866_MapReduce_Simplified_Data_Processing_on_Large_Clusters" target="_blank" rel="noopener">MapReduce: simplified data processing on large clusters</a></p>
-<p><img src="/images/CS5052-1-MapReduce.png" alt="MapReduce Paper"></p>
-<p>1 - Summary<br>A programming framework, MapReduce, is introduced to easily process large-scale computations on large clusters of commodity PCs. In a MapReduce model, users utilize a self-defined map function on mapping workers to process splits of input data, generating set of intermediate key/value pairs and use a reduce function on reducing workers to sort and merge the intermediate values with the same key. The paper also provides some programming model examples and typical implementations of MapReduce that process terabytes of data on thousands of machines. Some refinements of the model, the performance evaluation of the implementation, the use of MapReduce on indexing system within Google, and related and future work are also discussed in the paper.</p>
+        <p>Review note for <a href="https://www.researchgate.net/publication/221257383_Pregel_A_system_for_large-scale_graph_processing" target="_blank" rel="noopener">Pregel: A System for Large-Scale Graph Processing</a></p>
+<p align="center"><br><img alt="Pregel Paper" src="/images/CS5052-6-Pregel.png" width="600"><br></p>
+
+<p>1 - Summary<br>Large graphs have been under analysing for years due to their ubiquity and commercial values, while the existing approaches have many limitations in terms of locality, efficiency, flexibility, etc. Google introduced a vertex-centric computational model framework in this paper that is suitable for large-scale graphs processing on clusters of numerous commodity computers in a manner that developers can easily program with an abstract API without concerning distribution-related details behind it. The paper describes Pregel, the large-scale graph processing model, and associated C++ API, discusses its implementation issues, applications to some algorithms and performances results, points out future directions.</p>
 <a id="more"></a>
-<p>2 - Problem<br>There are large amounts of data to be processed and generated in many real-world tasks. Although most computations are straightforward, in order to improve efficiency, they need to be distributed across thousands of machines due to the enormous amounts of data. The methods that distribute the data, parallelize computations, and handle failures involve large amounts of complicated code. The problem is how to implement those work in a simple and powerful way and make it fault-tolerant even across numerous machines.</p>
-<p>3 - Solution<br>Authors designed a framework that dividing the parallelization and distribution tasks into Mapping and Reducing phases in general. Mapping tasks and reducing tasks are assigned to idle workers by the master. In the Mapping phase, input data are partitioned into several splits, and those splits can be processed by different machines (mappers) in parallel, generating intermediate key/value pairs that buffered to local disk. In the Reducing phase, reduce workers remotely read intermediate pairs and sort them by the keys so that those with the same key are aggregated together, and then pass the key and the corresponding list of values to the user-defined Reduce function, which return an output appended to an output file for that reduce partition. All the messy details of partitioning, execution scheduling, inter-machine communications, fault-tolerance, and load balancing are hidden in a library and accommodated by the run-time system. This makes the MapReduce interface simple, manageable, and powerful even for programmers without experience about parallel and distributed system.</p>
-<p><img alt="Execution Overview" src="overview.png"></p>
-<p>4 - Novelty<br>MapReduce is a brand-new solution of distributed computations framework. It is inspired by primitive functions map and reduce in many programming languages. MapReduce is simple and more fault-tolerant, in comparison to many other contemporary parallel processing systems those are also restricted programming models but have only been implemented on smaller scales and leave machine failures to the programmers to handle. The locality optimization, backup task mechanism, and sorting facility of MapReduce have similarities in spirit to other techniques but are extended from different approaches.</p>
-<p>5 - Evaluation<br>Authors evaluated the performance of MapReduce with two example computations running on a large cluster of PCs. One searches for a specific pattern through about one terabyte of data, the other sorts approximately one terabyte of data. The former shows the progress of the grep program in the aspect of data transfer rate. The latter shows how disabling backup tasks can slow down the execution comparing to the normal execution and demonstrated the strengths of machine failures handling. The differences between MapReduce and other existing methods are mostly discussed in terms of principles. In general, MapReduce is simpler (programmer-friendly), more fault-tolerant, extendable than other parallel processing systems. </p>
-<p>6 - Opinion<br>In the Performance section, the measurements of two implementations (search and sort) only focus on the strengths of MapReduce model and weaknesses are barely discussed. Also, it would be better if there were some comparisons with similar parallelization methods towards the same tasks. One of the most convictive parts to me is the Experience section, stating the progresses and enhancements of MapReduce and its wide-ranging applications within Google, especially the large-scale indexing system.</p>
-<p>Source:<br>[1] Dean, J. and Ghemawat, S., 2008. MapReduce: simplified data processing on large clusters. Communications of the ACM, 51(1), pp.107-113.</p>
-<hr>
-<p>Key Points:</p>
-<ol>
-<li>MapReduce is a programming model for processing and generating large datasets.</li>
-<li>Input -&gt; splitting - -(k/v pairs)- -&gt; <strong>Mapping</strong>  - -(k/v pairs)- -&gt; shuffling -&gt; <strong>Reducing</strong> -&gt; Output</li>
-<li>Three states for tasks: idle, in-progress, complete; kept by master along with identity of workers.</li>
-<li>Everything <em>in-progress</em> on failed workers and <em>completed mapping tasks</em>  are reset and will be rescheduled; while completed <em>reducing tasks</em> do <em>not</em> need to, since of output is already stored in a global file system. </li>
-<li>Pros: <ul>
-<li>simple and powerful interface, hide details of parallelisation and distribution</li>
-<li>high fault tolerance, the master handles worker failures by re-assigning jobs</li>
-<li>highly scalable, can be implemented on large cluster</li>
+<p>2 - Problem<br>More large-scale graphs are being produced and processed for decades. Custom distributed platform demands considerable efforts to implement and not flexible enough to fit new algorithm or graph representation. Frequently used distributed computing infrastructures are often not suitable for graph processing and can lead to suboptimal performance and usability issues. Single-computer graph algorithm libraries compromise the scalability of problems. There are indeed some existing parallel graph process approaches, but they do not address fault tolerance or other critical issues for distributed systems. None of the options ideally fit the comprehensive purposes of large-scale graph processing, being flexible, scalable, fault-tolerant and efficient. </p>
+<p>3 - Solution<br>To address the problems mentioned above, Google presents a vertex-centric system called Pregel.<br>The computational model takes an initialised graph with unique vertex identifiers as input, and a sequence of iterations (a.k.a. supersteps) will then be carried out, in each of which the user-defined functions are invoked in parallel onto vertices, expressing the given algorithm. The vertex-centric philosophy makes sure that the mechanisms for detecting execution order within each iteration are hidden and communications are simply presented as from one iteration to the next. In one iteration, a vertex can receive messages sent from the previous iteration, propagate messages to other vertices along outgoing edges that will be received at the subsequent iteration, modify the states of its own and outgoing edges and mutate graph topology. The supersteps are organised by global synchronization points, and the synchronicity guarantees that the programs intrinsically avoid deadlocks and data races hence have competitive performances compared to asynchronous systems.<br>Many real-world applications, for example, Page Rank, Shortest Paths, etc., have been deployed and more are being devised under Pregel.</p>
+<p>4 - Novelty<br>The paper proposed a new solution for large-scale graph processing.<br>Compared to Sawzall, Pig Latin, and Dryad, it hides distribution details and provides a natural API.<br>Compared to MapReduce and other dataflow-based model, the stateful-vertex-focused philosophy make the model more efficient for iterative computation. The idea of synchronous superstep model is actually from Bulk Synchronous Parallel Model. There are also many other models using BSP implementations, but they are not graph-specific, and their scalability and fault tolerance have been assessed on large clusters.<br>Compared to similar model like Parallel Boost Graph Library, Pregel are more fault tolerant due to explicit messaging mechanism.</p>
+<p>5 - Evaluation<br>Pregel are implemented on a cluster of 300 commodity machines and evaluated by a range of experiments on SSSP implementation in terms of runtime.<br>The results show that Pregel is efficient at processing very large graphs with billions of vertices and hundreds of billions of edges on huge cluster.<br>The evaluation is not quite telling or comprehensive, because of some flaws stated below</p>
+<ul>
+<li>Checkpointing was disabled in the experiments, and the fault tolerance had not been verified.</li>
+<li>Lack of comparisons to other distributed graph processing models, similar or different.</li>
+<li>Only the application to SSSP was evaluated, lack of evaluations based on many common graph algorithms.</li>
 </ul>
-</li>
-<li>Cons: <ul>
-<li>limited for <em>iterative</em> algorithms and <em>interactive</em> data queries due to high disk I/O and replication</li>
-<li>can be low-efficient, due to stragglers (slow machines)</li>
-<li>doesn’t support high level lang i.e. SQL</li>
-</ul>
-</li>
-<li>Hadoop: MapReduce is a submodule of Hadoop eco-system, a programming model allows to processing large dataset in HDFS; can also run on GFS and other distributed file systems though.</li>
-</ol>
+<p>6 - Opinion<br>A cliché about centralized system is that it can be tricky if the master failed, and this has not been discussed in the paper.<br>And as they concluded, there are still some aspects to be improved. For example, the barrier synchronization can be inefficient in cases that some faster workers need to wait for the slower; there is no particular partitioning mechanisms or models coping with a variety of graph topologies in order to balance the loads among workers.<br>Overall, Pregel is a significant and influential framework in the field of graph processing and also a great infrastructure of distributed computing.</p>
+<h5 id="Key-Points"><a href="#Key-Points" class="headerlink" title="Key Points:"></a>Key Points:</h5><p>1.</p>
 
     
     </div>
     
     <div class="columns is-variable is-1 is-multiline is-mobile">
     
-        <span class="column is-narrow"><a class="tag is-light article-tag" href="/zh-cn/tags/paper/">#paper</a></span>
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/Pregel/">#Pregel</a></span>
     
-        <span class="column is-narrow"><a class="tag is-light article-tag" href="/zh-cn/tags/university/">#university</a></span>
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/distributed/">#distributed</a></span>
     
-        <span class="column is-narrow"><a class="tag is-light article-tag" href="/zh-cn/tags/exam/">#exam</a></span>
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/paper/">#paper</a></span>
     
-        <span class="column is-narrow"><a class="tag is-light article-tag" href="/zh-cn/tags/MapReduce/">#MapReduce</a></span>
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/university/">#university</a></span>
     
-        <span class="column is-narrow"><a class="tag is-light article-tag" href="/zh-cn/tags/Google/">#Google</a></span>
-    
-        <span class="column is-narrow"><a class="tag is-light article-tag" href="/zh-cn/tags/Hadoop/">#Hadoop</a></span>
-    
-        <span class="column is-narrow"><a class="tag is-light article-tag" href="/zh-cn/tags/cluster/">#cluster</a></span>
-    
-        <span class="column is-narrow"><a class="tag is-light article-tag" href="/zh-cn/tags/Big-Data/">#Big Data</a></span>
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/exam/">#exam</a></span>
     
     </div>
     
     
     <div class="columns is-mobile is-multiline article-nav">
-        <span class="column is-12-mobile is-half-desktop  article-nav-prev">
-            
-            <a href="/zh-cn/CS5052-2-RDD/">Paper Review - Resilient Distributed Datasets (2012)</a>
+        <span class="column is-12-mobile is-half-desktop is-hidden-mobile article-nav-prev">
             
         </span>
         <span class="column is-12-mobile is-half-desktop  article-nav-next">
             
-            <a href="/zh-cn/CS5052-revision/">CS5052 Data-Intensive Systems - Revision Note</a>
+            <a href="/CS5052-8-Mesos/">Paper Review - Mesos (2013)</a>
             
         </span>
     </div>
@@ -251,7 +230,7 @@
 
 
 <div class="comments">
-    <h3 class="title is-4">评论</h3>
+    <h3 class="title is-4">Comments</h3>
     
 <div id="valine-thread"></div>
 <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
@@ -264,10 +243,10 @@
         notify: false,
         verify: false,
         avatar: 'retro',
-        placeholder: '说点儿什么吧～  ^ ^',
+        placeholder: 'Say something~!  ^3^',
         meta: ['nick', 'mail'],
         visitor: true,
-        lang: 'zh-cn'
+        lang: 'en'
     })
 </script>
 
@@ -328,7 +307,7 @@
                 <span class="icon">
                     <i class="fas fa-globe"></i>
                 </span>
-                <span>简体中文</span>
+                <span>English</span>
                 <span class="icon is-small">
             <i class="fas fa-angle-down" aria-hidden="true"></i>
           </span>
@@ -337,11 +316,11 @@
         <div class="dropdown-menu has-text-left" role="menu">
             <div class="dropdown-content">
             
-                <a href="/CS5052-1-MapReduce/" class="dropdown-item">
+                <a href="/CS5052-6-Pregel/" class="dropdown-item">
                     English
                 </a>
             
-                <a href="/zh-cn/CS5052-1-MapReduce/" class="dropdown-item">
+                <a href="/zh-cn/CS5052-6-Pregel/" class="dropdown-item">
                     简体中文
                 </a>
             
@@ -378,7 +357,7 @@
     window.FontAwesomeConfig = {
         searchPseudoElements: true
     }
-    moment.locale("zh-CN");
+    moment.locale("en-AU");
 </script>
 
 
@@ -494,7 +473,7 @@
     <div class="searchbox-mask"></div>
     <div class="searchbox-container ins-search-container">
         <div class="searchbox-input-wrapper">
-            <input type="text" class="searchbox-input ins-search-input" placeholder="站内搜索">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
             <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
         </div>
         <div class="searchbox-result-wrapper ins-section-wrapper">
@@ -506,13 +485,13 @@
     (function (window) {
         var INSIGHT_CONFIG = {
             TRANSLATION: {
-                POSTS: '文章',
-                PAGES: '页面',
-                CATEGORIES: '分类',
-                TAGS: '标签',
-                UNTITLED: '(无标题)',
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
             },
-            CONTENT_URL: '/content.zh-cn.json',
+            CONTENT_URL: '/content.json',
         };
         window.INSIGHT_CONFIG = INSIGHT_CONFIG;
     })(window);
