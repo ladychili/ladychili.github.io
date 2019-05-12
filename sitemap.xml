@@ -2,9 +2,107 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://ladychili.top/zh-cn/test-video/</loc>
+    
+    <lastmod>2019-05-12T15:58:28.419Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://ladychili.top/test-video/</loc>
+    
+    <lastmod>2019-05-12T15:57:08.345Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://ladychili.top/zh-cn/test-music/</loc>
+    
+    <lastmod>2019-05-12T15:56:36.386Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://ladychili.top/test-music/</loc>
+    
+    <lastmod>2019-05-12T15:56:00.594Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://ladychili.top/zh-cn/SHELL_grep_sed_awk/</loc>
+    
+    <lastmod>2019-05-12T15:54:50.684Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://ladychili.top/SHELL_grep_sed_awk/</loc>
+    
+    <lastmod>2019-05-12T15:54:42.524Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://ladychili.top/zh-cn/MT5761-revision/</loc>
+    
+    <lastmod>2019-05-12T15:50:27.948Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://ladychili.top/zh-cn/MT4113-revision/</loc>
+    
+    <lastmod>2019-05-12T15:50:17.228Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://ladychili.top/zh-cn/CS5052-1-MapReduce/</loc>
+    
+    <lastmod>2019-05-12T15:48:58.164Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://ladychili.top/zh-cn/CS5052-2-RDD/</loc>
+    
+    <lastmod>2019-05-12T15:48:49.314Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://ladychili.top/zh-cn/CS5052-6-Pregel/</loc>
+    
+    <lastmod>2019-05-12T15:48:39.428Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://ladychili.top/zh-cn/CS5052-8-Mesos/</loc>
+    
+    <lastmod>2019-05-12T15:48:34.760Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://ladychili.top/CS5052-6-Pregel/</loc>
     
-    <lastmod>2019-05-09T20:15:59.062Z</lastmod>
+    <lastmod>2019-05-12T15:47:32.836Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://ladychili.top/CS5052-2-RDD/</loc>
+    
+    <lastmod>2019-05-12T15:42:34.235Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://ladychili.top/CS5052-1-MapReduce/</loc>
+    
+    <lastmod>2019-05-12T15:42:28.109Z</lastmod>
     
   </url>
   
@@ -12,34 +110,6 @@
     <loc>https://ladychili.top/CS5052-8-Mesos/</loc>
     
     <lastmod>2019-05-09T15:53:15.018Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://ladychili.top/CS5052-3-GFS/</loc>
-    
-    <lastmod>2019-05-07T16:36:37.273Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://ladychili.top/SHELL_grep_sed_awk/</loc>
-    
-    <lastmod>2019-05-07T15:58:14.727Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://ladychili.top/test-music/</loc>
-    
-    <lastmod>2019-05-07T15:58:04.396Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://ladychili.top/CS5052-2-RDD/</loc>
-    
-    <lastmod>2019-05-07T15:57:21.362Z</lastmod>
     
   </url>
   
@@ -54,20 +124,6 @@
     <loc>https://ladychili.top/zh-cn/CS5052-revision/</loc>
     
     <lastmod>2019-05-07T15:50:08.759Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://ladychili.top/zh-cn/CS5052-1-MapReduce/</loc>
-    
-    <lastmod>2019-05-07T15:13:22.708Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://ladychili.top/zh-cn/CS5052-2-RDD/</loc>
-    
-    <lastmod>2019-05-07T15:13:01.652Z</lastmod>
     
   </url>
   
@@ -100,41 +156,6 @@
   </url>
   
   <url>
-    <loc>https://ladychili.top/CS5052-1-MapReduce/</loc>
-    
-    <lastmod>2019-05-05T16:07:11.438Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://ladychili.top/zh-cn/SHELL_grep_sed_awk/</loc>
-    
-    <lastmod>2019-05-05T16:07:08.043Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://ladychili.top/zh-cn/test-music/</loc>
-    
-    <lastmod>2019-05-05T16:07:07.106Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://ladychili.top/test-video/</loc>
-    
-    <lastmod>2019-05-01T18:35:56.957Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://ladychili.top/zh-cn/test-video/</loc>
-    
-    <lastmod>2019-05-01T18:35:56.957Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://ladychili.top/MT5761-revision/</loc>
     
     <lastmod>2019-05-01T15:27:14.085Z</lastmod>
@@ -142,21 +163,7 @@
   </url>
   
   <url>
-    <loc>https://ladychili.top/zh-cn/MT5761-revision/</loc>
-    
-    <lastmod>2019-05-01T15:27:14.085Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://ladychili.top/MT4113-revision/</loc>
-    
-    <lastmod>2019-05-01T15:23:18.104Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://ladychili.top/zh-cn/MT4113-revision/</loc>
     
     <lastmod>2019-05-01T15:23:18.104Z</lastmod>
     
