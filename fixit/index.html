@@ -27,7 +27,7 @@
 <meta property="og:description" content="遇到的一些issues和解决办法。">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://ladychili.top/fixit/1.JavaPopup.png">
-<meta property="og:updated_time" content="2019-05-29T21:54:33.883Z">
+<meta property="og:updated_time" content="2019-05-29T22:01:47.157Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Get Issues Fixed!">
 <meta name="twitter:description" content="遇到的一些issues和解决办法。">
@@ -152,6 +152,12 @@
                     
                     <a class="navbar-item" href="#RStudio下无法安装某些包依赖（gfortran报错）">5&nbsp;&nbsp;<b>RStudio下无法安装某些包依赖（gfortran报错）</b></a>
                     
+                    
+                    <hr class="navbar-divider">
+                    
+                    
+                    <a class="navbar-item" href="#RStudio下无法Knit成pdf（TeX报错）">6&nbsp;&nbsp;<b>RStudio下无法Knit成pdf（TeX报错）</b></a>
+                    
                 </div>
             </div>
             
@@ -189,7 +195,7 @@
         <span class="column is-narrow">
             
             
-            4 minutes read (About 537 words)
+            4 minutes read (About 590 words)
         </span>
         
     </div>
@@ -243,6 +249,13 @@
 </blockquote>
 <p><strong>Solution</strong>:<br>用homebrew直接装gcc</p>
 <figure class="highlight sh hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">brew uninstall gfortran</span><br><span class="line">brew install gcc</span><br></pre></td></tr></table></figure>
+<hr>
+<h4 id="RStudio下无法Knit成pdf（TeX报错）"><a href="#RStudio下无法Knit成pdf（TeX报错）" class="headerlink" title="RStudio下无法Knit成pdf（TeX报错）"></a>RStudio下无法Knit成pdf（TeX报错）</h4><p>报错内容</p>
+<blockquote>
+<p>No TeX installation detected (TeX is required to create PDF output). You should install a recommended TeX distribution for your platform:<br>  …</p>
+</blockquote>
+<p><strong>Solution</strong>:<br>用homebrew装mactex，然后重启RStudio</p>
+<figure class="highlight sh hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew cask install mactex</span><br></pre></td></tr></table></figure>
 <hr>
 <p>TBA</p>
 
