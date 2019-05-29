@@ -27,7 +27,7 @@
 <meta property="og:description" content="遇到的一些issues和解决办法。">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://ladychili.top/fixit/1.JavaPopup.png">
-<meta property="og:updated_time" content="2019-05-29T20:29:11.381Z">
+<meta property="og:updated_time" content="2019-05-29T21:54:33.883Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Get Issues Fixed!">
 <meta name="twitter:description" content="遇到的一些issues和解决办法。">
@@ -128,6 +128,30 @@
                     
                     <a class="navbar-item" href="#Mac不停弹出Java-Command-line-Tool窗口">1&nbsp;&nbsp;<b>Mac不停弹出Java Command-line Tool窗口</b></a>
                     
+                    
+                    <hr class="navbar-divider">
+                    
+                    
+                    <a class="navbar-item" href="#Matlab命令行JavaScript报错">2&nbsp;&nbsp;<b>Matlab命令行JavaScript报错</b></a>
+                    
+                    
+                    <hr class="navbar-divider">
+                    
+                    
+                    <a class="navbar-item" href="#RStudio下无法Knit-pandoc报错">3&nbsp;&nbsp;<b>RStudio下无法Knit (pandoc报错)</b></a>
+                    
+                    
+                    <hr class="navbar-divider">
+                    
+                    
+                    <a class="navbar-item" href="#RStudio下无法安装某些package">4&nbsp;&nbsp;<b>RStudio下无法安装某些package</b></a>
+                    
+                    
+                    <hr class="navbar-divider">
+                    
+                    
+                    <a class="navbar-item" href="#RStudio下无法安装某些包依赖（gfortran报错）">5&nbsp;&nbsp;<b>RStudio下无法安装某些包依赖（gfortran报错）</b></a>
+                    
                 </div>
             </div>
             
@@ -165,7 +189,7 @@
         <span class="column is-narrow">
             
             
-            a few seconds read (About 100 words)
+            4 minutes read (About 537 words)
         </span>
         
     </div>
@@ -179,6 +203,48 @@
 <p><img src="1.JavaPopup.png" width="450px"></p>
 <p><strong>Solution</strong>:<br>R 需要 Java，而Yosemite 10.10以后不再自带JDK（Java Developer Kit），故安装 <a href="https://support.apple.com/kb/dl1572?locale=en_GB" target="_blank" rel="noopener">Java for OS X 2017-001</a> 即可。</p>
 <hr>
+<h4 id="Matlab命令行JavaScript报错"><a href="#Matlab命令行JavaScript报错" class="headerlink" title="Matlab命令行JavaScript报错"></a>Matlab命令行JavaScript报错</h4><p>光标一切到命令行就报错JavaScript，可能是词典的取词、窗口管理工具、输入法造成的。</p>
+<p><strong>Solution</strong>:<br>亲测以下有效。</p>
+<ul>
+<li>关闭Eudic取词 </li>
+<li>关闭MOON </li>
+<li>切换到英文输入法</li>
+</ul>
+<hr>
+<h4 id="RStudio下无法Knit-pandoc报错"><a href="#RStudio下无法Knit-pandoc报错" class="headerlink" title="RStudio下无法Knit (pandoc报错)"></a>RStudio下无法Knit (pandoc报错)</h4><p>从Anaconda里安装RStudio的后遗症之一。</p>
+<p>报错内容</p>
+<blockquote>
+<p>Error: pandoc version 1.12.3 or higher is required and was not found (see the help page ?rmarkdown::pandoc_available).</p>
+</blockquote>
+<p><strong>Solution</strong>:</p>
+<ol>
+<li><p>在<em>R console</em>里运行</p>
+ <figure class="highlight r hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Sys.getenv(<span class="hljs-string">"RSTUDIO_PANDOC"</span>)    <span class="hljs-comment"># 获取pandoc位置</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>把找到的pandoc位置设置为<code>RSTUDIO_PANDOC</code>环境变量</p>
+ <figure class="highlight r hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Sys.setenv(RSTUDIO_PANDOC=<span class="hljs-string">"/Users/cathy/anaconda2/envs/py3/bin"</span>)</span><br></pre></td></tr></table></figure>
+<p> ⚠️注意：这里赋的值是pandoc所在的目录 <code>.../py3/bin</code>，而不是pandoc本身<code>.../py3/bin/pandoc</code></p>
+</li>
+</ol>
+<ol start="3">
+<li><p>使RStudio每次启动前都运行这条命令</p>
+ <figure class="highlight r hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">file.edit(file.path(<span class="hljs-string">"~"</span>, <span class="hljs-string">".Rprofile"</span>)) <span class="hljs-comment"># edit .Rprofile in HOME</span></span><br><span class="line">file.edit(<span class="hljs-string">".Rprofile"</span>) <span class="hljs-comment"># edit project specific .Rprofile</span></span><br></pre></td></tr></table></figure>
+<p> 把它写进家目录<em>或</em>project目录的 <code>.Rprofile</code> 文件里，以上两条命令选其一即可。</p>
+</li>
+</ol>
+<hr>
+<h4 id="RStudio下无法安装某些package"><a href="#RStudio下无法安装某些package" class="headerlink" title="RStudio下无法安装某些package"></a>RStudio下无法安装某些package</h4><p>具体报错内容忘记了……总之用Anaconda带的RStudio期间<code>install.packages()</code>函数就和废的一样，各种装不上包。此时可以尝试直接用conda命令来安装，常见的r包都有。虽然conda安装巨慢无比（每次都要停在 “solving environment” 好几分钟），总比根本装不上要好 XD</p>
+<p><strong>Solution</strong>:<br>以caret包为例，以下三个channel里都有，其中conda-forge里的版本最新。</p>
+<figure class="highlight sh hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">conda install r-caret</span><br><span class="line">conda install -c conda-forge r-caret</span><br><span class="line">conda install -c r r-caret</span><br></pre></td></tr></table></figure>
+<hr>
+<h4 id="RStudio下无法安装某些包依赖（gfortran报错）"><a href="#RStudio下无法安装某些包依赖（gfortran报错）" class="headerlink" title="RStudio下无法安装某些包依赖（gfortran报错）"></a>RStudio下无法安装某些包依赖（gfortran报错）</h4><p>报错内容</p>
+<blockquote>
+<p>make: gfortran: No such file or directory</p>
+</blockquote>
+<p><strong>Solution</strong>:<br>用homebrew直接装gcc</p>
+<figure class="highlight sh hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">brew uninstall gfortran</span><br><span class="line">brew install gcc</span><br></pre></td></tr></table></figure>
+<hr>
+<p>TBA</p>
 
     
     </div>
