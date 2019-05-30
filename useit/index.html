@@ -27,7 +27,7 @@
 <meta property="og:description" content="日常积累的提升效率小tips。">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://ladychili.top/useit/2.1relaunch.png">
-<meta property="og:updated_time" content="2019-05-29T21:54:39.327Z">
+<meta property="og:updated_time" content="2019-05-30T22:05:24.349Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Daily Tips!">
 <meta name="twitter:description" content="日常积累的提升效率小tips。">
@@ -134,6 +134,18 @@
                     
                     <a class="navbar-item" href="#在-Finder-显示-隐藏以“-”开头的隐形文件（夹）">2&nbsp;&nbsp;<b>在 Finder 显示/隐藏以“.”开头的隐形文件（夹）</b></a>
                     
+                    
+                    <hr class="navbar-divider">
+                    
+                    
+                    <a class="navbar-item" href="#SSH安全免密连接服务器">3&nbsp;&nbsp;<b>SSH安全免密连接服务器</b></a>
+                    
+                    
+                    <hr class="navbar-divider">
+                    
+                    
+                    <a class="navbar-item" href="#用SSH快速上传-下载文件到服务器">4&nbsp;&nbsp;<b>用SSH快速上传/下载文件到服务器</b></a>
+                    
                 </div>
             </div>
             
@@ -171,7 +183,7 @@
         <span class="column is-narrow">
             
             
-            a minute read (About 218 words)
+            5 minutes read (About 708 words)
         </span>
         
     </div>
@@ -181,8 +193,7 @@
 <a id="more"></a>
 <p><br></p>
 <hr>
-<h4 id="Mac-批量解锁文件（夹）"><a href="#Mac-批量解锁文件（夹）" class="headerlink" title="Mac 批量解锁文件（夹）"></a>Mac 批量解锁文件（夹）</h4><p>从学校服务器上下载的文件（夹）默认是锁定的（权限700），编辑前需要在每个文件的info里取消锁定。</p>
-<p><strong>Tip</strong>:<br>需解锁的文件较多时，在Finder图形化界面里操作比较费时，用命令行批量解锁当前路径下所有文件。</p>
+<h4 id="Mac-批量解锁文件（夹）"><a href="#Mac-批量解锁文件（夹）" class="headerlink" title="Mac 批量解锁文件（夹）"></a>Mac 批量解锁文件（夹）</h4><p>从学校服务器上下载的文件（夹）默认是锁定的（权限700），编辑前需要在每个文件的info里取消锁定。需解锁的文件较多时，在Finder图形化界面里操作比较费时，用命令行批量解锁当前路径下所有文件。</p>
 <figure class="highlight sh hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chflags nouchg *</span><br></pre></td></tr></table></figure>
 <hr>
 <h4 id="在-Finder-显示-隐藏以“-”开头的隐形文件（夹）"><a href="#在-Finder-显示-隐藏以“-”开头的隐形文件（夹）" class="headerlink" title="在 Finder 显示/隐藏以“.”开头的隐形文件（夹）"></a>在 Finder 显示/隐藏以“.”开头的隐形文件（夹）</h4><p><strong>方法a</strong>:</p>
@@ -195,6 +206,28 @@
 </li>
 </ol>
 <p><strong>方法b</strong>:<br>macOS 10.12版本以上的用户(Mojave, High Sierra, Sierra)，可以直接在Finder界面下用toggle快捷键 <code>cmd + shift + .</code> </p>
+<hr>
+<h4 id="SSH安全免密连接服务器"><a href="#SSH安全免密连接服务器" class="headerlink" title="SSH安全免密连接服务器"></a>SSH安全免密连接服务器</h4><ol>
+<li><p>在Localhost生成一对密钥</p>
+ <figure class="highlight sh hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen <span class="hljs-comment"># 生成密钥</span></span><br><span class="line"><span class="hljs-comment"># Enter file </span></span><br><span class="line"><span class="hljs-comment"># Enter passphrase</span></span><br><span class="line"><span class="hljs-comment"># Enter same passphrase again</span></span><br></pre></td></tr></table></figure>
+<p> 密钥生成命令依次触发的三个输入会话：输入用来储存密钥的文件、输入密码、再次输入密码。可连按三次回车使用默认的配置：<code>~/.ssh/id_rsa</code>，无密码。想要免密这里就不要设置密码了。</p>
+</li>
+<li><p>把公钥导出到Server</p>
+ <figure class="highlight sh hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-copy-id -i ~/.ssh/id_rsa.pub user@server</span><br></pre></td></tr></table></figure>
+<p> 一对密钥(key pair)包含同名的两个文件：有<code>.pub</code>后缀的公钥(public key)和无后缀私钥(private key)。用以下命令把公钥添加到服务器的authorized_keys里。这一步需要输入服务器用户密码。</p>
+</li>
+<li><p>免密登录Server</p>
+ <figure class="highlight sh hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -i ~/.ssh/id_rsa user@server</span><br></pre></td></tr></table></figure>
+<p> 以后就可以用此命令安全且免密login服务器辣。<br> ⚠️此处<code>-i</code>选项后的参数指向的是private key。</p>
+</li>
+<li><p>设置alias(非必要)<br> 如果嫌登录命令略长，可以为它设置一个别名。</p>
+ <figure class="highlight sh hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">#设置别名</span></span><br><span class="line"><span class="hljs-built_in">alias</span> gogogo=<span class="hljs-string">'ssh -i ~/.ssh/id_rsa user@server'</span></span><br><span class="line"><span class="hljs-comment">#取消别名</span></span><br><span class="line"><span class="hljs-built_in">unalias</span> gogogo</span><br></pre></td></tr></table></figure>
+<p> ⚠️此别名只在当前生效，重启就没了。把设置别名的命令放在shell配置文件里可以让它长久有效。<br> 💡给频繁使用的命令设置alias可以提生效率，比如<code>gs=git status</code>，<code>ga=git add .</code> </p>
+</li>
+</ol>
+<hr>
+<h4 id="用SSH快速上传-下载文件到服务器"><a href="#用SSH快速上传-下载文件到服务器" class="headerlink" title="用SSH快速上传/下载文件到服务器"></a>用SSH快速上传/下载文件到服务器</h4><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 复制服务器的文件到本地(类似下载)</span><br><span class="line">scp -r user@server:/absolute/path/to/file /local/path</span><br><span class="line"># 复制本地文件到服务器(类似上传)</span><br><span class="line">scp -r /local/path/file user@server:/absolute/path/</span><br></pre></td></tr></table></figure>
+<p>SSH自带命令scp(secure copy)无缝连接local host和remote host，就像在本地复制文件一样。<br><code>-r</code> recursive<br><code>-i</code> identity file, 用来指定与服务器匹配的private key否则每次复制都要输密码。</p>
 <hr>
 <p>TBA</p>
 
