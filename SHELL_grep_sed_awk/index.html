@@ -19,7 +19,7 @@
 
 
     <meta name="description" content="1. Regular Expression 正则表达式正则表达式常简称为regex。一个regular expression常被成为一种pattern（模式、模板？），用来描述和匹配一系列符合某种规则的字符串。以下是一些基本用法。">
-<meta name="keywords" content="command-line,Linux,RegEx,tutorial">
+<meta name="keywords" content="Linux,command-line,RegEx,tutorial">
 <meta property="og:type" content="article">
 <meta property="og:title" content="正则表达式与grep, sed, awk的基本用法">
 <meta property="og:url" content="https://ladychili.top/SHELL_grep_sed_awk/index.html">
@@ -451,7 +451,7 @@
 <li><code>[^]</code>当^在中括号里时，表示排除</li>
 </ol>
 </blockquote>
-<h3 id="2-3-Example"><a href="#2-3-Example" class="headerlink" title="2.3 Example"></a>2.3 Example</h3><figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">$</span> grep '[[:lower:]]' file1			#匹配含有'a-z'的行。  双重中括号。</span><br><span class="line"><span class="hljs-meta">$</span> grep '[^sci]' file2				#排除s、c、i三个字符，而非‘sci’字符串。</span><br><span class="line"><span class="hljs-meta">$</span> grep -E '^(w|h)' file3			#匹配以'w'或'h'开头的行。使用'|'需加上'-E'选项。</span><br><span class="line"><span class="hljs-meta">$</span> grep -E 'w&#123;3&#125;' file3				#匹配含有'www'的行。  使用quantifier需加上'-E'选项。</span><br></pre></td></tr></table></figure>
+<h3 id="2-3-Example"><a href="#2-3-Example" class="headerlink" title="2.3 Example"></a>2.3 Example</h3><figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">$</span><span class="hljs-bash"> grep <span class="hljs-string">'[[:lower:]]'</span> file1			<span class="hljs-comment">#匹配含有'a-z'的行。  双重中括号。</span></span></span><br><span class="line"><span class="hljs-meta">$</span><span class="hljs-bash"> grep <span class="hljs-string">'[^sci]'</span> file2				<span class="hljs-comment">#排除s、c、i三个字符，而非‘sci’字符串。</span></span></span><br><span class="line"><span class="hljs-meta">$</span><span class="hljs-bash"> grep -E <span class="hljs-string">'^(w|h)'</span> file3			<span class="hljs-comment">#匹配以'w'或'h'开头的行。使用'|'需加上'-E'选项。</span></span></span><br><span class="line"><span class="hljs-meta">$</span><span class="hljs-bash"> grep -E <span class="hljs-string">'w&#123;3&#125;'</span> file3				<span class="hljs-comment">#匹配含有'www'的行。  使用quantifier需加上'-E'选项。</span></span></span><br></pre></td></tr></table></figure>
 <hr>
 <h2 id="3-sed-Stream-editor"><a href="#3-sed-Stream-editor" class="headerlink" title="3. sed(Stream editor)"></a>3. sed(Stream editor)</h2><p>sed是一个非交互式（non-interactive）命令行文本编辑器，用于过滤、转换文本，配合script和正则表达式来同时处理一个或多个文本文件。</p>
 <h3 id="3-1-Syntax"><a href="#3-1-Syntax" class="headerlink" title="3.1 Syntax"></a>3.1 Syntax</h3><p><code>sed [ opt ]... {script} [ file/stdin ]...</code></p>
@@ -508,7 +508,7 @@
 <li><p><strong>X[opts]</strong><br> <code>p</code> print 打印 通常配合<code>-n</code>开启安静模式<br> <code>d</code> delete 删除<br> <code>s</code> substitute 代替（pattern字符串）<br> <code>a</code> append 向后添加<br> <code>i</code> insert 向前插入<br> <code>c</code> change 更换（整行）<br> 其中<code>s/regex/text/[flag]</code>，[flag]可以是g（替换行内全部匹配），数字n（替换行内第n个匹配），p替换成功后打印。<br> 其中<em>a, i, c</em>命令可加backslash“\”换行后再写text。</p>
 </li>
 </ol>
-<h3 id="3-4-Example"><a href="#3-4-Example" class="headerlink" title="3.4 Example"></a>3.4 Example</h3><figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">#</span>delete以“foo”开头的行，替换所有行的第3个“hello”为“world”</span><br><span class="line"><span class="hljs-meta">$</span> sed ’/^foo/d ; s/hello/world/3’ input.txt &gt; output.txt </span><br><span class="line"></span><br><span class="line"><span class="hljs-meta">#</span>替换所有不含“apple”的行为“hello there”</span><br><span class="line"><span class="hljs-meta">$</span> sed ’/apple/!c\</span><br><span class="line">hello there’ input.txt &gt; output.txt</span><br></pre></td></tr></table></figure>
+<h3 id="3-4-Example"><a href="#3-4-Example" class="headerlink" title="3.4 Example"></a>3.4 Example</h3><figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">#</span><span class="hljs-bash">delete以“foo”开头的行，替换所有行的第3个“hello”为“world”</span></span><br><span class="line"><span class="hljs-meta">$</span><span class="hljs-bash"> sed ’/^foo/d ; s/hello/world/3’ input.txt &gt; output.txt </span></span><br><span class="line"></span><br><span class="line"><span class="hljs-meta">#</span><span class="hljs-bash">替换所有不含“apple”的行为“hello there”</span></span><br><span class="line"><span class="hljs-meta">$</span><span class="hljs-bash"> sed ’/apple/!c\</span></span><br><span class="line">hello there’ input.txt &gt; output.txt</span><br></pre></td></tr></table></figure>
 <hr>
 <h2 id="4-awk文本处理语言"><a href="#4-awk文本处理语言" class="headerlink" title="4. awk文本处理语言"></a>4. awk文本处理语言</h2><h3 id="4-1-工作原理"><a href="#4-1-工作原理" class="headerlink" title="4.1 工作原理"></a>4.1 工作原理</h3><p>按行(record)读取，按空格（FS）进行切片(field)，将每片保存在内建变量中，$1,$2,$3….。$0表示全部。<br>可以对单个片断进行判断，也可以对所有断进行循环判断。</p>
 <h3 id="4-2-Syntax"><a href="#4-2-Syntax" class="headerlink" title="4.2 Syntax"></a>4.2 Syntax</h3><p><code>awk [ -F fs ] [ -v var=value ] [ &#39;script&#39; | -f scriptfile ] [ file ...  ]</code></p>
@@ -570,9 +570,9 @@
     
     <div class="columns is-variable is-1 is-multiline is-mobile">
     
-        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/command-line/">#command-line</a></span>
-    
         <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/Linux/">#Linux</a></span>
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/command-line/">#command-line</a></span>
     
         <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/RegEx/">#RegEx</a></span>
     
