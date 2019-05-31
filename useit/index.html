@@ -27,7 +27,7 @@
 <meta property="og:description" content="日常积累的提升效率小tips。">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://ladychili.top/useit/2.1relaunch.png">
-<meta property="og:updated_time" content="2019-05-30T22:05:24.349Z">
+<meta property="og:updated_time" content="2019-05-31T19:29:40.907Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Daily Tips!">
 <meta name="twitter:description" content="日常积累的提升效率小tips。">
@@ -146,6 +146,12 @@
                     
                     <a class="navbar-item" href="#用SSH快速上传-下载文件到服务器">4&nbsp;&nbsp;<b>用SSH快速上传/下载文件到服务器</b></a>
                     
+                    
+                    <hr class="navbar-divider">
+                    
+                    
+                    <a class="navbar-item" href="#极简Chrome页面">5&nbsp;&nbsp;<b>极简Chrome页面</b></a>
+                    
                 </div>
             </div>
             
@@ -183,7 +189,7 @@
         <span class="column is-narrow">
             
             
-            5 minutes read (About 708 words)
+            5 minutes read (About 758 words)
         </span>
         
     </div>
@@ -221,15 +227,15 @@
 <p> 以后就可以用此命令安全且免密login服务器辣。<br> ⚠️此处<code>-i</code>选项后的参数指向的是private key。</p>
 </li>
 <li><p>设置alias(非必要)<br> 如果嫌登录命令略长，可以为它设置一个别名。</p>
- <figure class="highlight sh hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">#设置别名</span></span><br><span class="line"><span class="hljs-built_in">alias</span> gogogo=<span class="hljs-string">'ssh -i ~/.ssh/id_rsa user@server'</span></span><br><span class="line"><span class="hljs-comment">#取消别名</span></span><br><span class="line"><span class="hljs-built_in">unalias</span> gogogo</span><br></pre></td></tr></table></figure>
+ <figure class="highlight sh hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment"># 设置别名</span></span><br><span class="line"><span class="hljs-built_in">alias</span> gogogo=<span class="hljs-string">'ssh -i ~/.ssh/id_rsa user@server'</span></span><br><span class="line"><span class="hljs-comment"># 取消别名</span></span><br><span class="line"><span class="hljs-built_in">unalias</span> gogogo</span><br></pre></td></tr></table></figure>
 <p> ⚠️此别名只在当前生效，重启就没了。把设置别名的命令放在shell配置文件里可以让它长久有效。<br> 💡给频繁使用的命令设置alias可以提生效率，比如<code>gs=git status</code>，<code>ga=git add .</code> </p>
 </li>
 </ol>
 <hr>
-<h4 id="用SSH快速上传-下载文件到服务器"><a href="#用SSH快速上传-下载文件到服务器" class="headerlink" title="用SSH快速上传/下载文件到服务器"></a>用SSH快速上传/下载文件到服务器</h4><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 复制服务器的文件到本地(类似下载)</span><br><span class="line">scp -r user@server:/absolute/path/to/file /local/path</span><br><span class="line"># 复制本地文件到服务器(类似上传)</span><br><span class="line">scp -r /local/path/file user@server:/absolute/path/</span><br></pre></td></tr></table></figure>
+<h4 id="用SSH快速上传-下载文件到服务器"><a href="#用SSH快速上传-下载文件到服务器" class="headerlink" title="用SSH快速上传/下载文件到服务器"></a>用SSH快速上传/下载文件到服务器</h4><figure class="highlight sh hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment"># 复制服务器的文件到本地(类似下载)</span></span><br><span class="line">scp -r user@server:/absolute/path/to/file /<span class="hljs-built_in">local</span>/path</span><br><span class="line"><span class="hljs-comment"># 复制本地文件到服务器(类似上传)</span></span><br><span class="line">scp -r /<span class="hljs-built_in">local</span>/path/file user@server:/absolute/path/</span><br></pre></td></tr></table></figure>
 <p>SSH自带命令scp(secure copy)无缝连接local host和remote host，就像在本地复制文件一样。<br><code>-r</code> recursive<br><code>-i</code> identity file, 用来指定与服务器匹配的private key否则每次复制都要输密码。</p>
 <hr>
-<p>TBA</p>
+<h4 id="极简Chrome页面"><a href="#极简Chrome页面" class="headerlink" title="极简Chrome页面"></a>极简Chrome页面</h4><p>对于经常需要多窗口协同工作的开发者来说，一寸屏幕一寸金。有时候想要隐藏Chrome的地址栏和书签栏，</p>
 
     
     </div>
