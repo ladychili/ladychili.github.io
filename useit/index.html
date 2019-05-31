@@ -27,11 +27,11 @@
 <meta property="og:description" content="日常积累的提升效率小tips。">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://ladychili.top/useit/1.relaunch.png">
-<meta property="og:image" content="https://ladychili.top/useit/2.1.jpg">
-<meta property="og:image" content="https://ladychili.top/useit/2.2.jpg">
 <meta property="og:image" content="https://ladychili.top/useit/2.3.before.jpg">
 <meta property="og:image" content="https://ladychili.top/useit/2.4.after.jpg">
-<meta property="og:updated_time" content="2019-05-31T21:10:16.592Z">
+<meta property="og:image" content="https://ladychili.top/useit/2.1.jpg">
+<meta property="og:image" content="https://ladychili.top/useit/2.2.jpg">
+<meta property="og:updated_time" content="2019-05-31T21:34:31.367Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Daily Tips!">
 <meta name="twitter:description" content="日常积累的提升效率小tips。">
@@ -154,7 +154,7 @@
                     <hr class="navbar-divider">
                     
                     
-                    <a class="navbar-item" href="#极简Chrome页面">5&nbsp;&nbsp;<b>极简Chrome页面</b></a>
+                    <a class="navbar-item" href="#极简Chrome页面-隐藏地址栏">5&nbsp;&nbsp;<b>极简Chrome页面(隐藏地址栏)</b></a>
                     
                 </div>
             </div>
@@ -193,7 +193,7 @@
         <span class="column is-narrow">
             
             
-            8 minutes read (About 1137 words)
+            8 minutes read (About 1139 words)
         </span>
         
     </div>
@@ -215,7 +215,8 @@
 <p> 按住<code>Option</code>，同时<code>右击Finder图标</code>，选择<code>Relaunch</code>。</p>
 </li>
 </ol>
-<p><strong>方法b</strong>:<br>macOS 10.12版本以上的用户(Mojave, High Sierra, Sierra)，可以直接在Finder界面下用toggle快捷键 <code>cmd + shift + .</code> </p>
+<p><strong>方法b</strong>: </p>
+<p>直接在Finder界面下用toggle快捷键 <code>cmd + shift + .</code><br>⚠️此方法适用于macOS 10.12版本以上的用户(Mojave, High Sierra, Sierra)。</p>
 <hr>
 <h4 id="SSH安全免密连接服务器"><a href="#SSH安全免密连接服务器" class="headerlink" title="SSH安全免密连接服务器"></a>SSH安全免密连接服务器</h4><ol>
 <li><p>在Localhost生成一对密钥</p>
@@ -239,18 +240,20 @@
 <h4 id="用SSH快速上传-下载文件到服务器"><a href="#用SSH快速上传-下载文件到服务器" class="headerlink" title="用SSH快速上传/下载文件到服务器"></a>用SSH快速上传/下载文件到服务器</h4><figure class="highlight sh hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment"># 复制服务器的文件到本地(类似下载)</span></span><br><span class="line">scp -r user@server:/absolute/path/to/file /<span class="hljs-built_in">local</span>/path</span><br><span class="line"><span class="hljs-comment"># 复制本地文件到服务器(类似上传)</span></span><br><span class="line">scp -r /<span class="hljs-built_in">local</span>/path/file user@server:/absolute/path/</span><br></pre></td></tr></table></figure>
 <p>SSH自带命令scp(secure copy)无缝连接local host和remote host，就像在本地复制文件一样。<br><code>-r</code> recursive<br><code>-i</code> identity file, 用来指定与服务器匹配的private key否则每次复制都要输密码。</p>
 <hr>
-<h4 id="极简Chrome页面"><a href="#极简Chrome页面" class="headerlink" title="极简Chrome页面"></a>极简Chrome页面</h4><p>对于经常需要多窗口协同工作的开发者来说，一寸屏幕一寸金。比如对着网页学习的时候，经常需要一块屏幕掰成几瓣儿用，隐藏Chrome的地址栏（也被称作工具栏）和书签栏可以省下不小的空间。早年Chrome有一个叫 <em>Compact Navigation</em> 的测试功能隐藏在<code>about://flags</code>里，开启之后可以直接在任意标签页toggle地址栏。后来不知何故这个功能胎死腹中了- -，连测试版都给取消了。以下是几个“曲线救国”的办法。</p>
-<p><strong>方法a</strong>：<br>为页面创建shortcut。步骤如下。</p>
-<div class="justified-gallery"><br><img src="2.1.jpg" alt><br><img src="2.2.jpg" alt><br><img src="2.3.before.jpg" alt="before"><br><img src="2.4.after.jpg" alt="after"><br></div>
-
+<h4 id="极简Chrome页面-隐藏地址栏"><a href="#极简Chrome页面-隐藏地址栏" class="headerlink" title="极简Chrome页面(隐藏地址栏)"></a>极简Chrome页面(隐藏地址栏)</h4><p><div class="justified-gallery"><br><img src="2.3.before.jpg" alt="before"><br><img src="2.4.after.jpg" alt="after"><br></div><br>对于经常需要多窗口协同工作的开发者来说，一寸屏幕一寸金。比如对着网页学习的时候，经常需要一块屏幕掰成几瓣儿用，隐藏Chrome的地址栏（也被称作工具栏）和书签栏可以省下不小的空间。早年Chrome有一个叫 <em>Compact Navigation</em> 的测试功能隐藏在<code>about://flags</code>里，开启之后可以直接在任意标签页toggle地址栏。后来不知何故这个功能胎死腹中了- -，连测试版都给取消了。以下是几个“曲线救国”的办法。</p>
+<p><strong>方法a</strong>：</p>
+<p>为页面创建shortcut。步骤如下。</p>
 <ol>
-<li>右上角打开菜单<code>More Tools -&gt; Create Shortcut...</code></li>
-<li>勾选<code>Open as new window</code>，中文界面大概是“在新窗口打开”。</li>
-<li>确认后弹出极简页面。<br>⚠️创建了shortcut的网页将以web app的形式收藏在<code>Chrome://apps</code>里，右击图标可删除。</li>
+<li>右上角打开菜单<code>More Tools -&gt; Create Shortcut...</code><br>&emsp; &emsp; <img alt="step1" src="2.1.jpg" width="500px"></li>
+<li>勾选<code>Open as new window</code>，中文界面大概是“在新窗口打开”。<br>&emsp; &emsp; <img alt="step2" src="2.2.jpg" width="400px"></li>
+<li>确认后弹出极简页面。</li>
 </ol>
-<p><strong>方法b</strong>：<br>在终端以应用模式打开Chrome，三个系统的操作方法如下（把URL替换为你想要以极简窗口打开的网页地址）。<br><figure class="highlight sh hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment"># Mac</span></span><br><span class="line">/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --app=URL</span><br><span class="line"><span class="hljs-comment"># Linux</span></span><br><span class="line">google-chrome --app=URL</span><br><span class="line"><span class="hljs-comment"># Windows</span></span><br><span class="line">Chrome.exe --app=URL</span><br></pre></td></tr></table></figure></p>
-<p>其实是方法b本质和方法a是一样的，只是以命令行的形式实现并免去了图形界面的操作。</p>
-<p><strong>方法c</strong>：<br>简单暴力，直接<code>ctrl + cmd + F</code>进入全屏模式。虽然这样违背了多窗口协作的初衷，姑且也算一种方法吧。</p>
+<p>⚠️创建了shortcut的网页将以web app的形式收藏在<code>Chrome://apps</code>里，右击图标可删除。</p>
+<p><strong>方法b</strong>：</p>
+<p>在终端以应用模式打开Chrome，三个系统的操作方法如下（把URL替换为你想要以极简窗口打开的网页地址）。<br><figure class="highlight sh hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment"># Mac</span></span><br><span class="line">/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --app=URL</span><br><span class="line"><span class="hljs-comment"># Linux</span></span><br><span class="line">google-chrome --app=URL</span><br><span class="line"><span class="hljs-comment"># Windows</span></span><br><span class="line">Chrome.exe --app=URL</span><br></pre></td></tr></table></figure></p>
+<p>其实方法b本质和方法a是一样的，只是免去了图形界面的操作。</p>
+<p><strong>方法c</strong>：</p>
+<p>简单暴力，直接<code>ctrl + cmd + F</code>进入全屏模式。虽然这样违背了多窗口协作的初衷，姑且也算一种方法吧。</p>
 
     
     </div>
