@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en" class="tas-com">
+
+<head>
+    <meta charset="utf-8">
+    <title>Methane Emission Trends linked to Country Economic Growth </title>
+
+    <link href="./themes/tas_style.css" rel="stylesheet" />
+    <script type="text/javascript" src="./d3/d3.v4.js" charset="utf-8"></script>
+    <link href="https://fonts.googleapis.com/css?family=Arvo|Open+Sans|Raleway" rel="stylesheet">
+    <link href="./themes/myCss.css" rel="stylesheet" type="text/css" />
+
+	<!-- stylesheet required for leaflet-->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css"
+    integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="crossorigin=""/>
+
+    <!-- Leaflet library; make sure you put this AFTER Leaflet's CSS -->
+    <script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"
+    integrity="sha512-QVftwZFqvtRNi0ZyCtsznlKSWOStnDORoefr1enyq5mVL4tmKB3S/EnC3rRJcxCPavG10IcrVGSmPh6Qw5lwrg=="crossorigin=""></script>
+
+    <h1> Methane Emission Trends linked to Country Economic Growth </h1>
+    <h2> 
+        The economic growth with long term infrastructure investment leads a constant increase in methane emissions, while  
+        a weak infrastructure makes both the economic growth and emissions unstable year on year. 
+    </h2>
+</head>
+
+<body>
+
+    <div class="infovis">
+        <div class="left-part">
+            <!-- <font style="font-family: Raleway; font-size: 300; color: white"><i><b> Practical 3. 2018/19 CS5044 St Andrews Universtity.  </b></i></font> -->
+            <br>
+
+            <p>
+            </p>
+            <div>
+                <button type="submit" class="control_button" onclick=start();>Start Animation</button> &nbsp;
+                <button type="submit" class="control_button" onclick=stop();>Freeze Animation</button> &nbsp;
+                <button type="submit" class="control_button" onclick=reset();>Restart Animation</button>
+                <div class="slider">
+                    <input type="range" id="sliderBarYear" value="1970" min="1970" max="2013" oninput="sliderWorks(this.value)" style="width: 380px" ;>
+                </div>
+                <p>
+                </p>    
+            </div>
+            <!-- Bubble Chart Visualisation -->
+            <div id="CS5044" class="main">
+              <div class="colorCountry" style="display: table;">
+                  <div class="colorDis">
+                      <font style="font-family: Raleway; color: white"><i> &nbsp;&nbsp;&nbsp; Filter Income Groups &nbsp;&nbsp;&nbsp; → &nbsp;&nbsp;&nbsp;</i></font>
+                      &nbsp;&nbsp;&nbsp;
+                      <button type="submit" value="Low income" style="background-color:#EA3323; width: 25px; height: 25px; border-radius:50%" onclick="continent(value)" ;>
+                      </button> <font style="color: white"><b><i>Low Income</i></b></font> &nbsp;&nbsp;&nbsp;
+                      <button type="submit" value="Lower middle income" style="background-color:#F3AD3D; width: 25px; height: 25px; border-radius:50%" onclick="continent(value)" ;>
+                      </button> <font style="color: white"><b><i>Lower Middle Income </i></b></font> &nbsp;&nbsp;&nbsp;
+                      <button type="submit" value="Upper middle income" style="background-color:#4BA7F8; width: 25px; height: 25px; border-radius:50%" onclick="continent(value)" ;>
+                      </button> <font style="color: white"><b><i>Upper Middle Income </i></b></font> &nbsp;&nbsp;&nbsp;
+                      <button type="submit" value="High income" style="background-color:#1A00F5;width: 25px; height: 25px; border-radius:50%" onclick="continent(value)" ;>
+                      </button> <font style="color: white"><b><i>High Income</i></b></font>
+                  </div>
+              </div>
+
+                <script type="text/javascript">
+                //  tooltip inspiration from: http://bl.ocks.org/d3noob/a22c42db65eb00d4e369
+                var tooltip = d3.select("body")
+                    .append("div")
+                    .attr("class", "tooltip")
+                    .style("opacity", 0);
+
+                // margins and layout variables
+                var margin = { top: 10, right: 10, bottom: 50, left: 60 }
+                var outer_width = 900;
+                var outer_height = 600;
+                var svg_width = outer_width - margin.left - margin.right;
+                var svg_height = outer_height - margin.top - margin.bottom - 50;
+
+                // global variables
+                var dataset, display_year, min_year, max_year;
+                var incomeGroupSelect = '';
+                var time;
+                var index = 0;
+                var selectedCountry;
+                var circle;
+
+                // svg element for bubble chart
+                var svg = d3.select("#CS5044")
+                    .append("svg")
+                    .attr("width", outer_width)
+                    .attr("height", outer_height)
+                    .append("g")
+                    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+                incomeGroup = {
+                    "High income": "#1A00F5",
+                    "Low income": "#EA3323",
+                    "Lower middle income": "#F3AD3D",
+                    "Upper middle income": "#4BA7F8",
+                };
+
+
+                d3.csv("./data/Methane_GDP.csv", function(error, data) {
+                    // handle any data loading errors
+                    if (error) {
+                        console.log("Error Loading");
+                        console.log(error);
+                    } else {
+                        console.log("Data Loaded");
+                        // Assign  the data object loaded to the global dataset variable
+                        dataset = data;
+                        year_list = d3.map(dataset, function(d) { return +d.Year; }).keys();
+                        min_year = d3.min(dataset.map(function(d) { return +d.Year; }));
+                        display_year = min_year;
+                        // Generate the visualisation
+                        generateAxes();
+                        generateVis();
+
+                    }
+                });
+
+                // Function to filter year
+                function yearFilter(value) {
+                    return (value.Year == display_year);
+                }
+
+                // Functions to filter selected continent and display
+                function continentFilter(value) {
+                    if (incomeGroupSelect == '')
+                        return value;
+                    else
+                        s = value.IncomeGroup;
+                    return (s.includes(incomeGroupSelect));
+                }
+
+                function continent(value) {
+                    incomeGroupSelect = value;
+                    generateVis();
+                }
+
+                // Function to filter selected Country
+                function countryFilter(value) {
+                    return (value.Country == selectedCountry);
+                }
+
+                // Event controller corresponding to start button
+                function start() {
+                    time = setInterval(function() {
+                        index = index + 1;
+                        if (index >= year_list.length) {
+                            index = 0;
+                        }
+                        display_year = year_list[index];
+                        document.getElementById("sliderBarYear").value = display_year;
+                        generateVis();
+
+                    }, 600);
+                }
+
+                // Event controller corresponding to stop button
+                function stop() {
+                    document.getElementById("sliderBarYear").value = display_year;
+                    clearInterval(time);
+                }
+
+                // Event controller corresponding to reset button
+                function reset() {
+                    index = 0;
+                    display_year = 1970;
+                    incomeGroupSelect = '';
+                    clearInterval(time);
+                    generateVis();
+                    sliderWorks(display_year);
+                    document.getElementById("sliderBarYear").value = 1970;
+                    selectedCountry = null;
+                }
+
+                // Funtion related to the slider bar
+                function sliderWorks(year) {
+                    display_year = year;
+                    generateVis();
+
+                    clearInterval(time);
+                }
+                // Function related to draw the journey of a selected country
+                function drawJourney() {
+                    var journey = svg;
+                    var filtered_dataset = dataset.filter(function(d) {
+                        if (selectedCountry != null) {
+                            return display_year >= +d.Year && d.Country == selectedCountry;
+                        } else {
+                            return false;
+                        }
+                    })
+
+                    for (var i = 0; i < filtered_dataset.length; i++) {
+                        journey.append("circle")
+                            .attr("id", "journey")
+                            .attr("cx", xScale(+filtered_dataset[i].GDP))
+                            .attr("cy", yScale(+filtered_dataset[i].MethaneDeviation))
+                            .attr("r", rScale(+filtered_dataset[i].Methane_Co2_Equivalent_in_Kt))
+                            .style("stroke", "black")
+                            .style("stroke-width", 1)
+                            .style("opacity", 1)
+                            .attr("fill", incomeGroup[filtered_dataset[i].IncomeGroup]);
+                    }
+                }
+
+                // Function related to generate x and y axis and corresponding text
+                function generateAxes() {
+                    // Instead of a fixed domain we could calculate this from the dataset
+                    xScale = d3.scaleLog()
+                        .domain(d3.extent(dataset, function(d) { return +d.GDP }))
+                        .range([0, svg_width]);
+
+                    // Create a scale object to nicely take care of positioning circles along the horizontal axis
+                    yScale = d3.scaleLinear()
+                        .domain([-100, 100])
+                        .range([svg_height, 0]);
+
+                    rScale = d3.scaleSqrt()
+                        .domain(d3.extent(dataset, function(d) { return +d.Methane_Co2_Equivalent_in_Kt }))
+                        .range([2, 50]);
+
+                    var xAxis = d3.axisBottom()
+                        .scale(xScale)
+                        .ticks(13, d3.format(",d"));
+
+                    var yAxis = d3.axisLeft()
+                        .scale(yScale);
+
+                    // Append x axis
+                    svg.append("g")
+                        .attr("class", "axisWhite")
+                        .attr("transform", "translate(0," + svg_height + ")")
+                        .call(xAxis);
+
+                    // Append y axis
+                    svg.append("g")
+                        .attr("class", "axisWhite")
+                        .call(yAxis);
+                        
+
+                    // Text label for the x axis
+                    svg.append("text")
+                        .attr("x", 180)
+                        .attr("y", svg_height + margin.bottom - 10)
+                        .attr("font-family", "Raleway")
+                        .style("font-size", "20px")
+                        .style("fill", "white")
+                        .text("Country Gross Domestic Product per Capita (USD)");
+
+
+                    //Text label for y-axis
+                    svg.append("text")
+                        .attr("x", 0 - (svg_height / 2))
+                        .attr("y", -40)
+                        .attr("transform", "rotate(-90)")
+                        .style("font-family", "Raleway")
+                        .style("font-size", "20px")
+                        .style("text-anchor", "middle")
+                        .style("fill", "white")
+                        .text("Methane Emission Year Variation %");
+
+
+
+                    //Initialization of display_year text floating in the graph
+                    svg.append("text")
+                        .attr("x", svg_width / 2)
+                        .attr("y", svg_height / 1.5)
+                        .style("text-anchor", "middle")
+                        .attr("id", "year")
+                        .attr("class", "year")
+                        .attr("opacity", 0.5)
+                        .text(display_year);
+                }
+
+                // Define a function to draw the bubble chart animation
+                function generateVis() {
+                    // Filter data by year
+                    var filtered_dataset = dataset.filter(yearFilter);
+                    // Filter data by continent
+                    var filtered_dataset = filtered_dataset.filter(continentFilter);
+                    // Realted to drawJourney() function
+                    d3.selectAll("#journey").remove();
+
+                    /************ perform data join ************/
+                    var circles = svg.selectAll('circle')
+                        .data(filtered_dataset, function key(d) {
+                            return d.Country;
+                        });
+
+                    circles.transition()
+                        .duration(400)
+                        .ease(d3.easeLinear)
+                        .attr("cx", function(d) {
+                            return xScale(+d.GDP);
+                        })
+                        .attr("cy", function(d) {
+                            return yScale(+d.MethaneDeviation);
+                        })
+                        .attr("r", function(d) {
+                            return rScale(+d.Methane_Co2_Equivalent_in_Kt);
+                        })
+                        .style("stroke", "black")
+                        .style("stroke-width", 1)
+                        // To handle clicked country can have distinguish opacity with others
+                        .style("opacity", function(d) {
+                            if (d.Country == selectedCountry || selectedCountry == null) {
+                                return 1;
+                            } else {
+                                return 0.2;
+                            }
+                        })
+                        .attr("fill", function(d) {
+                            return incomeGroup[d.IncomeGroup];
+                        });
+
+                    /************ handle enter selection ************/
+                    circles.enter()
+                        .append("circle")
+                        .attr("class", "circle")
+                        .attr("cx", function(d) {
+                            return xScale(+d.GDP);
+                        })
+                        .attr("cy", function(d) {
+                            return yScale(+d.MethaneDeviation);
+                        })
+                        .attr("r", function(d) {
+                            return rScale(+d.Methane_Co2_Equivalent_in_Kt);
+                        })
+                        .style("stroke", "black")
+                        .style("stroke-width", 1)
+                        .style("opacity", 1)
+                        .attr("fill", function(d) {
+                            return incomeGroup[d.IncomeGroup];
+                        })
+
+                        // inspiration from: http://bl.ocks.org/d3noob/a22c42db65eb00d4e369
+                        .on("mouseover", function(d) {
+                            tooltip.transition()
+                                .duration(200)
+                                .style("opacity", 0.8);
+                            tooltip.html(d.Country + "<br/>" + display_year)
+                                .style("left", (d3.event.pageX) + "px")
+                                .style("top", (d3.event.pageY) + "px");
+                        })
+                        .on("mouseout", function(d) {
+                            tooltip.transition()
+                                .duration(200)
+                                .style("opacity", 0);
+                        })
+                        .on("click", function(d) {
+                            selectedCountry = d.Country;
+                            d3.selectAll('.circle')
+                                .filter(function(d) { return selectedCountry != d.Country; })
+                                .transition()
+                                .style("opacity", 0.2);
+                        })
+
+                    // text label for Year in background
+                    svg.select("#year")
+                        .attr("x", svg_width / 2)
+                        .attr("y", svg_height / 1.5)
+                        .style("text-anchor", "middle")
+                        .attr("class", "year")
+                        .text(display_year);
+
+                    /************ handle exit selection ************/
+                    circles.exit()
+                        .remove();
+
+                    // Perform drawing selected counrty's journey
+                    drawJourney();
+                }
+                </script>
+            </div>
+
+        </div> 
+    </div>
+
+        <div id= "maphead" class="maphead">
+            <h1> Total Methane Emissions Per Country Between 1970 and 2013 </h1> 
+        </div>
+
+        <div id="map" class="map">
+        </div>
+
+        <script type="text/javascript">
+            
+
+            //here we add a simple map in open street view style into our div element
+                //the first array in "setView" includes the latitude and longitude of our map centre
+                //the integer value (11) specifies the current zoom level
+                var map = L.map('map').setView([55.9531, -3.1889], 2);
+
+                //Define margins
+                var margin1 = { top: 60, right: 10, bottom: 100, left: 60 }
+
+                //Width and height for Motion Map
+                var outer_width = 900;
+                var outer_height = 600;
+                var svg_width = outer_width - margin1.left - margin1.right;
+                var svg_height = outer_height - margin1.top - margin1.bottom - 50;
+
+
+                // create SVG elements
+                var svg1 = d3.select("#map")
+                    .append("svg")
+                    .attr("width", outer_width)
+                    .attr("height", outer_height)
+                    .append("g")
+                    .attr("transform", "translate(" + margin1.left + "," + margin1.top + ")");
+
+                // here we include a tile layer that specifies the visual look of our map
+                var CartoDB_DarkMatterNoLabels = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png', {
+                    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+                    subdomains: 'abcd',
+                    maxZoom: 19
+                    });
+                CartoDB_DarkMatterNoLabels.addTo(map);
+
+
+                    // loading the data
+                    var dataPath = "data/Methane_GDP.csv";
+                    d3.csv(dataPath, function(error, data) {
+                        console.log(data);
+
+                        var myData = data;		// we store data in MyData
+
+                        myData.forEach(function(d) {  // for each data point in MY DATA
+                            // Store marker in a variable. read out the lat and lon attribute and create a new Leaflet marker (L.marker)
+                            var circle = L.circle([d.lat, d.lon],{
+                                                        color: 'rgb(68, 68, 68)',
+                                                        fillColor: incomeGroup[d.IncomeGroup],
+                                                        fillOpacity: 0.02,
+                                                        radius: d.TotalEmissions/20
+                            });
+                            circle.addTo(map);
+
+                            var popUp = L.popup(); //create a new popup object
+
+                            circle.on("mouseover", function(e){  //if mouse over marker
+                                                    console.log(e);
+                                                    popUp.setLatLng(e.latlng) //set popup latitude & longitude of the marker
+                                                            .setContent(d.Country + '\n' +"Total Methane Emissions in Kt: \n" + d.TotalEmissions) // set content of the popup to text in data point d
+                                                            .openOn(map);   //open popUp on the map object specified above
+                            })
+
+                        })																							// add this marker to the map element specified above
+                    })
+                
+
+        </script>
+
+
+</body>
+
+</html>
