@@ -40,7 +40,7 @@
 <meta property="og:image" content="https://ladychili.top/SVM/fig11.png">
 <meta property="og:image" content="https://ladychili.top/SVM/ap_ESL.png">
 <meta property="og:image" content="https://ladychili.top/SVM/ap_ISL.png">
-<meta property="og:updated_time" content="2019-10-08T04:05:58.270Z">
+<meta property="og:updated_time" content="2019-10-08T04:29:01.310Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="当我们谈SVM时我们谈些什么">
 <meta name="twitter:description" content="机器学习研究者所说的 Support Vector Machines 通常泛指最大边界分类器 (Maximal Margin Classifier)、支持向量分类器 (Support Vector Classifiers) 和支持向量机 (Support Vector Machine) 三者。其本质都是构造linear decision boundary，前者分别是后者在数据纬度和适用范围方面的">
@@ -212,7 +212,7 @@
         <span class="column is-narrow">
             
             
-            23 minutes read (About 3500 words)
+            24 minutes read (About 3527 words)
         </span>
         
     </div>
@@ -224,7 +224,9 @@
 <h3 id="hyperspace">Hyperspace</h3>
 <p>说到SVM，无法绕过的一个概念就是超平面 (Hyperspace)。其实很好理解，我们熟悉的三维立体空间其hyperspace就是一个平面，二维空间的hyperspace就是一条线。类似地，我们把 <span class="math inline">\(p\)</span> 维空间的flat affine subspace（也就是 <span class="math inline">\(p-1\)</span> 维子空间）的一个“平面” 定义为超平面 (hyperplane)，</p>
 <p><span class="math display">\[
+\begin{equation}
 f(X) = \beta_{0}+\beta_{1} X_{1}+\beta_{2} X_{2}+\ldots+\beta_{p} X_{p}=0
+\end{equation}
 \]</span></p>
 <p>Hyperspace把 <span class="math inline">\(p\)</span> 维空间切成两半，任意一个满足以上公式的点 <span class="math inline">\(X = (X_1,X2,...,X_p)^T\)</span> 都落在此hyperspace上。而不满足公式(1)的点，也就是 <span class="math inline">\(f(X) &gt; 0\)</span> 和 <span class="math inline">\(f(X) &lt; 0\)</span> 的情况，分别落在hyperspace的两侧。</p>
 <p>假设现有一个由 <span class="math inline">\(p\)</span> 个特征和 <span class="math inline">\(n\)</span> 个训练样本组成的数据集，也就是一个 <span class="math inline">\(n \times p\)</span> data matrix <span class="math inline">\(\textbf{X}\)</span>，和对应的 label <span class="math inline">\(\textbf{y} \in \{-1,1\}\)</span>。想象有一个hyperspace 可以把 <span class="math inline">\(p\)</span> 维training data按照对应的label完美地切分开。为了方便理解和可视化，这里仍以二维空间为例。左图显示了3个符合标准的separating hyperspace（黑线）；右图可以理解为一个separating hyperspace 分类器，任何落在hyperspace两边的test data都被划分到相应的类别。</p>
@@ -262,7 +264,8 @@ f(X) = \beta_{0}+\beta_{1} X_{1}+\beta_{2} X_{2}+\ldots+\beta_{p} X_{p}=0
 </p>
 <p>图中样本点数字并无特殊含义，只是编号</p>
 <p><span class="math display">\[
-\underset{\beta_{0}, \beta_{1}, \ldots, \beta_{p}, \epsilon_{1}, \ldots, \epsilon_{n}, M}{\operatorname{maximize}} M, 
+\begin{equation}
+\underset{\beta_{0}, \beta_{1}, \ldots, \beta_{p}, \epsilon_{1}, \ldots, \epsilon_{n}, M}{\operatorname{maximize}} M,  
 \text{subject to}
 \left\{
     \begin{array}{ll}
@@ -270,6 +273,7 @@ f(X) = \beta_{0}+\beta_{1} X_{1}+\beta_{2} X_{2}+\ldots+\beta_{p} X_{p}=0
     \epsilon_{i} \geq 0, \sum_{i=1}^{n} \epsilon_{i} \leq C\\
     \end{array}
 \right.
+\end{equation}
 \]</span></p>
 <p>其中<span class="math inline">\(M\)</span>是margin 的宽度；<span class="math inline">\(\epsilon_n\)</span> 是第 <span class="math inline">\(i\)</span> 个样本到hyperspace的相对距离，</p>
 <ul>
@@ -296,16 +300,26 @@ f(X) = \beta_{0}+\beta_{1} X_{1}+\beta_{2} X_{2}+\ldots+\beta_{p} X_{p}=0
 <img src="fig9.png" alt="Figure 9" width="720px">
 </p>
 <p>一种解决方案是扩展feature space的维度，如增加polynomial features。Fig. 9 右图是扩展 <span class="math inline">\(x_1\)</span> 到二维后的情况，也就是新增了一个quadratic feature <span class="math inline">\(x_2 = (x_1)^2\)</span> ，可以看到新的data space变得线性可分了，图中红色虚线可以完美地把蓝色和绿色两类区分开来。这就是支持向量机的基本原理。</p>
-<p>支持向量机 (Support Vector Machines) 是SVC的一种延伸，其建立non-linear boundaries 的本质是通过核函数 (kernels) 在扩展后的高维特征空间构造 linear boundary。<em>Kernel</em> 是描述两个样本相似度的函数 <span class="math inline">\(K(x_i, x_{i&#39;})\)</span> ，如公式 3 是 linear kernel，也就是SVC的核函数： <span class="math display">\[
+<p>支持向量机 (Support Vector Machines) 是SVC的一种延伸，其建立non-linear boundaries 的本质是通过核函数 (kernels) 在扩展后的高维特征空间构造 linear boundary。<em>Kernel</em> 是描述两个样本相似度的函数 <span class="math inline">\(K(x_i, x_{i&#39;})\)</span> ，如公式(3) 是 linear kernel，也就是SVC的核函数：</p>
+<p><span class="math display">\[
+\begin{equation}
 K(x_i, x_{i&#39;}) = \sum_{i=1}^p x_{ij}x_{i&#39;j}
-\]</span> 而fig. 9 中使用的<code>poly</code> kernel 可以归纳为： <span class="math display">\[
+\end{equation}
+\]</span></p>
+<p>而fig. 9 中使用的<code>poly</code> kernel 可以归纳为：</p>
+<p><span class="math display">\[
+\begin{equation}
 K(x_i, x_{i&#39;}) = (1 + \sum_{i=1}^p x_{ij}x_{i&#39;j})^d
-\]</span> 其中 <span class="math inline">\(d\)</span> 代表 polynomial 的 degree。固然我们也可以利用 <code>sklearn.preprocessing</code> 里的函数手动添加 polynomial features，但SVM的 <code>poly</code> 核函数要相对高效的多，而且不会在original features较多的情况下升维导致 combinatorial explosion。从 Fig. 10 可以看出，degree 越大模型越容易overfit。</p>
+\end{equation}
+\]</span></p>
+<p>其中 <span class="math inline">\(d\)</span> 代表 polynomial 的 degree。固然我们也可以利用 <code>sklearn.preprocessing</code> 里的函数手动添加 polynomial features，但SVM的 <code>poly</code> 核函数要相对高效的多，而且不会在original features较多的情况下升维导致 combinatorial explosion。从 Fig. 10 可以看出，degree 越大模型越容易overfit。</p>
 <p align="center">
 <img src="fig10.png" alt="Figure 10" width="720px">
 </p>
 <p>除了<code>poly</code>，另一个常用的核函数是 <code>rbf</code> ，也就是 the radial kernel, a.k.a. Gaussian RBF kernel： <span class="math display">\[
+\begin{equation}
 K(x_i, x_{i&#39;}) =  \exp( -\gamma \sum_{i=1}^p (x_{ij} - x_{i&#39;j})^2 )
+\end{equation}
 \]</span></p>
 <p>Fig. 11 展示了4个使用<code>rbf</code> kernel 的模型，可以看出在 <span class="math inline">\(C\)</span> 相同的情况下 <span class="math inline">\(\gamma\)</span> 越大模型越容易overfit。</p>
 <p align="center">
@@ -331,6 +345,11 @@ K(x_i, x_{i&#39;}) =  \exp( -\gamma \sum_{i=1}^p (x_{ij} - x_{i&#39;j})^2 )
 <p>适合的人群：科班在读的同学和已入行的从业者/研究人员。前者有充足的预备知识，对整个机器学习领域的框架有基本认识，啃透这两本书等于打下更扎实的算法基础，毕业面试算法工程师绝对游刃有余（说不定能碾压面试官）；后者已对常见算法有一定的应用经验，调包调参已是家常便饭，用这两本书来进阶，在算法原理层面寻求更深刻的理解（作面试官时不要被优秀的毕业生碾压才好），才能在更多实用场景下举一反三。</p>
 <p>ISL相比ESL就友好的多，但是需要一些R的基础（一下子劝退一拨人）。它的深度和难度介于<em>Hands on Machine Learning</em>和ESL之间，同时cover了算法理论和代码实现两个层面，是这3本书里我看得比较多的一本。个人觉得非常适合理工科尤其是统计专业的同学。诚然，在SVC小结发现了一个与其他两杯书相悖的论点，而且给的图例参数不详、不够典型，我仍然觉得这本书值得一看。<strong>即使是公认的好书，大家也可以用思辨性的眼光去读，多发问，多求证。</strong></p>
 <p>（个人意见，仅供参考）</p>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+});
+</script>
 
     
     </div>
