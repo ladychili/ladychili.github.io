@@ -2,7 +2,7 @@
 <html class="has-navbar-fixed-top">
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-<title>Paper Review - Resilient Distributed Datasets (2012) - Lady Chili&#39;s Garden</title>
+<title>Paper Review - Resilient Distributed Datasets (2012) - Lady Chili&#39;s Kitchen</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
@@ -18,19 +18,19 @@
 
 
 
-    <meta name="description" content="Review note for Resilient Distributed Datasets: A Fault-Tolerant Abstraction for In-Memory Cluster Computing  1 - SummaryThe paper proposed an abstraction for sharing data in cluster application, call">
-<meta name="keywords" content="Spark,distributed,paper,university,exam,BigData">
+    <meta name="description" content="Review note for Resilient Distributed Datasets: A Fault-Tolerant Abstraction for In-Memory Cluster Computing  RDD paper  1 - Summary The paper proposed an abstraction for sharing data in cluster appli">
+<meta name="keywords" content="distributed,paper,university,exam,BigData,Spark">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Paper Review - Resilient Distributed Datasets (2012)">
 <meta property="og:url" content="https://ladychili.top/CS5052-2-RDD/index.html">
-<meta property="og:site_name" content="Lady Chili&#39;s Garden">
-<meta property="og:description" content="Review note for Resilient Distributed Datasets: A Fault-Tolerant Abstraction for In-Memory Cluster Computing  1 - SummaryThe paper proposed an abstraction for sharing data in cluster application, call">
+<meta property="og:site_name" content="Lady Chili&#39;s Kitchen">
+<meta property="og:description" content="Review note for Resilient Distributed Datasets: A Fault-Tolerant Abstraction for In-Memory Cluster Computing  RDD paper  1 - Summary The paper proposed an abstraction for sharing data in cluster appli">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://ladychili.top/images/CS5052-2-RDD.png">
 <meta property="og:updated_time" content="2019-05-12T15:42:34.235Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Paper Review - Resilient Distributed Datasets (2012)">
-<meta name="twitter:description" content="Review note for Resilient Distributed Datasets: A Fault-Tolerant Abstraction for In-Memory Cluster Computing  1 - SummaryThe paper proposed an abstraction for sharing data in cluster application, call">
+<meta name="twitter:description" content="Review note for Resilient Distributed Datasets: A Fault-Tolerant Abstraction for In-Memory Cluster Computing  RDD paper  1 - Summary The paper proposed an abstraction for sharing data in cluster appli">
 <meta name="twitter:image" content="https://ladychili.top/images/CS5052-2-RDD.png">
 
 
@@ -168,27 +168,21 @@
     <div class="article-entry is-size-6-mobile" itemprop="articleBody">
     
         <p>Review note for <a href="https://www.researchgate.net/publication/303198479_Resilient_distributed_datasets_A_fault-tolerant_abstraction_for_in-memory_cluster_computing" target="_blank" rel="noopener">Resilient Distributed Datasets: A Fault-Tolerant Abstraction for In-Memory Cluster Computing</a></p>
-<p><img src="/images/CS5052-2-RDD.png" alt="RDD paper"></p>
-<p>1 - Summary<br>The paper proposed an abstraction for sharing data in cluster application, called Resilient Distributed Dataset (RDD), that is more efficient, general-purpose and fault-tolerant in comparison to existing data storage abstractions for clusters, allowing programmers to process in-memory computations. RDDs are implemented in a big data processing engine, called Spark, and evaluated by a range of user applications and benchmarks in the paper. </p>
+<figure>
+<img src="/images/CS5052-2-RDD.png" alt="RDD paper"><figcaption>RDD paper</figcaption>
+</figure>
+<p>1 - Summary The paper proposed an abstraction for sharing data in cluster application, called Resilient Distributed Dataset (RDD), that is more efficient, general-purpose and fault-tolerant in comparison to existing data storage abstractions for clusters, allowing programmers to process in-memory computations. RDDs are implemented in a big data processing engine, called Spark, and evaluated by a range of user applications and benchmarks in the paper.</p>
 <a id="more"></a>
-<p>2 - Problem<br>Many emerging applications (e.g. PageRank, K-means clustering, machine learning) and the iterative algorithms behind them, as well as interactive data mining, rely on the reuse of intermediate results across multiple computations. However, most existing cluster computing frameworks adopted for data-intensive analytics are inefficient on this. Their way to reuse data depending on writing results to external stable storage system, can consists of large amount of computing execution time due to data replication, disk I/O, network bandwidth, etc. Some specialized programming models developed for this concern (e.g. Pregel, HaLoop) are not general-purpose. Therefore, RDDs are designed to address computing needs that were met previously by introducing new specialized models.</p>
-<p>3 - Solution<br>RDDs as a new solution to accommodate the problems mentioned above, formally present as a read-only, partitioned collection records. It provides a programming interface in Spark based on coarse-grained transformations, from which lineage dataset is built rather than the actual data. RDDs contain all the information about how it was derived from its lineage or original, actual data in stable storage, hence lost partitions can be quickly recovered. In general, two aspects of RDDs, persistence and partitioning, enable users to reuse intermediate results in memory, optimize data parallelization and efficiently manipulate them by a range of operators (e.g. map, filter). RDDs show good performance on real-world applications those naturally apply same operations to multiple data items.</p>
-<p>4 - Novelty<br>Traditional in-memory data storage abstractions for cluster computing (e.g. distributed shared memory, key-value stores, etc.) depends on fine-grained updates to shared state, involving data replication and logging updates across machines, which can be resource-costly and time-consuming for large-scale computation. RDDs provides a novel solution based on coarse-grained transformations of data items, realizes an efficient, fault-tolerant data storage abstraction, and its special property also guarantees that an RDD that didn’t recover from a failure cannot be referenced by programs.<br>In particular, comparing to other in-memory based systems, such as Piccolo, DSM etc., in which the interface only reads and updates mutable states of dataset, whereas RDDs provide a high-level interface enabling user to manipulate data by many operators. Also, the lineage mechanism of RDDs ensured quicker and cheaper partition recovery.</p>
-<p>5 - Evaluation<br>RDDs and Spark the system they are implemented in, are evaluated based on a range of experiments on Amazon EC2, including benchmarks against Hadoop with respect to iterative machine learning and PageRank, fault recovery, behaviour with insufficient memory, some measurements of user applications, and interactive data mining.<br>The strengths of RDDs and Spark reflected on </p>
-<ul>
-<li>their performance on iterative algorithms (logistic regression and K-means in Machine Learning) and data-intensive analytics, greatly surpassed Hadoop on speeds through storing data in memory hence avoiding replication and I/O traffic, in addition, require less RAM.</li>
-<li>The fault recovery mechanism based on lineage only reconstructing the lost partition and the extra time cost is subtle.</li>
-<li>The ability to interactively query large amount data.</li>
-<li>RDDs and Spark are suitable for a wide range of applications and can express not only specialized programming models for iterative computations, but also new applications not captured by them.<br>One weakness is that RDDs highly rely on the memory space to store job’s data, the performance downgrades in situations of insufficient memory. The limitation is that RDDs excel only at parallel applications that apply the same operations to multiple elements of dataset due to its coarse-grained transformation and immutable property (read-only). </li>
-</ul>
-<p>6 - Opinion<br>Spark and its core principle, RDDs, shook up the place of Hadoop and MapReduce in the field of open-source distributed computing frameworks and broke through their limitation on iterative and interactive works. Moreover, it is compatible with HDFS, hence can fit in the ecosystem of Hadoop. The paper gracefully introduced the principle behind RDDs and Spark, demonstrated its advantages against existing frameworks and provided convincible evaluations in many aspects. </p>
+<p>2 - Problem Many emerging applications (e.g. PageRank, K-means clustering, machine learning) and the iterative algorithms behind them, as well as interactive data mining, rely on the reuse of intermediate results across multiple computations. However, most existing cluster computing frameworks adopted for data-intensive analytics are inefficient on this. Their way to reuse data depending on writing results to external stable storage system, can consists of large amount of computing execution time due to data replication, disk I/O, network bandwidth, etc. Some specialized programming models developed for this concern (e.g. Pregel, HaLoop) are not general-purpose. Therefore, RDDs are designed to address computing needs that were met previously by introducing new specialized models.</p>
+<p>3 - Solution RDDs as a new solution to accommodate the problems mentioned above, formally present as a read-only, partitioned collection records. It provides a programming interface in Spark based on coarse-grained transformations, from which lineage dataset is built rather than the actual data. RDDs contain all the information about how it was derived from its lineage or original, actual data in stable storage, hence lost partitions can be quickly recovered. In general, two aspects of RDDs, persistence and partitioning, enable users to reuse intermediate results in memory, optimize data parallelization and efficiently manipulate them by a range of operators (e.g. map, filter). RDDs show good performance on real-world applications those naturally apply same operations to multiple data items.</p>
+<p>4 - Novelty Traditional in-memory data storage abstractions for cluster computing (e.g. distributed shared memory, key-value stores, etc.) depends on fine-grained updates to shared state, involving data replication and logging updates across machines, which can be resource-costly and time-consuming for large-scale computation. RDDs provides a novel solution based on coarse-grained transformations of data items, realizes an efficient, fault-tolerant data storage abstraction, and its special property also guarantees that an RDD that didn’t recover from a failure cannot be referenced by programs. In particular, comparing to other in-memory based systems, such as Piccolo, DSM etc., in which the interface only reads and updates mutable states of dataset, whereas RDDs provide a high-level interface enabling user to manipulate data by many operators. Also, the lineage mechanism of RDDs ensured quicker and cheaper partition recovery.</p>
+<p>5 - Evaluation RDDs and Spark the system they are implemented in, are evaluated based on a range of experiments on Amazon EC2, including benchmarks against Hadoop with respect to iterative machine learning and PageRank, fault recovery, behaviour with insufficient memory, some measurements of user applications, and interactive data mining. The strengths of RDDs and Spark reflected on - their performance on iterative algorithms (logistic regression and K-means in Machine Learning) and data-intensive analytics, greatly surpassed Hadoop on speeds through storing data in memory hence avoiding replication and I/O traffic, in addition, require less RAM. - The fault recovery mechanism based on lineage only reconstructing the lost partition and the extra time cost is subtle. - The ability to interactively query large amount data. - RDDs and Spark are suitable for a wide range of applications and can express not only specialized programming models for iterative computations, but also new applications not captured by them. One weakness is that RDDs highly rely on the memory space to store job’s data, the performance downgrades in situations of insufficient memory. The limitation is that RDDs excel only at parallel applications that apply the same operations to multiple elements of dataset due to its coarse-grained transformation and immutable property (read-only).</p>
+<p>6 - Opinion Spark and its core principle, RDDs, shook up the place of Hadoop and MapReduce in the field of open-source distributed computing frameworks and broke through their limitation on iterative and interactive works. Moreover, it is compatible with HDFS, hence can fit in the ecosystem of Hadoop. The paper gracefully introduced the principle behind RDDs and Spark, demonstrated its advantages against existing frameworks and provided convincible evaluations in many aspects.</p>
 
     
     </div>
     
     <div class="columns is-variable is-1 is-multiline is-mobile">
-    
-        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/Spark/">#Spark</a></span>
     
         <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/distributed/">#distributed</a></span>
     
@@ -199,6 +193,8 @@
         <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/exam/">#exam</a></span>
     
         <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/BigData/">#BigData</a></span>
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/Spark/">#Spark</a></span>
     
     </div>
     

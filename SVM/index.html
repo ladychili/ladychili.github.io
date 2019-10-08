@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html class="has-navbar-fixed-top">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+<title>当我们谈SVM时我们谈些什么 - Lady Chili&#39;s Kitchen</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
+
+
+<link href="/zh-cn/SVM/" rel="alternate" hreflang="zh-CN">
+    
+
+
+<meta name="description" content="It is better to burn out than to fade away.">
+
+
+
+
+
+    <meta name="description" content="机器学习研究者所说的 Support Vector Machines 通常泛指最大边界分类器 (Maximal Margin Classifier)、支持向量分类器 (Support Vector Classifiers) 和支持向量机 (Support Vector Machine) 三者。其本质都是构造linear decision boundary，前者分别是后者在数据纬度和适用范围方面的">
+<meta name="keywords" content="MachineLearning,SVM">
+<meta property="og:type" content="article">
+<meta property="og:title" content="当我们谈SVM时我们谈些什么">
+<meta property="og:url" content="https://ladychili.top/SVM/index.html">
+<meta property="og:site_name" content="Lady Chili&#39;s Kitchen">
+<meta property="og:description" content="机器学习研究者所说的 Support Vector Machines 通常泛指最大边界分类器 (Maximal Margin Classifier)、支持向量分类器 (Support Vector Classifiers) 和支持向量机 (Support Vector Machine) 三者。其本质都是构造linear decision boundary，前者分别是后者在数据纬度和适用范围方面的">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://ladychili.top/images/SVM.png">
+<meta property="og:image" content="https://ladychili.top/SVM/fig1.png">
+<meta property="og:image" content="https://ladychili.top/SVM/fig2.png">
+<meta property="og:image" content="https://ladychili.top/SVM/fig3.png">
+<meta property="og:image" content="https://ladychili.top/SVM/fig4.png">
+<meta property="og:image" content="https://ladychili.top/SVM/fig5.png">
+<meta property="og:image" content="https://ladychili.top/SVM/fig6.png">
+<meta property="og:image" content="https://ladychili.top/SVM/fig7.png">
+<meta property="og:image" content="https://ladychili.top/SVM/fig8.png">
+<meta property="og:image" content="https://ladychili.top/SVM/fig9.png">
+<meta property="og:image" content="https://ladychili.top/SVM/fig10.png">
+<meta property="og:image" content="https://ladychili.top/SVM/fig11.png">
+<meta property="og:image" content="https://ladychili.top/SVM/ap_ESL.png">
+<meta property="og:image" content="https://ladychili.top/SVM/ap_ISL.png">
+<meta property="og:updated_time" content="2019-10-08T04:05:58.270Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="当我们谈SVM时我们谈些什么">
+<meta name="twitter:description" content="机器学习研究者所说的 Support Vector Machines 通常泛指最大边界分类器 (Maximal Margin Classifier)、支持向量分类器 (Support Vector Classifiers) 和支持向量机 (Support Vector Machine) 三者。其本质都是构造linear decision boundary，前者分别是后者在数据纬度和适用范围方面的">
+<meta name="twitter:image" content="https://ladychili.top/images/SVM.png">
+
+
+
+
+
+<link rel="icon" href="/images/favicon.ico">
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ovo|Source+Code+Pro">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/css/justifiedGallery.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+
+<link rel="stylesheet" href="/css/style.css">
+
+<script defer src="//use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-139609057-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-139609057-1');
+</script>
+
+
+    
+
+
+</head>
+<body>
+    
+<nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item navbar-logo" href="/">
+                
+                    
+                    <img src="/images/ladychili_logo.png" alt height="28">
+                    
+                
+            </a>
+            <div class="navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="navbar-menu navbar-start">
+            
+            <a class="navbar-item " href="/archives">Archives</a>
+            
+            <a class="navbar-item " href="/categories">Category</a>
+            
+            <a class="navbar-item " href="/tags">Tag</a>
+            
+            <a class="navbar-item " href="/about">About</a>
+            
+        </div>
+        
+        <div class="navbar-menu navbar-end">
+            
+            <a class="navbar-item search" title="Search" href="javascript:;">
+                <i class="fas fa-search"></i>
+            </a>
+            
+            
+            <div class="navbar-item is-hoverable has-dropdown is-hidden-mobile is-hidden-tablet-only toc">
+                <a class="navbar-item" title="Table of Contents">
+                    <i class="fa fa-list"></i>
+                </a>
+                <div class="navbar-dropdown is-right">
+                    
+                    
+                    
+                    
+                    <a class="navbar-item" href="#hyperspace">1&nbsp;&nbsp;<b>Hyperspace</b></a>
+                    
+                    
+                    <hr class="navbar-divider">
+                    
+                    
+                    <a class="navbar-item" href="#maximal-margin-classifier">2&nbsp;&nbsp;<b>Maximal Margin Classifier</b></a>
+                    
+                    
+                    <hr class="navbar-divider">
+                    
+                    
+                    <a class="navbar-item" href="#support-vector-classifier">3&nbsp;&nbsp;<b>Support Vector Classifier</b></a>
+                    
+                    
+                    <hr class="navbar-divider">
+                    
+                    
+                    <a class="navbar-item" href="#support-vector-machine">4&nbsp;&nbsp;<b>Support Vector Machine</b></a>
+                    
+                    
+                    
+                    <a class="navbar-item" href="#svm-for-multi-classification">4.1&nbsp;&nbsp;SVM for Multi-classification</a>
+                    
+                    
+                    <hr class="navbar-divider">
+                    
+                    
+                    <a class="navbar-item" href="#reference">5&nbsp;&nbsp;<b>Reference</b></a>
+                    
+                    
+                    <hr class="navbar-divider">
+                    
+                    
+                    <a class="navbar-item" href="#appendix">6&nbsp;&nbsp;<b>Appendix</b></a>
+                    
+                </div>
+            </div>
+            
+            
+            <a class="navbar-item" title="GitHub" href="https://github.com/ladychili">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+               
+            
+        </div>
+    </div>
+</nav>
+
+    <section class="section">
+    <div class="container">
+    <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            当我们谈SVM时我们谈些什么
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-10-08T02:46:08.000Z" itemprop="datePublished">Oct 8 2019</time>
+        </span>
+        
+        <span class="column is-narrow article-category">
+            <i class="far fa-folder"></i>
+            <a class="article-category-link" href="/categories/Tech/">Tech</a>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            23 minutes read (About 3500 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <p><img src="/images/SVM.png" style="zoom:100%;"></p>
+<p>机器学习研究者所说的 Support Vector Machines 通常泛指最大边界分类器 (Maximal Margin Classifier)、支持向量分类器 (Support Vector Classifiers) 和支持向量机 (Support Vector Machine) 三者。其本质都是构造linear decision boundary，前者分别是后者在数据纬度和适用范围方面的延伸。</p>
+<a id="more"></a>
+<h3 id="hyperspace">Hyperspace</h3>
+<p>说到SVM，无法绕过的一个概念就是超平面 (Hyperspace)。其实很好理解，我们熟悉的三维立体空间其hyperspace就是一个平面，二维空间的hyperspace就是一条线。类似地，我们把 <span class="math inline">\(p\)</span> 维空间的flat affine subspace（也就是 <span class="math inline">\(p-1\)</span> 维子空间）的一个“平面” 定义为超平面 (hyperplane)，</p>
+<p><span class="math display">\[
+f(X) = \beta_{0}+\beta_{1} X_{1}+\beta_{2} X_{2}+\ldots+\beta_{p} X_{p}=0
+\]</span></p>
+<p>Hyperspace把 <span class="math inline">\(p\)</span> 维空间切成两半，任意一个满足以上公式的点 <span class="math inline">\(X = (X_1,X2,...,X_p)^T\)</span> 都落在此hyperspace上。而不满足公式(1)的点，也就是 <span class="math inline">\(f(X) &gt; 0\)</span> 和 <span class="math inline">\(f(X) &lt; 0\)</span> 的情况，分别落在hyperspace的两侧。</p>
+<p>假设现有一个由 <span class="math inline">\(p\)</span> 个特征和 <span class="math inline">\(n\)</span> 个训练样本组成的数据集，也就是一个 <span class="math inline">\(n \times p\)</span> data matrix <span class="math inline">\(\textbf{X}\)</span>，和对应的 label <span class="math inline">\(\textbf{y} \in \{-1,1\}\)</span>。想象有一个hyperspace 可以把 <span class="math inline">\(p\)</span> 维training data按照对应的label完美地切分开。为了方便理解和可视化，这里仍以二维空间为例。左图显示了3个符合标准的separating hyperspace（黑线）；右图可以理解为一个separating hyperspace 分类器，任何落在hyperspace两边的test data都被划分到相应的类别。</p>
+<p align="center">
+<img src="fig1.png" alt="Figure 1" width="720px">
+</p>
+<h3 id="maximal-margin-classifier">Maximal Margin Classifier</h3>
+<p>一般来讲，如果存在 hyperspace 能完美划分training data的话，同样符合条件的hyperspace应有无数个（类似上图左中的黑线可以画无数条）。<em>Optimal Separating Hyperspace</em> 定义了一个分类方法，从无数个hyperspace中找到最优的那一个 (a.k.a. 最大边界分类器 <em>Maximal Margin Classifier</em>) 。如下图，我们把training observation与separating hyperspace之间的最小垂直距离称作 Margin。顾名思义，maximal margin classifier就是无数 (if exists) 可以完美切割training data 的hyperspace 中margin最大的那一个。</p>
+<p align="center">
+<img src="fig2.png" alt="Figure 2" width="420px">
+</p>
+<p>原理非常好理解，一般认为离separating hyperspace比较远的数据点的置信度比较高，而靠近hyperspace 的点我们则不太确定。因此我们希望这个最近距离，也就是margin，越大越好。下图是经典的Iris例子，很明显，直觉上来讲右边也比左边更合理。相对较宽的margin可以简单理解为「模型的整体置信度」较高。</p>
+<p align="center">
+<img src="fig3.png" alt="Figure 3" width="720px">
+</p>
+<p>注意fig. 2 和 fig. 3(右) 中恰好落在margin边缘（虚线）的点，也就是离hyperspace（实线）最近的几个点，它们被称作 support vectors。叫<em>vector</em> 是因为它们都是 <span class="math inline">\(p\)</span> 维向量，而<em>support</em> 在于它们“支持”了maximal margin hyperspace的确立（假设这些点移动了，那么hyperspace也会移动），这个名字可以说很形象了。由此也可以发现SVMs 一个有趣且十分重要的特性：separating hyperspace 的确立由这几个support vectors 直接决定，与其他data points并无多大关系（其他点随便移动，只要不碰到margin）。</p>
+<p>Maximal Margin Classifier 是一个很直观很自然的分类方法，然而事实是这样的optimal separating hyperspace在实际应用中很少存在：大多数情况下，样本空间压根儿无法被任何hyperspace完美分割。还是二维的例子，如图4，不存在一个hyperspace（一维直线）可以完美分割两类。</p>
+<p align="center">
+<img src="fig4.png" alt="Figure 4" width="420px">
+</p>
+<h3 id="support-vector-classifier">Support Vector Classifier</h3>
+<p>像先前讨论的那样，大多数时候Maximal Margin Classifier并不存在；有时即使“勉强”存在，也非理想方案。举两个例子，fig. 5 中，左边是一个Maximal Margin Classifier，右边是仅增加了一个蓝色样本之后对separating hyperspace的影响；fig. 6中，左边是根本不存在Maximal Margin Classifier的情况，右边是存在但非理想方案。</p>
+<p align="center">
+<img src="fig5.png" alt="Figure 5" width="720px"> <img src="fig6.png" alt="Figure 6" width="720px">
+</p>
+<p>根据以上两个例子，可以看出Maximal Margin Classifier对单个样本（尤其是outliers）是极其敏感的。右边的两个Maximal Margin Classifiers都不是很有说服力。原因有二，其一是它的margin太窄了。前面说过margin的宽度可以看作是我们对整体正确分类的一个置信度。另一个原因是，对outliers敏感度高的模型非常容易造成overfitting。这种情况下，有必要考虑另一种基于hyperspace的方法，它并不能完美的分割training data，但是它</p>
+<ol type="1">
+<li>对单个样本有更高的鲁棒性</li>
+<li>能够很好地分类绝大多数样本</li>
+</ol>
+<p>这意味着，为了能让大多数样本能被正确的分类，即使错分几个样本也是值得的。</p>
+<p><strong>Support Vector Classifier</strong>， 有些书里也被叫做 Soft Margin Classifier，就是这样的分类器。SVC的margin 被叫做soft margin，是因为它可以被violated（fig. 7 left），甚至separating hyperspace 都能被“跨越”（fig. 7 right）。</p>
+<p align="center">
+<img src="fig7.png" alt="Figure 7" width="720px">
+</p>
+<p>图中样本点数字并无特殊含义，只是编号</p>
+<p><span class="math display">\[
+\underset{\beta_{0}, \beta_{1}, \ldots, \beta_{p}, \epsilon_{1}, \ldots, \epsilon_{n}, M}{\operatorname{maximize}} M, 
+\text{subject to}
+\left\{
+    \begin{array}{ll}
+    y_{i}\left(\beta_{0}+\beta_{1} x_{i 1}+\beta_{2} x_{i 2}+\ldots+\beta_{p} x_{i p}\right)        \geq M\left(1-\epsilon_{i}\right) \\ 
+    \epsilon_{i} \geq 0, \sum_{i=1}^{n} \epsilon_{i} \leq C\\
+    \end{array}
+\right.
+\]</span></p>
+<p>其中<span class="math inline">\(M\)</span>是margin 的宽度；<span class="math inline">\(\epsilon_n\)</span> 是第 <span class="math inline">\(i\)</span> 个样本到hyperspace的相对距离，</p>
+<ul>
+<li>如果 <span class="math inline">\(\epsilon_i = 0\)</span> 则样本<span class="math inline">\(X_i\)</span> 在 margin 的正确一侧（fig 7 右中的5、10号样本），</li>
+<li>如果 <span class="math inline">\(\epsilon_i &gt; 0\)</span> 则样本<span class="math inline">\(X_i\)</span> 在 margin 的错误一侧（fig 7 右中的1、8号样本），也就是<span class="math inline">\(X_i\)</span> violated the margin，</li>
+<li>如果 <span class="math inline">\(\epsilon_i &gt; 1\)</span> 则样本<span class="math inline">\(X_i\)</span> 在 hyperspace 的错误一侧（fig 7 右中的11、12号样本），也就是样本被错分。</li>
+</ul>
+<p>总的来说，<em>SVC 的优化原则就是让margin 尽可能大，让margin violations 尽可能少</em>。这二者之间的平衡，用公式(2) 中的非负参数C 来控制。C 限定了 <span class="math inline">\(\epsilon_i\)</span> 的和，也就是决定了模型对margin violations在数量和程度上的 tolerance，是训练模型时最重要的tuning parameter。一般来讲，</p>
+<ul>
+<li>C越小，margin 越宽，violations越多；</li>
+<li>C越大，margin 越窄，violations越少。</li>
+</ul>
+<blockquote>
+<p>⚠️ 此处有争议：本文参考的3本书持不同观点并且都有图有例，此处按朴素贝叶斯准则（- -）主观决定选ESL和Hands on ML的的方案。ISL的例子和参数给的都很模糊，- - 有可能是noise instance。fig. 8即Hands on ML图例，ESL和ISL的图例见文末。</p>
+</blockquote>
+<p>训练模型时，一般用 cross-validation 来调参数C，此处特指k-fold CV。而Leave-one-out CV error 会被支持向量在training data 中的占比所限定，因为leaving out 「非支持向量」对模型评估没有影响，故此方法不太适用SVM模型。</p>
+<p align="center">
+<img src="fig8.png" alt="Figure 8" width="720px">
+</p>
+<p>根据公式(2) 可以总结出一个类似 Maximal Margin Classifier的特点：SVC的hyperspace 是由training data的很小一部分子集（support vectors）决定的。Support vectors的定义与Maximal Margin Classifier 略有不同：对于SVC，所有落在margin 内包括margin 边界上的点都是support vectors。Fig. 8 中被圆圈标记的数据点即是该模型的 support vectors。SVM系列的模型在这一点上和同为线性模型的LDA (Linear Discriminant Analysis) 不同，LDA的 decision boundary 由 <span class="math inline">\(y\)</span> 类别的协方差 (covariance) 和质心 (centroids) 位置共同决定。</p>
+<h3 id="support-vector-machine">Support Vector Machine</h3>
+<p>至此我们讨论的都是feature space 线性可分的情况，而实践中的数据往往并非线性可分。如fig. 9 左图所示是一个非常简单的一维feature space线性不可分的例子，显然前面说到的SVC或者任何一种linear classifier，在这种情况下都不适用。</p>
+<p align="center">
+<img src="fig9.png" alt="Figure 9" width="720px">
+</p>
+<p>一种解决方案是扩展feature space的维度，如增加polynomial features。Fig. 9 右图是扩展 <span class="math inline">\(x_1\)</span> 到二维后的情况，也就是新增了一个quadratic feature <span class="math inline">\(x_2 = (x_1)^2\)</span> ，可以看到新的data space变得线性可分了，图中红色虚线可以完美地把蓝色和绿色两类区分开来。这就是支持向量机的基本原理。</p>
+<p>支持向量机 (Support Vector Machines) 是SVC的一种延伸，其建立non-linear boundaries 的本质是通过核函数 (kernels) 在扩展后的高维特征空间构造 linear boundary。<em>Kernel</em> 是描述两个样本相似度的函数 <span class="math inline">\(K(x_i, x_{i&#39;})\)</span> ，如公式 3 是 linear kernel，也就是SVC的核函数： <span class="math display">\[
+K(x_i, x_{i&#39;}) = \sum_{i=1}^p x_{ij}x_{i&#39;j}
+\]</span> 而fig. 9 中使用的<code>poly</code> kernel 可以归纳为： <span class="math display">\[
+K(x_i, x_{i&#39;}) = (1 + \sum_{i=1}^p x_{ij}x_{i&#39;j})^d
+\]</span> 其中 <span class="math inline">\(d\)</span> 代表 polynomial 的 degree。固然我们也可以利用 <code>sklearn.preprocessing</code> 里的函数手动添加 polynomial features，但SVM的 <code>poly</code> 核函数要相对高效的多，而且不会在original features较多的情况下升维导致 combinatorial explosion。从 Fig. 10 可以看出，degree 越大模型越容易overfit。</p>
+<p align="center">
+<img src="fig10.png" alt="Figure 10" width="720px">
+</p>
+<p>除了<code>poly</code>，另一个常用的核函数是 <code>rbf</code> ，也就是 the radial kernel, a.k.a. Gaussian RBF kernel： <span class="math display">\[
+K(x_i, x_{i&#39;}) =  \exp( -\gamma \sum_{i=1}^p (x_{ij} - x_{i&#39;j})^2 )
+\]</span></p>
+<p>Fig. 11 展示了4个使用<code>rbf</code> kernel 的模型，可以看出在 <span class="math inline">\(C\)</span> 相同的情况下 <span class="math inline">\(\gamma\)</span> 越大模型越容易overfit。</p>
+<p align="center">
+<img src="fig11.png" alt="Figure 11" width="720px">
+</p>
+<h4 id="svm-for-multi-classification">SVM for Multi-classification</h4>
+<p>基于 hyperplane 分割 feature space的原理，SVM 原生只支持二分类 (binary classification)，但我们可以在用法上进一步延伸，使 SVM 能够应用于 <span class="math inline">\(K\)</span>-class cases。比较常见的两个方法是 OvO (one-versus-one) 和 OvA (one-versus-all)。</p>
+<p>假设有 <span class="math inline">\(K&gt;2\)</span> classes，<strong>OvO</strong> 的思想是基于每个 <em>class pair</em> 建立SVM模型，那么实现这个<span class="math inline">\(K\)</span>-class 分类一共需要建立 <span class="math inline">\(C_2^K\)</span> 个 二分类SVM模型；<strong>OvA</strong> 的思想是基于每个 <em>class与其他classes</em> 建立SVM模型，一共需要 <span class="math inline">\(K\)</span> 个。举个栗子，假设 <span class="math inline">\(K=3\)</span>，<span class="math inline">\(y \in {A,B,C}\)</span> 。ovo方法需要综合 <span class="math inline">\(M_{AB}\)</span>，<span class="math inline">\(M_{AC}\)</span>，<span class="math inline">\(M_{BC}\)</span> 三个模型，ova方法需要综合 <span class="math inline">\(M_A\)</span>，<span class="math inline">\(M_B\)</span>，<span class="math inline">\(M_C\)</span> 三个模型。</p>
+<p>总的来说，SVM可应用于线性、非线性分类，回归，甚至异常点检测（Outlier detection），尤其适合复杂中小型数据集的分类问题。</p>
+<h3 id="reference">Reference</h3>
+<p>[1] Géron, A., 2017. Hands-on machine learning with Scikit-Learn and TensorFlow: concepts, tools, and techniques to build intelligent systems. O'Reilly Media, Inc..</p>
+<p>[2] James, G., Witten, D., Hastie, T. and Tibshirani, R., 2013. An introduction to statistical learning (Vol. 112, p. 18). New York: Springer.</p>
+<p>[3] Friedman, J., Hastie, T. and Tibshirani, R., 2001. The elements of statistical learning (Vol. 1, No. 10). New York: Springer series in Statistics.</p>
+<h3 id="appendix">Appendix</h3>
+<p align="center">
+<img src="ap_ESL.png" alt="The Elements of Statistical Learning 对于C与margin关系的解释" width="720px"> <img src="ap_ISL.png" alt="An Introduction to Statistical Learning 对于C与margin关系的解释" width="720px">
+</p>
+<p>最后聊聊以上用到的3本参考书。</p>
+<p>新手以实用为主的话推荐 <em>Hands on Machine Learning with Scikit-Learn and TensorFlow</em>。算法原理方面解释得比较浅，优点是行文较为通俗且配有大量的例图，重点是几乎没什么公式，数学不好的人读起来也不会压力太大。照着书内的代码敲一敲找找感觉，遇到瓶颈参考官方notebook（不建议上来就run现成的notebook），很快就能上手了。总的来说，这本更像是一本工具书，用来偶尔查阅。</p>
+<p>后面两本来头就大了。鼎鼎大名ISL和ESL，各大院校数据挖掘与机器学习课程的黄金宝典，更偏教科书而不是工具书。</p>
+<p>我见到Twitter上有人上来就给想自学转行机器学习的人或者推荐ESL，简直就是魔鬼啊。不要被element这个单词骗了， - -它真的一点都不elementary！推荐给新手 <span class="math inline">\(\approx\)</span> 强行劝退。</p>
+<p>不适合的人群：转行+自学，数学功底薄弱+看见希腊字母就想睡觉的人。</p>
+<p>适合的人群：科班在读的同学和已入行的从业者/研究人员。前者有充足的预备知识，对整个机器学习领域的框架有基本认识，啃透这两本书等于打下更扎实的算法基础，毕业面试算法工程师绝对游刃有余（说不定能碾压面试官）；后者已对常见算法有一定的应用经验，调包调参已是家常便饭，用这两本书来进阶，在算法原理层面寻求更深刻的理解（作面试官时不要被优秀的毕业生碾压才好），才能在更多实用场景下举一反三。</p>
+<p>ISL相比ESL就友好的多，但是需要一些R的基础（一下子劝退一拨人）。它的深度和难度介于<em>Hands on Machine Learning</em>和ESL之间，同时cover了算法理论和代码实现两个层面，是这3本书里我看得比较多的一本。个人觉得非常适合理工科尤其是统计专业的同学。诚然，在SVC小结发现了一个与其他两杯书相悖的论点，而且给的图例参数不详、不够典型，我仍然觉得这本书值得一看。<strong>即使是公认的好书，大家也可以用思辨性的眼光去读，多发问，多求证。</strong></p>
+<p>（个人意见，仅供参考）</p>
+
+    
+    </div>
+    
+    <div class="columns is-variable is-1 is-multiline is-mobile">
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/MachineLearning/">#MachineLearning</a></span>
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/SVM/">#SVM</a></span>
+    
+    </div>
+    
+    
+    <div class="columns is-mobile is-multiline article-nav">
+        <span class="column is-12-mobile is-half-desktop is-hidden-mobile article-nav-prev">
+            
+        </span>
+        <span class="column is-12-mobile is-half-desktop  article-nav-next">
+            
+            <a href="/useit/">Daily Tips!</a>
+            
+        </span>
+    </div>
+    
+</article>
+
+
+<div class="sharebox">
+    
+<div class="addthis_inline_share_toolbox"></div>
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5cc5e6d6ca470529"></script>
+
+</div>
+
+
+
+<div class="comments">
+    <h3 class="title is-4">Comments</h3>
+    
+<div id="valine-thread"></div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+    new Valine({
+        el: '#valine-thread',
+        appId: 'Vs0W821bSiwvbyA5IgDc9nLB-gzGzoHsz',
+        appKey: 'lJA0l7GehLkXXO6MDlGSBmEi',
+        notify: false,
+        verify: false,
+        avatar: 'retro',
+        placeholder: 'Say something~!  ^3^',
+        meta: ['nick', 'mail'],
+        visitor: true,
+        lang: 'en'
+    })
+</script>
+
+
+</div>
+
+    </div>
+</section>
+    <footer class="footer">
+    <div class="container">
+        <div class="columns content">
+            <div class="column is-narrow has-text-centered">
+                &copy; 2019 Lady Chili&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+            </div>
+            <div class="column is-hidden-mobile"></div>
+
+            
+            <div class="column is-narrow">
+                <div class="columns is-mobile is-multiline is-centered">
+                
+                    
+                <a class="column is-narrow has-text-black" title="GitHub" href="https://github.com/ladychili">
+                    
+                    <i class="fab fa-github"></i>
+                    
+                </a>
+                
+                    
+                <a class="column is-narrow has-text-black" title="instagram" href="https://www.instagram.com/qt.zheng">
+                    
+                    <i class="fab fa-instagram"></i>
+                    
+                </a>
+                
+                    
+                <a class="column is-narrow has-text-black" title="Telegram" href="http://telegram.me/q2014">
+                    
+                    <i class="fab fa-telegram"></i>
+                    
+                </a>
+                
+                    
+                <a class="column is-narrow has-text-black" title="email" href="mailto:zqt0@outlook.com">
+                    
+                    <i class="fas fa-envelope"></i>
+                    
+                </a>
+                
+                </div>
+            </div>
+            
+            
+<div class="column is-narrow has-text-centered">
+    <div class="dropdown is-up is-right is-hoverable" style="margin-top: -0.2em;">
+        <div class="dropdown-trigger">
+            <button class="button is-small" aria-haspopup="true" aria-controls="dropdown-menu7">
+                <span class="icon">
+                    <i class="fas fa-globe"></i>
+                </span>
+                <span>English</span>
+                <span class="icon is-small">
+            <i class="fas fa-angle-down" aria-hidden="true"></i>
+          </span>
+            </button>
+        </div>
+        <div class="dropdown-menu has-text-left" role="menu">
+            <div class="dropdown-content">
+            
+                <a href="/SVM/" class="dropdown-item">
+                    English
+                </a>
+            
+                <a href="/zh-cn/SVM/" class="dropdown-item">
+                    简体中文
+                </a>
+            
+            </div>
+        </div>
+    </div>
+</div>
+
+        </div>
+    </div>
+</footer>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script>
+
+<!-- test if the browser is outdated -->
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // plugin function, place inside DOM ready function
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
+    });
+</script>
+
+<script>
+    window.FontAwesomeConfig = {
+        searchPseudoElements: true
+    }
+    moment.locale("en-AU");
+</script>
+
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script>
+    MathJax.Hub.Config({
+        "HTML-CSS": {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+</script>
+
+    
+    
+    
+    
+<script src="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/js/lightgallery-all.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/js/jquery.justifiedGallery.min.js"></script>
+<script>
+    (function ($) {
+        $(document).ready(function () {
+            if (typeof($.fn.lightGallery) === 'function') {
+                $('.article.gallery').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof($.fn.justifiedGallery) === 'function') {
+                $('.justified-gallery').justifiedGallery();
+            }
+        });
+    })(jQuery);
+</script>
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+    <style>
+        .hljs {
+            position: relative;
+        }
+
+        .hljs .clipboard-btn {
+            float: right;
+            color: #9a9a9a;
+            background: none;
+            border: none;
+        }
+
+        .hljs > .clipboard-btn {
+            display: none;
+            position: absolute;
+            right: 4px;
+            top: 4px;
+        }
+
+        .hljs:hover > .clipboard-btn {
+            display: inline;
+        }
+
+        .hljs > figcaption > .clipboard-btn {
+            margin-right: 4px;
+        }
+    </style>
+    <script>
+      $(document).ready(function () {
+        $('figure.hljs').each(function(i, figure) {
+          var codeId = 'code-' + i;
+          var code = figure.querySelector('.code');
+          var copyButton = $('<button>Copy <i class="far fa-clipboard"></i></button>');
+          code.id = codeId;
+          copyButton.addClass('clipboard-btn');
+          copyButton.attr('data-clipboard-target-id', codeId);
+
+          var figcaption = figure.querySelector('figcaption');
+
+          if (figcaption) {
+            figcaption.append(copyButton[0]);
+          } else {
+            figure.prepend(copyButton[0]);
+          }
+        })
+
+        var clipboard = new ClipboardJS('.clipboard-btn', {
+          target: function(trigger) {
+            return document.getElementById(trigger.getAttribute('data-clipboard-target-id'));
+          }
+        });
+      })
+    </script>
+
+    
+    
+
+    
+
+
+<script src="/js/script.js"></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-mask"></div>
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js"></script>
+    
+</body>
+</html>

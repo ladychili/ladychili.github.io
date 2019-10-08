@@ -2,7 +2,7 @@
 <html class="has-navbar-fixed-top">
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-<title>Paper Review - MapReduce (2004) - Lady Chili&#39;s Garden</title>
+<title>Paper Review - MapReduce (2004) - Lady Chili&#39;s Kitchen</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
@@ -18,20 +18,20 @@
 
 
 
-    <meta name="description" content="Review note for MapReduce: simplified data processing on large clusters  1 - SummaryA programming framework, MapReduce, is introduced to easily process large-scale computations on large clusters of co">
-<meta name="keywords" content="distributed,paper,university,exam,BigData,MapReduce,Google,Hadoop">
+    <meta name="description" content="Review note for MapReduce: simplified data processing on large clusters  MapReduce Paper  1 - Summary A programming framework, MapReduce, is introduced to easily process large-scale computations on la">
+<meta name="keywords" content="Google,distributed,paper,university,exam,MapReduce,BigData,Hadoop">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Paper Review - MapReduce (2004)">
 <meta property="og:url" content="https://ladychili.top/CS5052-1-MapReduce/index.html">
-<meta property="og:site_name" content="Lady Chili&#39;s Garden">
-<meta property="og:description" content="Review note for MapReduce: simplified data processing on large clusters  1 - SummaryA programming framework, MapReduce, is introduced to easily process large-scale computations on large clusters of co">
+<meta property="og:site_name" content="Lady Chili&#39;s Kitchen">
+<meta property="og:description" content="Review note for MapReduce: simplified data processing on large clusters  MapReduce Paper  1 - Summary A programming framework, MapReduce, is introduced to easily process large-scale computations on la">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://ladychili.top/images/CS5052-1-MapReduce.png">
 <meta property="og:image" content="https://ladychili.top/CS5052-1-MapReduce/overview.png">
 <meta property="og:updated_time" content="2019-05-12T15:42:28.109Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Paper Review - MapReduce (2004)">
-<meta name="twitter:description" content="Review note for MapReduce: simplified data processing on large clusters  1 - SummaryA programming framework, MapReduce, is introduced to easily process large-scale computations on large clusters of co">
+<meta name="twitter:description" content="Review note for MapReduce: simplified data processing on large clusters  MapReduce Paper  1 - Summary A programming framework, MapReduce, is introduced to easily process large-scale computations on la">
 <meta name="twitter:image" content="https://ladychili.top/images/CS5052-1-MapReduce.png">
 
 
@@ -169,35 +169,41 @@
     <div class="article-entry is-size-6-mobile" itemprop="articleBody">
     
         <p>Review note for <a href="https://www.researchgate.net/publication/220851866_MapReduce_Simplified_Data_Processing_on_Large_Clusters" target="_blank" rel="noopener">MapReduce: simplified data processing on large clusters</a></p>
-<p><img src="/images/CS5052-1-MapReduce.png" alt="MapReduce Paper"></p>
-<p>1 - Summary<br>A programming framework, MapReduce, is introduced to easily process large-scale computations on large clusters of commodity PCs. In a MapReduce model, users utilize a self-defined map function on mapping workers to process splits of input data, generating set of intermediate key/value pairs and use a reduce function on reducing workers to sort and merge the intermediate values with the same key. The paper also provides some programming model examples and typical implementations of MapReduce that process terabytes of data on thousands of machines. Some refinements of the model, the performance evaluation of the implementation, the use of MapReduce on indexing system within Google, and related and future work are also discussed in the paper.</p>
+<figure>
+<img src="/images/CS5052-1-MapReduce.png" alt="MapReduce Paper"><figcaption>MapReduce Paper</figcaption>
+</figure>
+<p>1 - Summary A programming framework, MapReduce, is introduced to easily process large-scale computations on large clusters of commodity PCs. In a MapReduce model, users utilize a self-defined map function on mapping workers to process splits of input data, generating set of intermediate key/value pairs and use a reduce function on reducing workers to sort and merge the intermediate values with the same key. The paper also provides some programming model examples and typical implementations of MapReduce that process terabytes of data on thousands of machines. Some refinements of the model, the performance evaluation of the implementation, the use of MapReduce on indexing system within Google, and related and future work are also discussed in the paper.</p>
 <a id="more"></a>
-<p>2 - Problem<br>There are large amounts of data to be processed and generated in many real-world tasks. Although most computations are straightforward, in order to improve efficiency, they need to be distributed across thousands of machines due to the enormous amounts of data. The methods that distribute the data, parallelize computations, and handle failures involve large amounts of complicated code. The problem is how to implement those work in a simple and powerful way and make it fault-tolerant even across numerous machines.</p>
-<p>3 - Solution<br>Authors designed a framework that dividing the parallelization and distribution tasks into Mapping and Reducing phases in general. Mapping tasks and reducing tasks are assigned to idle workers by the master. In the Mapping phase, input data are partitioned into several splits, and those splits can be processed by different machines (mappers) in parallel, generating intermediate key/value pairs that buffered to local disk. In the Reducing phase, reduce workers remotely read intermediate pairs and sort them by the keys so that those with the same key are aggregated together, and then pass the key and the corresponding list of values to the user-defined Reduce function, which return an output appended to an output file for that reduce partition. All the messy details of partitioning, execution scheduling, inter-machine communications, fault-tolerance, and load balancing are hidden in a library and accommodated by the run-time system. This makes the MapReduce interface simple, manageable, and powerful even for programmers without experience about parallel and distributed system.</p>
+<p>2 - Problem There are large amounts of data to be processed and generated in many real-world tasks. Although most computations are straightforward, in order to improve efficiency, they need to be distributed across thousands of machines due to the enormous amounts of data. The methods that distribute the data, parallelize computations, and handle failures involve large amounts of complicated code. The problem is how to implement those work in a simple and powerful way and make it fault-tolerant even across numerous machines.</p>
+<p>3 - Solution Authors designed a framework that dividing the parallelization and distribution tasks into Mapping and Reducing phases in general. Mapping tasks and reducing tasks are assigned to idle workers by the master. In the Mapping phase, input data are partitioned into several splits, and those splits can be processed by different machines (mappers) in parallel, generating intermediate key/value pairs that buffered to local disk. In the Reducing phase, reduce workers remotely read intermediate pairs and sort them by the keys so that those with the same key are aggregated together, and then pass the key and the corresponding list of values to the user-defined Reduce function, which return an output appended to an output file for that reduce partition. All the messy details of partitioning, execution scheduling, inter-machine communications, fault-tolerance, and load balancing are hidden in a library and accommodated by the run-time system. This makes the MapReduce interface simple, manageable, and powerful even for programmers without experience about parallel and distributed system.</p>
 <p><img alt="Execution Overview" src="overview.png"></p>
-<p>4 - Novelty<br>MapReduce is a brand-new solution of distributed computations framework. It is inspired by primitive functions map and reduce in many programming languages. MapReduce is simple and more fault-tolerant, in comparison to many other contemporary parallel processing systems those are also restricted programming models but have only been implemented on smaller scales and leave machine failures to the programmers to handle. The locality optimization, backup task mechanism, and sorting facility of MapReduce have similarities in spirit to other techniques but are extended from different approaches.</p>
-<p>5 - Evaluation<br>Authors evaluated the performance of MapReduce with two example computations running on a large cluster of PCs. One searches for a specific pattern through about one terabyte of data, the other sorts approximately one terabyte of data. The former shows the progress of the grep program in the aspect of data transfer rate. The latter shows how disabling backup tasks can slow down the execution comparing to the normal execution and demonstrated the strengths of machine failures handling. The differences between MapReduce and other existing methods are mostly discussed in terms of principles. In general, MapReduce is simpler (programmer-friendly), more fault-tolerant, extendable than other parallel processing systems. </p>
-<p>6 - Opinion<br>In the Performance section, the measurements of two implementations (search and sort) only focus on the strengths of MapReduce model and weaknesses are barely discussed. Also, it would be better if there were some comparisons with similar parallelization methods towards the same tasks. One of the most convictive parts to me is the Experience section, stating the progresses and enhancements of MapReduce and its wide-ranging applications within Google, especially the large-scale indexing system.</p>
-<p>Source:<br>[1] Dean, J. and Ghemawat, S., 2008. MapReduce: simplified data processing on large clusters. Communications of the ACM, 51(1), pp.107-113.</p>
+<p>4 - Novelty MapReduce is a brand-new solution of distributed computations framework. It is inspired by primitive functions map and reduce in many programming languages. MapReduce is simple and more fault-tolerant, in comparison to many other contemporary parallel processing systems those are also restricted programming models but have only been implemented on smaller scales and leave machine failures to the programmers to handle. The locality optimization, backup task mechanism, and sorting facility of MapReduce have similarities in spirit to other techniques but are extended from different approaches.</p>
+<p>5 - Evaluation Authors evaluated the performance of MapReduce with two example computations running on a large cluster of PCs. One searches for a specific pattern through about one terabyte of data, the other sorts approximately one terabyte of data. The former shows the progress of the grep program in the aspect of data transfer rate. The latter shows how disabling backup tasks can slow down the execution comparing to the normal execution and demonstrated the strengths of machine failures handling. The differences between MapReduce and other existing methods are mostly discussed in terms of principles. In general, MapReduce is simpler (programmer-friendly), more fault-tolerant, extendable than other parallel processing systems.</p>
+<p>6 - Opinion In the Performance section, the measurements of two implementations (search and sort) only focus on the strengths of MapReduce model and weaknesses are barely discussed. Also, it would be better if there were some comparisons with similar parallelization methods towards the same tasks. One of the most convictive parts to me is the Experience section, stating the progresses and enhancements of MapReduce and its wide-ranging applications within Google, especially the large-scale indexing system.</p>
+<p>Source: [1] Dean, J. and Ghemawat, S., 2008. MapReduce: simplified data processing on large clusters. Communications of the ACM, 51(1), pp.107-113.</p>
 <hr>
 <p>Key Points:</p>
-<ol>
+<ol type="1">
 <li>MapReduce is a programming model for processing and generating large datasets.</li>
-<li>Input -&gt; splitting - -(k/v pairs)- -&gt; <strong>Mapping</strong>  - -(k/v pairs)- -&gt; shuffling -&gt; <strong>Reducing</strong> -&gt; Output</li>
+<li>Input -&gt; splitting - -(k/v pairs)- -&gt; <strong>Mapping</strong> - -(k/v pairs)- -&gt; shuffling -&gt; <strong>Reducing</strong> -&gt; Output</li>
 <li>Three states for tasks: idle, in-progress, complete; kept by master along with identity of workers.</li>
-<li>Everything <em>in-progress</em> on failed workers and <em>completed mapping tasks</em>  are reset and will be rescheduled; while completed <em>reducing tasks</em> do <em>not</em> need to, since of output is already stored in a global file system. </li>
-<li>Pros: <ul>
+<li>Everything <em>in-progress</em> on failed workers and <em>completed mapping tasks</em> are reset and will be rescheduled; while completed <em>reducing tasks</em> do <em>not</em> need to, since of output is already stored in a global file system.</li>
+<li>Pros:</li>
+</ol>
+<ul>
 <li>simple and powerful interface, hide details of parallelisation and distribution</li>
 <li>high fault tolerance, the master handles worker failures by re-assigning jobs</li>
 <li>highly scalable, can be implemented on large cluster</li>
 </ul>
-</li>
-<li>Cons: <ul>
+<ol start="6" type="1">
+<li>Cons:</li>
+</ol>
+<ul>
 <li>limited for <em>iterative</em> algorithms and <em>interactive</em> data queries due to high disk I/O and replication</li>
 <li>can be low-efficient, due to stragglers (slow machines)</li>
-<li>doesn’t support high level lang i.e. SQL</li>
+<li>doesn't support high level lang i.e. SQL</li>
 </ul>
-</li>
+<ol start="7" type="1">
 <li>Hadoop: MapReduce is a submodule of Hadoop eco-system, a programming model allows to processing large dataset in HDFS; can also run on GFS and other distributed file systems though.</li>
 </ol>
 
@@ -205,6 +211,8 @@
     </div>
     
     <div class="columns is-variable is-1 is-multiline is-mobile">
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/Google/">#Google</a></span>
     
         <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/distributed/">#distributed</a></span>
     
@@ -214,11 +222,9 @@
     
         <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/exam/">#exam</a></span>
     
-        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/BigData/">#BigData</a></span>
-    
         <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/MapReduce/">#MapReduce</a></span>
     
-        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/Google/">#Google</a></span>
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/BigData/">#BigData</a></span>
     
         <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/Hadoop/">#Hadoop</a></span>
     
