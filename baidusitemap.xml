@@ -1,6 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://ladychili.top/CS5052-6-Pregel/</loc>
+    <lastmod>2019-11-01</lastmod>
+  </url>  <url>
+    <loc>https://ladychili.top/CS5052-8-Mesos/</loc>
+    <lastmod>2019-11-01</lastmod>
+  </url>  <url>
+    <loc>https://ladychili.top/zh-cn/CS5052-6-Pregel/</loc>
+    <lastmod>2019-11-01</lastmod>
+  </url>  <url>
+    <loc>https://ladychili.top/zh-cn/CS5052-8-Mesos/</loc>
+    <lastmod>2019-11-01</lastmod>
+  </url>  <url>
+    <loc>https://ladychili.top/zh-cn/TS-seq2seq-intro/</loc>
+    <lastmod>2019-11-01</lastmod>
+  </url>  <url>
+    <loc>https://ladychili.top/TS-seq2seq-intro/</loc>
+    <lastmod>2019-11-01</lastmod>
+  </url>  <url>
+    <loc>https://ladychili.top/zh-cn/MT5761-revision/</loc>
+    <lastmod>2019-11-01</lastmod>
+  </url>  <url>
+    <loc>https://ladychili.top/MT5761-revision/</loc>
+    <lastmod>2019-11-01</lastmod>
+  </url>  <url>
     <loc>https://ladychili.top/SVM/</loc>
     <lastmod>2019-10-08</lastmod>
   </url>  <url>
@@ -49,9 +73,6 @@
     <loc>https://ladychili.top/SHELL_grep_sed_awk/</loc>
     <lastmod>2019-05-12</lastmod>
   </url>  <url>
-    <loc>https://ladychili.top/zh-cn/MT5761-revision/</loc>
-    <lastmod>2019-05-12</lastmod>
-  </url>  <url>
     <loc>https://ladychili.top/zh-cn/MT4113-revision/</loc>
     <lastmod>2019-05-12</lastmod>
   </url>  <url>
@@ -61,38 +82,17 @@
     <loc>https://ladychili.top/zh-cn/CS5052-2-RDD/</loc>
     <lastmod>2019-05-12</lastmod>
   </url>  <url>
-    <loc>https://ladychili.top/zh-cn/CS5052-6-Pregel/</loc>
-    <lastmod>2019-05-12</lastmod>
-  </url>  <url>
-    <loc>https://ladychili.top/zh-cn/CS5052-8-Mesos/</loc>
-    <lastmod>2019-05-12</lastmod>
-  </url>  <url>
-    <loc>https://ladychili.top/CS5052-6-Pregel/</loc>
-    <lastmod>2019-05-12</lastmod>
-  </url>  <url>
     <loc>https://ladychili.top/CS5052-2-RDD/</loc>
     <lastmod>2019-05-12</lastmod>
   </url>  <url>
     <loc>https://ladychili.top/CS5052-1-MapReduce/</loc>
     <lastmod>2019-05-12</lastmod>
   </url>  <url>
-    <loc>https://ladychili.top/CS5052-8-Mesos/</loc>
-    <lastmod>2019-05-09</lastmod>
-  </url>  <url>
-    <loc>https://ladychili.top/CS5052-revision/</loc>
-    <lastmod>2019-05-07</lastmod>
-  </url>  <url>
-    <loc>https://ladychili.top/zh-cn/CS5052-revision/</loc>
-    <lastmod>2019-05-07</lastmod>
-  </url>  <url>
     <loc>https://ladychili.top/GoT-S8-E4/</loc>
     <lastmod>2019-05-06</lastmod>
   </url>  <url>
     <loc>https://ladychili.top/GoT-S8-E3/</loc>
     <lastmod>2019-05-06</lastmod>
-  </url>  <url>
-    <loc>https://ladychili.top/MT5761-revision/</loc>
-    <lastmod>2019-05-01</lastmod>
   </url>  <url>
     <loc>https://ladychili.top/MT4113-revision/</loc>
     <lastmod>2019-05-01</lastmod>
