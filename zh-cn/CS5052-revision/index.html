@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html class="has-navbar-fixed-top">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+<title>CS5052 Data-Intensive Systems - Revision Note - Lady Chili&#39;s Kitchen</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
+
+
+<link href="/CS5052-revision/" rel="alternate" hreflang="en">
+    
+
+
+<meta name="description" content="It is better to burn out than to fade away.">
+
+
+
+
+
+    <meta name="description" content="Cloud Computing, from https://www.machinepulse.com/  Revision Checklist  [x] Week 1 - 2 slides [ ] Week 3 - 11 papers [x] Previous Exams">
+<meta name="keywords" content="university,exam,分布式,大数据,云计算">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CS5052 Data-Intensive Systems - Revision Note">
+<meta property="og:url" content="https://ladychili.top/zh-cn/CS5052-revision/index.html">
+<meta property="og:site_name" content="Lady Chili&#39;s Kitchen">
+<meta property="og:description" content="Cloud Computing, from https://www.machinepulse.com/  Revision Checklist  [x] Week 1 - 2 slides [ ] Week 3 - 11 papers [x] Previous Exams">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:image" content="https://ladychili.top/images/CS5052-revision.gif">
+<meta property="og:image" content="https://ladychili.top/zh-cn/CS5052-revision/AppLayer.png">
+<meta property="og:image" content="https://ladychili.top/zh-cn/CS5052-revision/middleware.png">
+<meta property="og:image" content="https://ladychili.top/zh-cn/CS5052-revision/clouds_make_life_easier.png">
+<meta property="og:image" content="https://ladychili.top/zh-cn/CS5052-revision/virtualization.png">
+<meta property="og:image" content="https://ladychili.top/zh-cn/CS5052-revision/IaaS.png">
+<meta property="og:image" content="https://ladychili.top/zh-cn/CS5052-revision/PaaS.png">
+<meta property="og:image" content="https://ladychili.top/zh-cn/CS5052-revision/SaaS.png">
+<meta property="og:updated_time" content="2019-11-01T10:27:20.242Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CS5052 Data-Intensive Systems - Revision Note">
+<meta name="twitter:description" content="Cloud Computing, from https://www.machinepulse.com/  Revision Checklist  [x] Week 1 - 2 slides [ ] Week 3 - 11 papers [x] Previous Exams">
+<meta name="twitter:image" content="https://ladychili.top/images/CS5052-revision.gif">
+
+
+
+
+
+<link rel="icon" href="/images/favicon.ico">
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ovo|Source+Code+Pro">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/css/justifiedGallery.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+
+<link rel="stylesheet" href="/css/style.css">
+
+<script defer src="//use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-139609057-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-139609057-1');
+</script>
+
+
+    
+
+
+</head>
+<body>
+    
+<nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item navbar-logo" href="/zh-cn">
+                
+                    
+                    <img src="/images/ladychili_logo.png" alt height="28">
+                    
+                
+            </a>
+            <div class="navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="navbar-menu navbar-start">
+            
+            <a class="navbar-item " href="/zh-cn/archives">归档</a>
+            
+            <a class="navbar-item " href="/zh-cn/categories">分类</a>
+            
+            <a class="navbar-item " href="/zh-cn/tags">标签</a>
+            
+            <a class="navbar-item " href="/zh-cn/about">关于</a>
+            
+        </div>
+        
+        <div class="navbar-menu navbar-end">
+            
+            <a class="navbar-item search" title="搜索" href="javascript:;">
+                <i class="fas fa-search"></i>
+            </a>
+            
+            
+            <div class="navbar-item is-hoverable has-dropdown is-hidden-mobile is-hidden-tablet-only toc">
+                <a class="navbar-item" title="目录">
+                    <i class="fa fa-list"></i>
+                </a>
+                <div class="navbar-dropdown is-right">
+                    
+                    
+                    
+                    
+                    <a class="navbar-item" href="#distributed-systems">1&nbsp;&nbsp;<b>Distributed Systems</b></a>
+                    
+                    
+                    <hr class="navbar-divider">
+                    
+                    
+                    <a class="navbar-item" href="#structure-of-distributed-systems">2&nbsp;&nbsp;<b>Structure of Distributed Systems</b></a>
+                    
+                    
+                    <hr class="navbar-divider">
+                    
+                    
+                    <a class="navbar-item" href="#cloud-computing">3&nbsp;&nbsp;<b>Cloud Computing</b></a>
+                    
+                </div>
+            </div>
+            
+            
+            <a class="navbar-item" title="GitHub" href="https://github.com/ladychili">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+               
+            
+        </div>
+    </div>
+</nav>
+
+    <section class="section">
+    <div class="container">
+    <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            CS5052 Data-Intensive Systems - Revision Note
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-05-01T11:14:34.000Z" itemprop="datePublished">5月 1 2019</time>
+        </span>
+        
+        <span class="column is-narrow article-category">
+            <i class="far fa-folder"></i>
+            <a class="article-category-link" href="/zh-cn/categories/Note/">Note</a>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            7 分钟 读完 (约 1003 字)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <figure>
+<img src="/images/CS5052-revision.gif" alt="Cloud Computing, from https://www.machinepulse.com/"><figcaption>Cloud Computing, from https://www.machinepulse.com/</figcaption>
+</figure>
+<p>Revision Checklist</p>
+<ul>
+<li>[x] Week 1 - 2 slides</li>
+<li>[ ] Week 3 - 11 papers</li>
+<li>[x] Previous Exams</li>
+</ul>
+<a id="more"></a>
+<table>
+<colgroup>
+<col style="width: 31%">
+<col style="width: 68%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Examinable Topics</th>
+<th>Core Papers</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Parallel Processing</td>
+<td>1. MapReduce<br>2. RDD (Resilient Distributed Datasets)<br>3. GFS (Google File System)</td>
+</tr>
+<tr class="even">
+<td>Storage and Databases</td>
+<td>4. CAP and BASE theorem<br>5. Amazon's Dynamo</td>
+</tr>
+<tr class="odd">
+<td>Graph and Stream Processing</td>
+<td>6. Pregel</td>
+</tr>
+<tr class="even">
+<td>Resource Managers</td>
+<td>7. Google's Borg<br>8. Mesos</td>
+</tr>
+<tr class="odd">
+<td>Cloud Engineering</td>
+<td>9. Performance Variation and Predictability in Public IaaS Clouds <br>10. HotSpot</td>
+</tr>
+<tr class="even">
+<td>Edge / Decentralised</td>
+<td>11. Incremental deployment and migration of geo-distributed <br>situation awareness applications in the fog</td>
+</tr>
+<tr class="odd">
+<td>Machine Learning and Systems</td>
+<td>12. Learning Scheduling Algorithms for Data Processing Clusters</td>
+</tr>
+</tbody>
+</table>
+<h3 id="distributed-systems">Distributed Systems</h3>
+<blockquote class="pullquote"><p>a collection of independent computers that appears to the user as a single coherent system.</p>
+<p>Tanenbaum, 2006</p>
+</blockquote>
+<p>Complex: components are autonomous and collaborative.</p>
+<p>Design issues:</p>
+<ul>
+<li><strong>Heterogeneity</strong>. Network/hardware/OS/languages are heterogenous; use standard protocols (HTTP)</li>
+<li><strong>Openness</strong>, taken for granted at networking level but not universal at component level; determines whether the system can be extended or re-implemented in various ways; new resource sharing service can be added by clients; key interfaces published; uniform communication mechanisms;</li>
+<li><strong>Security</strong>, might be mutually incompatible security policies, more ways of being attacked comparing to centralised systems;</li>
+<li><strong>Scalability</strong>, size (add more resource), distribution (geo-disperse without degrading), manageability. Scaling up (upgrade resources), scaling out (add new). Techniques: hiding latency (avoid blocking on remote), distribution, replication</li>
+<li><strong>Failure handling</strong>; usually partial, detection difficult and can cascade; must provide high degree of availability. Techniques: detecting/masking failures (retransmitting), design tolerating client, recovery policy, redundancy (database replication)</li>
+<li><strong>Transparency</strong>, ideally user not aware distribution, practically impossible (parts are independently managed and network latency); usually make users aware so that can cope with problems (node crash); Types: hide access/location/migration/replication/concurrency/failure/scaling</li>
+<li><strong>Quality of Service</strong>, reflects the system's ability to deliver services reliably with a response time/throughput acceptable to users. (e.g. if quality falls then sound/video so degraded that impossible to understand)</li>
+</ul>
+<p>Centralised (2-tier) and Decentralised (N-tier/P2P) distributed computing systems - Homogeneous Cluster computing: largly the same, physically close, highly connected, ONE admin domain - Heterogeneous Grid computing: no assumptions about hardware/OS/network, MULTIPLE domains - Cloud computing: elastic capacity, pay-per-use, on-demand self service, resources are virtualised</p>
+<h3 id="structure-of-distributed-systems">Structure of Distributed Systems</h3>
+<p>The structure of distributed systems top to bottom:</p>
+<ol type="1">
+<li>Applications/Services</li>
+<li>Middleware</li>
+<li>Operating System</li>
+<li>Computer and Network Hardware</li>
+</ol>
+<p><strong>Application/Service</strong> (Layer 1) has client-server architecture. A server for a distributed database may act as a client, forwarding requests to different file servers. Three levels: UI, processing, data.</p>
+<p align="center">
+<img alt="Application Layer: Search Engine" src="AppLayer.png" width="500">
+</p>
+<p>In a <em>2-tier client-server</em> (centralised) architecture, singple logical server mounting indefinite number of clients. - Thin-client model, only presentation layer implemented on client, all others on server. - simple to deploy and manage the clients - heavy processing load on both server and network - Fat-client model, some/all of the application processing is locally executed on client. - suitable when the capabilities of client system are known in advance - more complex than thin, expecially for management of new clients - less network traffic - new versions have to be installed on all clients</p>
+<p>In a <em>Multi-tier client-server</em> (decentralised: vertical distribution) architecture, seperate processes execute on different physical machines/servers. Alleviate problems with scalability, potentially offer higher performance.</p>
+<p>In a <em>peer-to-peer</em> (decentralised: hotizontal distribution) architecture, seperate shares of a complete set of data are operated on several logically-equivalent clients/servers. - Attr: processes on peers are all equal; interactions are symmetric; each process acts as both client and server - PRO: Resilience; Scalability - CON: no-one's in charge; each peer only knows limited info</p>
+<p><strong>Middleware</strong> (Layer 2) is the software that provides useful building blocks, manages the diverse components (involving diff lang/processors/protocols) and ensure they can communicate and exchange data.</p>
+<p align="center">
+<img alt="Middleware" src="middleware.png" width="400">
+</p>
+<p><strong>OS and hardware</strong> (Layer 3 &amp; 4) are platform.</p>
+<p>Some trivial points: - Virtual Machine: VMWare, XenSource - Vittual Storage: GFS, HDFS - Big data: high-volume, high-velocity, high-variaty; must be converted to knowledge and understanding in order to stimulate scientific discoveries, industry innovations and economic growth.</p>
+<h3 id="cloud-computing">Cloud Computing</h3>
+<p align="center">
+<img alt="Let Clouds Make Your Life Easier" src="clouds_make_life_easier.png" width="450">
+</p>
+<p>To developers: - no upfront infrastructure investment - reduced operating costs through utility pricing - elastic on-demand architecture - high service availability - ease of use</p>
+<p>To providers: - exploit existing data-centre capacity - take advantage of economies of scale (available to purchasers of extremely large volumes of hardware and network capacity)</p>
+<p>Enabled technologies: - <strong>Virtualization</strong>: abstract physical infrastructure, isolated guest OS co-existing on the same computer (see figure below) - <strong>Virtual storage</strong>: GFS, HDFS - Service-Oriented Architecture (<strong>SOA</strong>): REpresentational State Transfer(REST); develop applications using existing services, make applications available as services or both - <strong>Tight Coupling</strong>: components difficult to understand in isolation, have many interdependency, difficult to maintain and re-use, cascade changes - <strong>Loose Coupling</strong>: components independent; easier maintainance and re-use - <strong>Ultility Computing</strong>: pay-per-use, on-demand</p>
+<p align="center">
+<img alt="Physical Machine Virtualization" src="virtualization.png" width="400">
+</p>
+<p>Different types of cloud: - <strong>IaaS</strong> (infrastructure), Amazon Web Services - deliver raw computer infrastructure - vendors manage networking, hard drives, OS etc.</p>
+<ul>
+<li>** PaaS** (platform), Microsoft Azure
+<ul>
+<li>deliver an application framework</li>
+<li>hosted framework user can built applications on</li>
+</ul></li>
+<li>** SaaS** (software), Google Mail
+<ul>
+<li>deliver applications as a service</li>
+</ul></li>
+</ul>
+<div class="justified-gallery">
+<p><img src="IaaS.png" alt="IaaS"> <img src="PaaS.png" alt="PaaS"> <img src="SaaS.png" alt="SaaS"></p>
+</div>
+<p><br></p>
+<p><strong>Terminology</strong> - Machine Images: a template that contains software configuration - Instances: different instance types are essentially different hardware archetype - Regions: geo areas of the world which instances can be deployed in, each region contains multiple Availability Zones (AZ), low latency network within the same region - Elastic Compute Cloud (EC2): a service providing resizable computing capacity in Amazon's data centres - Simple Storage Service (S3): Internet storage, REST and SOAP interfaces for app dev - Glacier: low-cost storage service, optimized for infrequently accessed data, e.g. retrievsl times of several hours (achiving research/scientific data etc.) - Metrics: CPU utilization, latency, request counts. Some custom app/sys metrics: memory usage, transaction volume, error rate</p>
+<p>Cloud vendors commonly provide Software Development Kit (SDK) for different languages, hide low-levels from end-users with abstract interface.</p>
+<p><strong>Summary</strong> Cloud Computing provides resizable computing capacity that enables users to build and host applications in a data centre. - computing as a utility - elastic capacity - pay-per-use - self service interface - resources virtualized</p>
+
+    
+    </div>
+    
+    <div class="columns is-variable is-1 is-multiline is-mobile">
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/zh-cn/tags/university/">#university</a></span>
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/zh-cn/tags/exam/">#exam</a></span>
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/zh-cn/tags/分布式/">#分布式</a></span>
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/zh-cn/tags/大数据/">#大数据</a></span>
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/zh-cn/tags/云计算/">#云计算</a></span>
+    
+    </div>
+    
+    
+    <div class="columns is-mobile is-multiline article-nav">
+        <span class="column is-12-mobile is-half-desktop  article-nav-prev">
+            
+            <a href="/zh-cn/CS5052-1-MapReduce/">Paper Review - MapReduce (2004)</a>
+            
+        </span>
+        <span class="column is-12-mobile is-half-desktop  article-nav-next">
+            
+            <a href="/zh-cn/GoT-S8-E3/">权力的游戏 第8季第3集：面对死亡之神我们说什么？</a>
+            
+        </span>
+    </div>
+    
+</article>
+
+
+<div class="sharebox">
+    
+<div class="addthis_inline_share_toolbox"></div>
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5cc5e6d6ca470529"></script>
+
+</div>
+
+
+
+<div class="comments">
+    <h3 class="title is-4">评论</h3>
+    
+<div id="valine-thread"></div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+    new Valine({
+        el: '#valine-thread',
+        appId: 'Vs0W821bSiwvbyA5IgDc9nLB-gzGzoHsz',
+        appKey: 'lJA0l7GehLkXXO6MDlGSBmEi',
+        notify: false,
+        verify: false,
+        avatar: 'retro',
+        placeholder: '说点儿什么吧～  ^ ^',
+        meta: ['nick', 'mail'],
+        visitor: true,
+        lang: 'zh-cn'
+    })
+</script>
+
+
+</div>
+
+    </div>
+</section>
+    <footer class="footer">
+    <div class="container">
+        <div class="columns content">
+            <div class="column is-narrow has-text-centered">
+                &copy; 2019 Lady Chili&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+            </div>
+            <div class="column is-hidden-mobile"></div>
+
+            
+            <div class="column is-narrow">
+                <div class="columns is-mobile is-multiline is-centered">
+                
+                    
+                <a class="column is-narrow has-text-black" title="GitHub" href="https://github.com/ladychili">
+                    
+                    <i class="fab fa-github"></i>
+                    
+                </a>
+                
+                    
+                <a class="column is-narrow has-text-black" title="instagram" href="https://www.instagram.com/qt.zheng">
+                    
+                    <i class="fab fa-instagram"></i>
+                    
+                </a>
+                
+                    
+                <a class="column is-narrow has-text-black" title="Telegram" href="http://telegram.me/q2014">
+                    
+                    <i class="fab fa-telegram"></i>
+                    
+                </a>
+                
+                    
+                <a class="column is-narrow has-text-black" title="email" href="mailto:zqt0@outlook.com">
+                    
+                    <i class="fas fa-envelope"></i>
+                    
+                </a>
+                
+                </div>
+            </div>
+            
+            
+<div class="column is-narrow has-text-centered">
+    <div class="dropdown is-up is-right is-hoverable" style="margin-top: -0.2em;">
+        <div class="dropdown-trigger">
+            <button class="button is-small" aria-haspopup="true" aria-controls="dropdown-menu7">
+                <span class="icon">
+                    <i class="fas fa-globe"></i>
+                </span>
+                <span>简体中文</span>
+                <span class="icon is-small">
+            <i class="fas fa-angle-down" aria-hidden="true"></i>
+          </span>
+            </button>
+        </div>
+        <div class="dropdown-menu has-text-left" role="menu">
+            <div class="dropdown-content">
+            
+                <a href="/CS5052-revision/" class="dropdown-item">
+                    English
+                </a>
+            
+                <a href="/zh-cn/CS5052-revision/" class="dropdown-item">
+                    简体中文
+                </a>
+            
+            </div>
+        </div>
+    </div>
+</div>
+
+        </div>
+    </div>
+</footer>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script>
+
+<!-- test if the browser is outdated -->
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // plugin function, place inside DOM ready function
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
+    });
+</script>
+
+<script>
+    window.FontAwesomeConfig = {
+        searchPseudoElements: true
+    }
+    moment.locale("zh-CN");
+</script>
+
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script>
+    MathJax.Hub.Config({
+        "HTML-CSS": {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+</script>
+
+    
+    
+    
+    
+<script src="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/js/lightgallery-all.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/js/jquery.justifiedGallery.min.js"></script>
+<script>
+    (function ($) {
+        $(document).ready(function () {
+            if (typeof($.fn.lightGallery) === 'function') {
+                $('.article.gallery').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof($.fn.justifiedGallery) === 'function') {
+                $('.justified-gallery').justifiedGallery();
+            }
+        });
+    })(jQuery);
+</script>
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+    <style>
+        .hljs {
+            position: relative;
+        }
+
+        .hljs .clipboard-btn {
+            float: right;
+            color: #9a9a9a;
+            background: none;
+            border: none;
+        }
+
+        .hljs > .clipboard-btn {
+            display: none;
+            position: absolute;
+            right: 4px;
+            top: 4px;
+        }
+
+        .hljs:hover > .clipboard-btn {
+            display: inline;
+        }
+
+        .hljs > figcaption > .clipboard-btn {
+            margin-right: 4px;
+        }
+    </style>
+    <script>
+      $(document).ready(function () {
+        $('figure.hljs').each(function(i, figure) {
+          var codeId = 'code-' + i;
+          var code = figure.querySelector('.code');
+          var copyButton = $('<button>Copy <i class="far fa-clipboard"></i></button>');
+          code.id = codeId;
+          copyButton.addClass('clipboard-btn');
+          copyButton.attr('data-clipboard-target-id', codeId);
+
+          var figcaption = figure.querySelector('figcaption');
+
+          if (figcaption) {
+            figcaption.append(copyButton[0]);
+          } else {
+            figure.prepend(copyButton[0]);
+          }
+        })
+
+        var clipboard = new ClipboardJS('.clipboard-btn', {
+          target: function(trigger) {
+            return document.getElementById(trigger.getAttribute('data-clipboard-target-id'));
+          }
+        });
+      })
+    </script>
+
+    
+    
+
+    
+
+
+<script src="/js/script.js"></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-mask"></div>
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="站内搜索">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
+            },
+            CONTENT_URL: '/content.zh-cn.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js"></script>
+    
+</body>
+</html>
